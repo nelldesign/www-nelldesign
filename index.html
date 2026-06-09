@@ -21,11 +21,12 @@
       justify-content: center;
       background: #fff;
       min-height: 100vh;
+      padding: 2rem;
     }
 
     .logo {
       max-width: 600px;
-      width: 90%;
+      width: 100%;
     }
 
     .logo img {
@@ -33,12 +34,22 @@
       height: auto;
       display: block;
     }
+
+    @media (max-width: 768px) {
+      body { padding: 1.5rem; }
+      .logo { max-width: 420px; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 1rem; }
+      .logo { max-width: 100%; }
+    }
   </style>
 </head>
 <body>
   <div class="logo">
     <img src="logo.png" alt="Nell Design – Design that works with intent">
   </div>
-<!-- v2 -->
+<!-- v3 -->
 </body>
 </html>
