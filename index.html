@@ -3,53 +3,346 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nell Design</title>
+  <title>Nell Design — Design that works, design with intent</title>
+  <meta name="description" content="Nezávislé kreativní studio zaměřené na branding, vizuální identity, interiéry a digitální obsah.">
+  <link rel="stylesheet" href="style.css">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
-    body {
+    /* ─── Hero ─── */
+    .hero {
+      height: 100svh;
+      min-height: 600px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      background: #fff;
-      min-height: 100vh;
-      padding: 2rem;
+      align-items: center;
+      text-align: center;
+      padding: 0 5vw;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) .3s forwards;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(5rem, 14vw, 13rem);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: .9;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease) .55s forwards;
+    }
+    .hero-claim {
+      font-family: var(--serif);
+      font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+      font-style: italic;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-top: 2.25rem;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) .95s forwards;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .75rem;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 1.5s forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--text-muted), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite 2s;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+      50% { opacity: .3; transform: scaleY(.5); transform-origin: top; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
     }
 
-    .logo {
-      max-width: 600px;
-      width: 100%;
+    /* ─── Work preview ─── */
+    .work-preview { padding: 8rem 5vw; }
+    .work-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
     }
-
-    .logo img {
+    .work-preview-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .project-card.featured { grid-column: span 2; }
+    .project-card.featured .project-thumb { aspect-ratio: 21/9; }
+    .project-card:not(.featured) .project-thumb { aspect-ratio: 4/3; }
+    .project-thumb {
       width: 100%;
-      height: auto;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: opacity .5s;
+    }
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
+      transition: transform .9s var(--ease);
+    }
+    .project-card:hover .project-thumb img { transform: scale(1.04); }
+    .project-info { padding: 1.25rem 0 2.5rem; }
+    .project-cat {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .4rem;
+    }
+    .project-name {
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+      font-weight: 400;
+    }
+
+    /* ─── About teaser ─── */
+    .about-teaser {
+      padding: 8rem 5vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .about-teaser-text h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 2rem;
+      line-height: 1.15;
+    }
+    .about-teaser-text p {
+      font-size: 0.88rem;
+      line-height: 1.95;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 10rem 5vw;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: clamp(3rem, 8vw, 8rem);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+    .cta-section p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      color: var(--text-muted);
+      margin-bottom: 3rem;
     }
 
     @media (max-width: 768px) {
-      body { padding: 1.5rem; }
-      .logo { max-width: 420px; }
-    }
-
-    @media (max-width: 480px) {
-      body { padding: 1rem; }
-      .logo { max-width: 100%; }
+      .work-preview-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: auto; }
+      .project-card.featured .project-thumb { aspect-ratio: 4/3; }
+      .about-teaser { grid-template-columns: 1fr; gap: 3rem; }
+      .about-teaser-img { order: -1; }
     }
   </style>
 </head>
 <body>
-  <div class="logo">
-    <img src="logo.png" alt="Nell Design – Design that works with intent">
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Nell Design</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-eyebrow">Creative studio &amp; brand direction</span>
+    <h1 class="hero-title">Nell<br>Design</h1>
+    <p class="hero-claim">Design that works, design with intent</p>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- Services marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Brand Identity</span><span class="dot">·</span>
+      <span>Visual Identity</span><span class="dot">·</span>
+      <span>Interior Direction</span><span class="dot">·</span>
+      <span>Content Creation</span><span class="dot">·</span>
+      <span>Social Media</span><span class="dot">·</span>
+      <span>Print &amp; Materials</span><span class="dot">·</span>
+      <span>Brand Identity</span><span class="dot">·</span>
+      <span>Visual Identity</span><span class="dot">·</span>
+      <span>Interior Direction</span><span class="dot">·</span>
+      <span>Content Creation</span><span class="dot">·</span>
+      <span>Social Media</span><span class="dot">·</span>
+      <span>Print &amp; Materials</span><span class="dot">·</span>
+    </div>
   </div>
-<!-- v3 -->
+
+  <!-- Work Preview -->
+  <section class="work-preview">
+    <div class="work-preview-header" data-reveal>
+      <h2>Selected<br><em>Work</em></h2>
+      <a href="work.html" class="btn">All projects <span class="btn-arrow">→</span></a>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card featured" data-reveal>
+        <div class="project-thumb"></div>
+        <div class="project-info">
+          <p class="project-cat">Brand Identity</p>
+          <h3 class="project-name">Velvet &amp; Co.</h3>
+        </div>
+      </div>
+      <div class="project-card" data-reveal data-delay="1">
+        <div class="project-thumb"></div>
+        <div class="project-info">
+          <p class="project-cat">Interior Visual Direction</p>
+          <h3 class="project-name">Aurum Interiors</h3>
+        </div>
+      </div>
+      <div class="project-card" data-reveal data-delay="2">
+        <div class="project-thumb"></div>
+        <div class="project-info">
+          <p class="project-cat">Social Media &amp; Content</p>
+          <h3 class="project-name">Studio Noir</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About teaser -->
+  <section class="about-teaser">
+    <div class="about-teaser-text" data-reveal>
+      <span class="section-label">About</span>
+      <h2>Design jako<br><em>jazyk</em></h2>
+      <p>Jsem nezávislé kreativní studio soustředěné na tvorbu vizuálních identit, brandingu a prostoru. Věřím, že dobrý design není jen o estetice — je to o záměru, příběhu a přesnosti v každém detailu.</p>
+      <a href="about.html" class="btn">More about me <span class="btn-arrow">→</span></a>
+    </div>
+    <div class="about-teaser-img" data-reveal data-delay="2">
+      <div class="img-placeholder" style="aspect-ratio: 3/4;"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div data-reveal>
+      <h2>Let's create<br><em>something.</em></h2>
+      <p>Máte projekt? Pojďme si promluvit.</p>
+      <a href="contact.html" class="btn">Get in touch <span class="btn-arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-logo">Nell Design</span>
+    <ul class="footer-links">
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Nell Design</span>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Mobile nav
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // Reveal on scroll
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  </script>
+
 </body>
 </html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Nell Design</title>
+  <meta name="description" content="Nezávislé kreativní studio — branding, vizuální identity, interiéry, digitální obsah.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Hero */
+    .about-hero {
+      padding: 16rem 5vw 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: end;
+    }
+    .about-hero h1 {
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      font-weight: 300;
+      line-height: .95;
+    }
+
+    /* Content */
+    .about-content {
+      padding: 8rem 5vw;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      border-top: 1px solid var(--border);
+    }
+    .about-body p {
+      font-size: 0.92rem;
+      line-height: 1.95;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .about-body p.lead {
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+    }
+    .about-body p strong { color: var(--text); font-weight: 400; }
+
+    /* Services */
+    .services-section {
+      padding: 8rem 5vw;
+      border-top: 1px solid var(--border);
+    }
+    .services-section h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 4rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+    }
+    .service-item {
+      padding: 2.5rem 2rem;
+      border: 1px solid var(--border);
+      transition: background .35s;
+    }
+    .service-item:hover { background: var(--bg-alt); }
+    .service-num {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .service-item h3 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: .9rem;
+    }
+    .service-item p {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    /* Values */
+    .values-strip {
+      padding: 6rem 5vw;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .value-item {
+      padding: 2rem 2rem 2rem 0;
+      border-right: 1px solid var(--border);
+    }
+    .value-item:last-child { border-right: none; padding-right: 0; }
+    .value-item:not(:first-child) { padding-left: 2rem; }
+    .value-dash {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .9rem;
+    }
+    .value-item h4 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: .6rem;
+    }
+    .value-item p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* CTA */
+    .about-cta {
+      padding: 8rem 5vw;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .about-cta h2 {
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      line-height: 1.05;
+    }
+
+    @media (max-width: 768px) {
+      .about-hero { grid-template-columns: 1fr; gap: 3rem; padding: 13rem 5vw 4rem; }
+      .about-hero-img { order: -1; }
+      .about-content { grid-template-columns: 1fr; gap: 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .values-strip { grid-template-columns: 1fr 1fr; gap: 1px; }
+      .value-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem; }
+      .value-item:nth-child(even) { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Nell Design</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html" class="active">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <header class="about-hero">
+    <div data-reveal>
+      <span class="section-label">About</span>
+      <h1>Design<br>with<br><em>intent.</em></h1>
+    </div>
+    <div class="about-hero-img" data-reveal data-delay="2">
+      <div class="img-placeholder" style="aspect-ratio: 3/4;"></div>
+    </div>
+  </header>
+
+  <section class="about-content">
+    <div data-reveal>
+      <span class="section-label">Studio</span>
+    </div>
+    <div class="about-body" data-reveal data-delay="1">
+      <p class="lead">Za každým projektem stojí záměr. Věřím, že design má mluvit přesně — beze slov, ale s jasným sdělením.</p>
+      <p>Jsem <strong>nezávislé kreativní studio</strong> specializující se na tvorbu vizuálních identit, branding, interiérové vedení a digitální obsah. Pracuji s klienty, kteří hledají víc než jen hezký vzhled — hledají identitu, která funguje.</p>
+      <p>Každý projekt beru jako spolupráci. Zajímám se o váš příběh, vaše hodnoty a váš svět — a z toho pak vzniká design, který je autentický, promyšlený a trvalý.</p>
+      <p>Pracuji s klienty z ČR i zahraničí — v různých fázích jejich značky, od prvního loga po kompletní rebrand nebo vybavení interiéru s vizuálním vedením.</p>
+    </div>
+  </section>
+
+  <section class="services-section">
+    <h2 data-reveal>What I do</h2>
+    <div class="services-grid">
+      <div class="service-item" data-reveal>
+        <span class="service-num">01</span>
+        <h3>Brand &amp; Visual Identity</h3>
+        <p>Logotypy, vizuální systémy, brand guidelines. Identita, která se drží pohromadě napříč všemi nosiči.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="1">
+        <span class="service-num">02</span>
+        <h3>Interior Direction</h3>
+        <p>Vizuální vedení interiérových projektů — výběr materiálů, barevnost, styling a celková atmosféra prostoru.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="2">
+        <span class="service-num">03</span>
+        <h3>Content &amp; Social Media</h3>
+        <p>Tvorba vizuálního obsahu, konceptuální fotografie, grafika a editorská strategie pro sociální sítě.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="3">
+        <span class="service-num">04</span>
+        <h3>Print &amp; Presentation</h3>
+        <p>Tiskoviny, katalogy, prezentace a veškeré materiály, které reprezentují vaši značku v hmotné podobě.</p>
+      </div>
+      <div class="service-item" data-reveal>
+        <span class="service-num">05</span>
+        <h3>Web Visual Direction</h3>
+        <p>Vizuální vedení webových projektů — UI styl, typografie, barevnost a celková estetika digitální přítomnosti.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="1">
+        <span class="service-num">06</span>
+        <h3>Brand Strategy</h3>
+        <p>Definice pozice značky, tonality, hodnot a vizuálního směru — základ pro vše, co bude následovat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="values-strip">
+    <div class="value-item" data-reveal>
+      <span class="value-dash">—</span>
+      <h4>Záměr</h4>
+      <p>Každý prvek má svůj důvod. Nic není náhoda.</p>
+    </div>
+    <div class="value-item" data-reveal data-delay="1">
+      <span class="value-dash">—</span>
+      <h4>Detail</h4>
+      <p>Kvalita se skrývá v tom, co si většina lidí nevšimne.</p>
+    </div>
+    <div class="value-item" data-reveal data-delay="2">
+      <span class="value-dash">—</span>
+      <h4>Přesnost</h4>
+      <p>Správná estetika ve správný čas pro správné publikum.</p>
+    </div>
+    <div class="value-item" data-reveal data-delay="3">
+      <span class="value-dash">—</span>
+      <h4>Nadčasovost</h4>
+      <p>Design, který nepomine s každou sezónou.</p>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div data-reveal>
+      <h2>Máte projekt?</h2>
+      <a href="contact.html" class="btn">Pojďme si promluvit <span class="btn-arrow">→</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">Nell Design</span>
+    <ul class="footer-links">
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Nell Design</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
+    }));
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  </script>
+
+</body>
+</html>

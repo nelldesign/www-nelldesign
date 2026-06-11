@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Nell Design</title>
+  <meta name="description" content="Vybrané projekty — branding, vizuální identity, interiéry, digitální obsah.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      padding: 18rem 5vw 5rem;
+    }
+    .page-hero h1 {
+      font-size: clamp(3.5rem, 9vw, 8.5rem);
+      font-weight: 300;
+      line-height: .95;
+    }
+    .page-hero p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      color: var(--text-muted);
+      margin-top: 1.75rem;
+      max-width: 28rem;
+    }
+
+    /* Projects */
+    .projects-list { padding: 4rem 0 8rem; }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      transition: background .4s;
+    }
+    .project-item:hover { background: var(--bg-alt); }
+
+    .project-item-img .img-placeholder {
+      aspect-ratio: 4/3;
+      height: 100%;
+      min-height: 300px;
+    }
+
+    .project-item-text {
+      padding: 4rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-item.reverse .project-item-img { order: 2; }
+    .project-item.reverse .project-item-text { order: 1; }
+
+    .project-num {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .project-item-cat {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .75rem;
+    }
+    .project-item-text h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+    .project-item-text p {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 28rem;
+    }
+
+    /* IG section */
+    .ig-section {
+      padding: 7rem 5vw;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .ig-section p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .project-item { grid-template-columns: 1fr; }
+      .project-item.reverse .project-item-img,
+      .project-item.reverse .project-item-text { order: unset; }
+      .project-item-img .img-placeholder { min-height: 60vw; }
+      .project-item-text { padding: 2.5rem 5vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Nell Design</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="work.html" class="active">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <header class="page-hero">
+    <div data-reveal>
+      <span class="section-label">Portfolio</span>
+      <h1>Selected<br><em>Work</em></h1>
+      <p>Vybrané projekty z oblasti brandingu, interiérů a digitálního obsahu.</p>
+    </div>
+  </header>
+
+  <section class="projects-list">
+
+    <article class="project-item" data-reveal>
+      <div class="project-item-img">
+        <div class="img-placeholder"></div>
+      </div>
+      <div class="project-item-text">
+        <p class="project-num">01</p>
+        <p class="project-item-cat">Brand Identity</p>
+        <h2>Velvet &amp; Co.</h2>
+        <p>Komplexní vizuální identita pro luxusní módní značku — logotyp, typografický systém, barevná paleta a brand guidelines pro konzistentní prezentaci napříč nosiči.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
+      </div>
+    </article>
+
+    <article class="project-item reverse" data-reveal>
+      <div class="project-item-img">
+        <div class="img-placeholder"></div>
+      </div>
+      <div class="project-item-text">
+        <p class="project-num">02</p>
+        <p class="project-item-cat">Interior Visual Direction</p>
+        <h2>Aurum<br>Interiors</h2>
+        <p>Vizuální vedení interiérového projektu — výběr materiálů, barevná paleta, styling, osvětlení a celková atmosféra prostoru s důrazem na nadčasovou eleganci.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
+      </div>
+    </article>
+
+    <article class="project-item" data-reveal>
+      <div class="project-item-img">
+        <div class="img-placeholder"></div>
+      </div>
+      <div class="project-item-text">
+        <p class="project-num">03</p>
+        <p class="project-item-cat">Social Media &amp; Content</p>
+        <h2>Studio Noir</h2>
+        <p>Tvorba obsahu a vizuální strategie pro sociální sítě — konceptuální fotografie, grafika, editorská linka a vizuální vedení účtu pro konzistentní brand perception.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
+      </div>
+    </article>
+
+    <article class="project-item reverse" data-reveal>
+      <div class="project-item-img">
+        <div class="img-placeholder"></div>
+      </div>
+      <div class="project-item-text">
+        <p class="project-num">04</p>
+        <p class="project-item-cat">Print &amp; Brand Materials</p>
+        <h2>Forma</h2>
+        <p>Tiskoviny a prezentační materiály — katalogy, vizitky, hlavičkové papíry a packaging v souladu s celkovou vizuální identitou klienta.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
+      </div>
+    </article>
+
+    <article class="project-item" data-reveal>
+      <div class="project-item-img">
+        <div class="img-placeholder"></div>
+      </div>
+      <div class="project-item-text">
+        <p class="project-num">05</p>
+        <p class="project-item-cat">Visual Identity &amp; Brand Strategy</p>
+        <h2>Lumière</h2>
+        <p>Kompletní brand strategie a vizuální identita pro beauty studio — od pojmenování a pozicování přes design identifiátorů až po digitální a fyzickou prezentaci značky.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="ig-section" data-reveal>
+    <p>Více projektů naleznete<br>na mém Instagramu.</p>
+    <a href="https://www.instagram.com/nell_design_twwi/" class="btn" target="_blank" rel="noopener">@nell_design_twwi <span class="btn-arrow">→</span></a>
+  </div>
+
+  <footer>
+    <span class="footer-logo">Nell Design</span>
+    <ul class="footer-links">
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Nell Design</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
+    }));
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  </script>
+
+</body>
+</html>

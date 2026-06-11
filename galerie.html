@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerie — Nell Design</title>
+  <meta name="description" content="Galerie prací — grafický design, interiéry, branding. Nell Design studio.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      padding: 16rem 5vw 5rem;
+    }
+    .page-hero h1 {
+      font-size: clamp(3.5rem, 9vw, 8.5rem);
+      font-weight: 300;
+      line-height: .95;
+    }
+    .page-hero p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      max-width: 30rem;
+    }
+
+    /* Filter */
+    .filter-bar {
+      padding: 3rem 5vw 0;
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+    }
+    .filter-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: .6rem 1.4rem;
+      transition: border-color .3s, color .3s, background .3s;
+    }
+    .filter-btn:hover { color: var(--text); border-color: var(--text-muted); }
+    .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+
+    /* Grid */
+    .gallery-grid {
+      padding: 3rem 5vw 8rem;
+      columns: 3;
+      column-gap: 2px;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 2px;
+      position: relative;
+      overflow: hidden;
+      display: block;
+    }
+    .gallery-item[data-hidden] { display: none; }
+
+    .gallery-thumb {
+      width: 100%;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      display: block;
+      transition: transform .7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-item:hover .gallery-thumb img { transform: scale(1.04); }
+
+    /* Overlay on hover */
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,11,9,.92) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .4s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .overlay-cat {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .4rem;
+    }
+    .overlay-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+    .overlay-desc {
+      font-size: 0.75rem;
+      color: rgba(237,232,223,.7);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .overlay-link {
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: gap .3s;
+    }
+    .overlay-link:hover { gap: .7rem; }
+
+    /* Info below image on mobile (fallback) */
+    .gallery-info {
+      padding: .9rem 0 1.5rem;
+      display: none;
+    }
+    .gallery-info .project-cat {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+    .gallery-info h3 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+    }
+
+    /* IG CTA */
+    .ig-cta {
+      padding: 6rem 5vw;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .ig-cta p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 960px) {
+      .gallery-grid { columns: 2; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { columns: 1; padding: 2rem 5vw 6rem; }
+      .gallery-overlay { opacity: 1; }
+      .gallery-info { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Nell Design</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html" class="active">Galerie</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <header class="page-hero">
+    <div data-reveal>
+      <span class="section-label">Ukázky práce</span>
+      <h1>Galerie</h1>
+      <p>Výběr z mé dosavadní tvorby — grafický design, interiéry a branding.</p>
+    </div>
+  </header>
+
+  <!-- Filtry -->
+  <div class="filter-bar" data-reveal>
+    <button class="filter-btn active" data-filter="vse">Vše</button>
+    <button class="filter-btn" data-filter="grafika">Grafický design</button>
+    <button class="filter-btn" data-filter="interier">Interiér</button>
+    <button class="filter-btn" data-filter="branding">Branding</button>
+    <button class="filter-btn" data-filter="editorial">Editorial</button>
+  </div>
+
+  <!-- Galerie -->
+  <div class="gallery-grid" id="galleryGrid">
+
+    <!-- 1. Café Mattoni -->
+    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
+       class="gallery-item" data-cat="grafika editorial" data-reveal>
+      <div class="gallery-thumb" style="aspect-ratio: 3/4;"></div>
+      <div class="gallery-overlay">
+        <p class="overlay-cat">Grafický design / Tiskoviny</p>
+        <h3 class="overlay-title">Café Mattoni</h3>
+        <p class="overlay-desc">Promo materiál pro Café Mattoni v Karlových Varech — historický portrét Heinricha Mattoniho, elegantní vintage kompozice.</p>
+        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      </div>
+      <div class="gallery-info">
+        <p class="project-cat">Grafický design</p>
+        <h3>Café Mattoni</h3>
+      </div>
+    </a>
+
+    <!-- 2. Bílý interiér — chodba -->
+    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
+       class="gallery-item" data-cat="interier" data-reveal data-delay="1">
+      <div class="gallery-thumb" style="aspect-ratio: 4/5;"></div>
+      <div class="gallery-overlay">
+        <p class="overlay-cat">Interiér</p>
+        <h3 class="overlay-title">Bílý interiér</h3>
+        <p class="overlay-desc">Elegantní vstupní prostor se skříňovou stěnou, čistá minimalistická linie, světlá paleta a měkká textura.</p>
+        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      </div>
+      <div class="gallery-info">
+        <p class="project-cat">Interiér</p>
+        <h3>Bílý interiér</h3>
+      </div>
+    </a>
+
+    <!-- 3. MR&MRS HAAK — Vzali se! -->
+    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
+       class="gallery-item" data-cat="editorial grafika" data-reveal data-delay="2">
+      <div class="gallery-thumb" style="aspect-ratio: 1/1;"></div>
+      <div class="gallery-overlay">
+        <p class="overlay-cat">Editorial design</p>
+        <h3 class="overlay-title">MR&amp;MRS HAAK</h3>
+        <p class="overlay-desc">Svatební noviny pro rodinu Haakových — "VZALI SE! Po dvou letech svatba". Novinářský layout, osobní příběh, prémiový tisk.</p>
+        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      </div>
+      <div class="gallery-info">
+        <p class="project-cat">Editorial design</p>
+        <h3>MR&amp;MRS HAAK</h3>
+      </div>
+    </a>
+
+    <!-- 4. Design bytu — koupelna, kuchyně -->
+    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
+       class="gallery-item" data-cat="interier" data-reveal>
+      <div class="gallery-thumb" style="aspect-ratio: 4/3;"></div>
+      <div class="gallery-overlay">
+        <p class="overlay-cat">Interiér</p>
+        <h3 class="overlay-title">Design bytu</h3>
+        <p class="overlay-desc">Vizuální vedení interiéru bytu — koupelna, kuchyně a chodba v zemitých, teplých odstínech. Každý prostor navržen s ohledem na funkci i estetiku.</p>
+        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      </div>
+      <div class="gallery-info">
+        <p class="project-cat">Interiér</p>
+        <h3>Design bytu</h3>
+      </div>
+    </a>
+
+    <!-- 5. Sofco apartmán — Obývací pokoj -->
+    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
+       class="gallery-item" data-cat="interier editorial" data-reveal data-delay="1">
+      <div class="gallery-thumb" style="aspect-ratio: 1/1;"></div>
+      <div class="gallery-overlay">
+        <p class="overlay-cat">Interiér &amp; Content</p>
+        <h3 class="overlay-title">Sofco apartmán</h3>
+        <p class="overlay-desc">Design obývacího pokoje pro Sofco apartmán — teplá paleta, měkká linie, vzdušnost. Doplněno o stylový content s přehledem vybavení a tipů.</p>
+        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      </div>
+      <div class="gallery-info">
+        <p class="project-cat">Interiér &amp; Content</p>
+        <h3>Sofco apartmán</h3>
+      </div>
+    </a>
+
+    <!-- 6. NELL DESIGN — Brand reveal -->
+    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
+       class="gallery-item" data-cat="branding" data-reveal data-delay="2">
+      <div class="gallery-thumb" style="aspect-ratio: 1/1;"></div>
+      <div class="gallery-overlay">
+        <p class="overlay-cat">Branding</p>
+        <h3 class="overlay-title">Nell Design — Brand Identity</h3>
+        <p class="overlay-desc">Vizuální identita studia Nell Design — logotyp, typografie, barevná paleta a claim "Design that works with intent".</p>
+        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      </div>
+      <div class="gallery-info">
+        <p class="project-cat">Branding</p>
+        <h3>Nell Design — Brand Identity</h3>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- IG CTA -->
+  <div class="ig-cta" data-reveal>
+    <p>Další ukázky tvorby<br>najdete na mém Instagramu.</p>
+    <a href="https://www.instagram.com/nell_design_twwi/" class="btn" target="_blank" rel="noopener">
+      @nell_design_twwi <span class="btn-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span class="footer-logo">Nell Design</span>
+    <ul class="footer-links">
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Nell Design</span>
+  </footer>
+
+  <script>
+    // Nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
+    }));
+
+    // Reveal
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+
+    // Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        items.forEach(item => {
+          const cats = item.dataset.cat || '';
+          if (filter === 'vse' || cats.includes(filter)) {
+            item.removeAttribute('data-hidden');
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  </script>
+
+</body>
+</html>
