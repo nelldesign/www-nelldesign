@@ -151,6 +151,21 @@
       line-height: 1.7;
     }
 
+    /* Personal claim — zvýrazněný text na konci about sekce */
+    .about-personal p.about-claim {
+      font-family: var(--display);
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      line-height: 1.5;
+      margin-top: 2.5rem;
+      margin-bottom: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+
     /* CTA */
     .about-cta {
       padding: 8rem 5vw;
@@ -224,7 +239,7 @@
       <p>Každý projekt vnímám jako celek. Nezajímá mě pouze výsledný vzhled — zajímá mě, jak bude design fungovat v praxi, komu bude určen a co má sdělit. Pracuji na základě pochopení klienta, jeho hodnot a cílů, kterých chce dosáhnout.</p>
       <p>Nevěřím v řešení pro jeden okamžik. Navrhuji věci, které jsou promyšlené, funkční a obstojí v čase.</p>
       <p>Ať už jde o firemní identitu, tiskoviny, menu kavárny nebo návrh interiéru, hledám průsečík mezi estetikou a účelem. Protože dobrý design není o tom být nejhlasitější. Je o tom předat správnou myšlenku správným způsobem.</p>
-      <p><em>Design with intent. Design that works.</em></p>
+      <p class="about-claim">Design with intent.<br>Design that works.</p>
     </div>
   </section>
 
