@@ -29,18 +29,64 @@
       animation: fadeUp 1s var(--ease) .3s forwards;
     }
     .hero-title {
-      font-family: var(--display);
-      font-size: clamp(2.2rem, 6vw, 5.5rem);
-      font-weight: 400;
-      letter-spacing: 0.3em;
+      font-family: 'Raleway', var(--display), sans-serif;
+      font-size: clamp(2rem, 5.5vw, 5rem);
+      font-weight: 200;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
       line-height: 1.1;
       opacity: 0;
       animation: fadeUp 1.2s var(--ease) .55s forwards;
+      position: relative;
+      width: fit-content;
+    }
+    /* Hlavní záblesk — čtyřcípá hvězda (jako diamant) */
+    .hero-title::after {
+      content: '';
+      position: absolute;
+      top: -0.12em;
+      right: 0.25em;
+      width: 0.55em;
+      height: 0.55em;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0L52 46L100 50L52 54L50 100L48 54L0 50L48 46Z' fill='white'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.95)) drop-shadow(0 0 14px rgba(184,151,90,0.5));
+      transform: scale(0) rotate(0deg);
+      opacity: 0;
+      animation: starSparkle 7s ease-in-out infinite 3.2s;
+      pointer-events: none;
+    }
+    /* Druhý menší záblesk — jiná pozice, jiný rytmus */
+    .hero-title::before {
+      content: '';
+      position: absolute;
+      top: 0.1em;
+      left: 0.4em;
+      width: 0.3em;
+      height: 0.3em;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0L52 46L100 50L52 54L50 100L48 54L0 50L48 46Z' fill='white'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
+      transform: scale(0) rotate(45deg);
+      opacity: 0;
+      animation: starSparkle 9s ease-in-out infinite 6s;
+      pointer-events: none;
+    }
+    @keyframes starSparkle {
+      0%   { transform: scale(0)   rotate(0deg);  opacity: 0; }
+      12%  { transform: scale(1.5) rotate(18deg); opacity: 1; }
+      25%  { transform: scale(0.8) rotate(22deg); opacity: 0.7; }
+      38%  { transform: scale(1.1) rotate(24deg); opacity: 0.95; }
+      52%  { transform: scale(0)   rotate(30deg); opacity: 0; }
+      100% { transform: scale(0)   rotate(30deg); opacity: 0; }
     }
     .hero-claim {
       font-family: var(--serif);
-      font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+      font-size: clamp(1.4rem, 2.8vw, 2.4rem);
       font-style: italic;
       letter-spacing: 0.06em;
       color: var(--text-muted);
@@ -51,14 +97,14 @@
     .hero-scroll {
       position: absolute;
       bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: .75rem;
       opacity: 0;
-      animation: fadeUp 1s var(--ease) 1.5s forwards;
+      animation: fadeScrollIn 1s var(--ease) 1.5s forwards;
     }
     .hero-scroll span {
       font-size: 0.58rem;
@@ -68,9 +114,13 @@
     }
     .scroll-line {
       width: 1px;
-      height: 50px;
+      height: 72px;
       background: linear-gradient(to bottom, var(--text-muted), transparent);
       animation: scrollPulse 2.2s ease-in-out infinite 2s;
+    }
+    @keyframes fadeScrollIn {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes scrollPulse {
       0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
@@ -192,9 +242,10 @@
   <nav class="nav" id="nav">
     <a href="index.html" class="nav-logo">Nell Design</a>
     <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Domů</a></li>
+      <li><a href="about.html">O mně</a></li>
       <li><a href="work.html">Práce</a></li>
       <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="about.html">O mně</a></li>
       <li><a href="contact.html">Kontakt</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -288,9 +339,9 @@
   <footer>
     <span class="footer-logo">Nell Design</span>
     <ul class="footer-links">
+      <li><a href="about.html">O mně</a></li>
       <li><a href="work.html">Práce</a></li>
       <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="about.html">O mně</a></li>
       <li><a href="contact.html">Kontakt</a></li>
       <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
     </ul>
