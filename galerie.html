@@ -47,98 +47,118 @@
     .filter-btn:hover { color: var(--text); border-color: var(--text-muted); }
     .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bg); }
 
-    /* Grid */
-    .gallery-grid {
-      padding: 3rem 5vw 8rem;
-      columns: 3;
-      column-gap: 2px;
+    /* Projects list */
+    .projects-gallery {
+      padding: 0 0 8rem;
     }
-    .gallery-item {
-      break-inside: avoid;
-      margin-bottom: 2px;
-      position: relative;
-      overflow: hidden;
-      display: block;
-    }
-    .gallery-item[data-hidden] { display: none; }
 
-    .gallery-thumb {
-      width: 100%;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      display: block;
-      transition: transform .7s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Single project section */
+    .project-section {
+      padding: 6rem 5vw;
+      border-top: 1px solid var(--border);
     }
-    .gallery-thumb img {
+    .project-section:last-of-type {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-section-header {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+    .project-section-meta {}
+    .project-section-meta .section-label {
+      margin-bottom: 1rem;
+    }
+    .project-section-meta h2 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 0;
+    }
+    .project-section-desc {
+      padding-top: .4rem;
+    }
+    .project-section-desc p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 36rem;
+    }
+    .project-section-desc .project-ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 1.5rem;
+      transition: gap .3s;
+    }
+    .project-ig-link:hover { gap: .85rem; }
+
+    /* Photo layouts */
+    .project-photos {
+      display: grid;
+      gap: 3px;
+    }
+
+    /* 1 photo */
+    .project-photos.layout-1 {
+      grid-template-columns: 1fr;
+      max-width: 800px;
+    }
+
+    /* 2 photos equal */
+    .project-photos.layout-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* 3 photos: big left + 2 stacked right */
+    .project-photos.layout-3 {
+      grid-template-columns: 3fr 2fr;
+    }
+    .project-photos.layout-3 .photo-stack {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+    }
+
+    /* 4 photos: 1 wide + 3 below */
+    .project-photos.layout-4 {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .project-photos.layout-4 .photo-featured {
+      grid-column: span 2;
+    }
+
+    /* 5 photos: 1 featured + 2x2 */
+    .project-photos.layout-5 {
+      grid-template-columns: 1fr 1fr;
+    }
+    .project-photos.layout-5 .photo-featured {
+      grid-column: span 2;
+    }
+
+    .project-photos img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform .7s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform .8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .gallery-item:hover .gallery-thumb img { transform: scale(1.04); }
-
-    /* Overlay on hover */
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(12,11,9,.92) 0%, transparent 55%);
-      opacity: 0;
-      transition: opacity .4s;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.5rem;
+    .project-photos a {
+      display: block;
+      overflow: hidden;
     }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .overlay-cat {
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .4rem;
-    }
-    .overlay-title {
-      font-family: var(--serif);
-      font-size: 1.15rem;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: .6rem;
-    }
-    .overlay-desc {
-      font-size: 0.75rem;
-      color: rgba(237,232,223,.7);
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-    .overlay-link {
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      transition: gap .3s;
-    }
-    .overlay-link:hover { gap: .7rem; }
-
-    /* Info below image on mobile (fallback) */
-    .gallery-info {
-      padding: .9rem 0 1.5rem;
-      display: none;
-    }
-    .gallery-info .project-cat {
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .3rem;
-    }
-    .gallery-info h3 {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      font-weight: 400;
+    .project-photos a:hover img {
+      transform: scale(1.03);
     }
 
     /* IG CTA */
@@ -156,13 +176,15 @@
       line-height: 1.5;
     }
 
-    @media (max-width: 960px) {
-      .gallery-grid { columns: 2; }
-    }
-    @media (max-width: 600px) {
-      .gallery-grid { columns: 1; padding: 2rem 5vw 6rem; }
-      .gallery-overlay { opacity: 1; }
-      .gallery-info { display: block; }
+    @media (max-width: 768px) {
+      .project-section-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .project-photos.layout-2,
+      .project-photos.layout-3,
+      .project-photos.layout-4,
+      .project-photos.layout-5 { grid-template-columns: 1fr; }
+      .project-photos.layout-3 .photo-stack { grid-template-rows: auto; }
+      .project-photos.layout-4 .photo-featured,
+      .project-photos.layout-5 .photo-featured { grid-column: auto; }
     }
   </style>
 </head>
@@ -174,6 +196,7 @@
   <nav class="nav" id="nav">
     <a href="index.html" class="nav-logo">Nell Design</a>
     <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Domů</a></li>
       <li><a href="work.html">Práce</a></li>
       <li><a href="galerie.html" class="active">Galerie</a></li>
       <li><a href="about.html">O mně</a></li>
@@ -188,7 +211,7 @@
     <div data-reveal>
       <span class="section-label">Ukázky práce</span>
       <h1>Galerie</h1>
-      <p>Výběr z mé dosavadní tvorby — grafický design, interiéry a branding.</p>
+      <p>Výběr z mé tvorby — grafický design, interiéry a tiskoviny.</p>
     </div>
   </header>
 
@@ -197,252 +220,178 @@
     <button class="filter-btn active" data-filter="vse">Vše</button>
     <button class="filter-btn" data-filter="grafika">Grafický design</button>
     <button class="filter-btn" data-filter="interier">Interiér</button>
-    <button class="filter-btn" data-filter="branding">Branding</button>
     <button class="filter-btn" data-filter="editorial">Editorial</button>
   </div>
 
-  <!-- Galerie -->
-  <div class="gallery-grid" id="galleryGrid">
+  <div class="projects-gallery" id="projectsGallery">
 
-    <!-- Café Mattoni — cover -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="grafika editorial" data-reveal>
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8088.jpg" alt="Café Mattoni — menu cover" loading="lazy">
+    <!-- ═══════════════════════════════════════
+         1. CAFÉ MATTONI
+    ═══════════════════════════════════════ -->
+    <section class="project-section" data-cat="grafika editorial" data-reveal>
+      <div class="project-section-header">
+        <div class="project-section-meta">
+          <span class="section-label">Grafický design / Tiskoviny</span>
+          <h2>Café Mattoni</h2>
+        </div>
+        <div class="project-section-desc">
+          <p>Kompletní menu design pro kavárnu v Karlových Varech. Obálka, nápojový lístek s Nespresso nabídkou a dezertní menu — vše ve společném vizuálním jazyce s jemnou texturou a botanickými motivy.</p>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="project-ig-link">Zobrazit na Instagramu →</a>
+        </div>
       </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Grafický design / Tiskoviny</p>
-        <h3 class="overlay-title">Café Mattoni</h3>
-        <p class="overlay-desc">Kompletní menu pro Café Mattoni v Karlových Varech — obálka, nápojový a dezertní lístek.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      <div class="project-photos layout-3">
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/IMG_8088.jpg" alt="Café Mattoni — menu cover" loading="lazy">
+        </a>
+        <div class="photo-stack">
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+            <img src="img/web/IMG_8090.jpg" alt="Café Mattoni — nápojový lístek" loading="lazy">
+          </a>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+            <img src="img/web/IMG_8091.jpg" alt="Café Mattoni — dezerty" loading="lazy">
+          </a>
+        </div>
       </div>
-      <div class="gallery-info"><p class="project-cat">Grafický design</p><h3>Café Mattoni</h3></div>
-    </a>
+    </section>
 
-    <!-- Šatna bílá -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="interier" data-reveal data-delay="1">
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8025.jpg" alt="Bílá šatna — walk-in wardrobe" loading="lazy">
+    <!-- ═══════════════════════════════════════
+         2. MR&MRS HAAK — Svatební noviny
+    ═══════════════════════════════════════ -->
+    <section class="project-section" data-cat="grafika editorial" data-reveal>
+      <div class="project-section-header">
+        <div class="project-section-meta">
+          <span class="section-label">Editorial design</span>
+          <h2>MR&amp;MRS HAAK</h2>
+        </div>
+        <div class="project-section-desc">
+          <p>Svatební noviny pro novomanžele Haakovy. Novinářský layout s osobním příběhem, harmonogramem dne a humorem, který si hosté odnesli jako vzpomínku. Titulní strana, vnitřní rozvrh i děkovná strana — vše v jednom tisku.</p>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="project-ig-link">Zobrazit na Instagramu →</a>
+        </div>
       </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Interiér</p>
-        <h3 class="overlay-title">Šatna — bílá</h3>
-        <p class="overlay-desc">Čistá bílá walk-in šatna se zrcadlovými posuvnými dveřmi a čalouněnou lavičkou.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      <div class="project-photos layout-3">
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/IMG_8034.jpg" alt="MR&MRS HAAK — titulní strana" loading="lazy">
+        </a>
+        <div class="photo-stack">
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+            <img src="img/web/IMG_8035.jpg" alt="MR&MRS HAAK — Wedding Details" loading="lazy">
+          </a>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+            <img src="img/web/IMG_8036.jpg" alt="MR&MRS HAAK — Thank You" loading="lazy">
+          </a>
+        </div>
       </div>
-      <div class="gallery-info"><p class="project-cat">Interiér</p><h3>Šatna — bílá</h3></div>
-    </a>
+    </section>
 
-    <!-- MR&MRS HAAK — front page -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="editorial grafika" data-reveal data-delay="2">
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8034.jpg" alt="MR&MRS HAAK — svatební noviny titulní strana" loading="lazy">
+    <!-- ═══════════════════════════════════════
+         3. APARTMENT GUIDE ESTEPONA
+    ═══════════════════════════════════════ -->
+    <section class="project-section" data-cat="grafika editorial" data-reveal>
+      <div class="project-section-header">
+        <div class="project-section-meta">
+          <span class="section-label">Editorial / Print</span>
+          <h2>Apartment Guide<br>Estepona</h2>
+        </div>
+        <div class="project-section-desc">
+          <p>Průvodce apartmánem na španělském pobřeží. Vizuálně čistý set zahrnující obálku, orientační kartu a jednotlivé stránky s popisem pokojů a praktickými informacemi pro hosty. Jednoduše, elegantně, s důrazem na přehlednost.</p>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="project-ig-link">Zobrazit na Instagramu →</a>
+        </div>
       </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Editorial design</p>
-        <h3 class="overlay-title">MR&amp;MRS HAAK</h3>
-        <p class="overlay-desc">Svatební noviny — novinářský layout, osobní příběh, titulní strana.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      <div class="project-photos layout-3">
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/IMG_8081.jpg" alt="Apartment Guide — obálka" loading="lazy">
+        </a>
+        <div class="photo-stack">
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+            <img src="img/web/IMG_8082.jpg" alt="Apartment Guide — set" loading="lazy">
+          </a>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+            <img src="img/web/IMG_8086.jpg" alt="Apartment Guide — obývací pokoj" loading="lazy">
+          </a>
+        </div>
       </div>
-      <div class="gallery-info"><p class="project-cat">Editorial</p><h3>MR&amp;MRS HAAK</h3></div>
-    </a>
+    </section>
 
-    <!-- BYT PAŠAVOVI — 1 -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="interier" data-reveal>
-      <div class="gallery-thumb">
-        <img src="img/web/BYT_PAŠAVOVI - 1.jpg" alt="Byt Pašavovi — interiér" loading="lazy">
+    <!-- ═══════════════════════════════════════
+         4. BYT PAŠAVOVI — Interiér
+    ═══════════════════════════════════════ -->
+    <section class="project-section" data-cat="interier" data-reveal>
+      <div class="project-section-header">
+        <div class="project-section-meta">
+          <span class="section-label">Interiér</span>
+          <h2>Byt Pašavovi</h2>
+        </div>
+        <div class="project-section-desc">
+          <p>Vizuální vedení interiéru bytu. Teplé zemité tóny, propracované detaily a prostory, které mají charakter. Každá místnost řešená s ohledem na funkci i atmosféru.</p>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="project-ig-link">Zobrazit na Instagramu →</a>
+        </div>
       </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Interiér</p>
-        <h3 class="overlay-title">Byt Pašavovi</h3>
-        <p class="overlay-desc">Komplexní vizuální vedení interiéru bytu — teplé tóny, elegantní detaily, funkční prostor.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      <div class="project-photos layout-5">
+        <a class="photo-featured" href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/BYT_PAŠAVOVI - 1.jpg" alt="Byt Pašavovi" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/BYT_PAŠAVOVI - 2.jpg" alt="Byt Pašavovi — detail" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/BYT_PAŠAVOVI - 3.jpg" alt="Byt Pašavovi — detail" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/BYT_PAŠAVOVI - 4.jpg" alt="Byt Pašavovi — chodba" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/BYT_PAŠAVOVI - 5.jpg" alt="Byt Pašavovi — koupelna" loading="lazy">
+        </a>
       </div>
-      <div class="gallery-info"><p class="project-cat">Interiér</p><h3>Byt Pašavovi</h3></div>
-    </a>
+    </section>
 
-    <!-- Apartment Guide — cover -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="editorial grafika" data-reveal data-delay="1">
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8081.jpg" alt="Apartment Guide Estepona — cover" loading="lazy">
+    <!-- ═══════════════════════════════════════
+         5. ŠATNA — Návrh a realizace
+    ═══════════════════════════════════════ -->
+    <section class="project-section" data-cat="interier" data-reveal>
+      <div class="project-section-header">
+        <div class="project-section-meta">
+          <span class="section-label">Interiér / Šatna</span>
+          <h2>Návrh šatny</h2>
+        </div>
+        <div class="project-section-desc">
+          <p>Dvě realizace walk-in šaten — bílá minimalistická varianta se zrcadlovými posuvnými dveřmi a varianta v tmavém dřevě s čalouněnou lavičkou. Každá navržena na míru konkrétnímu prostoru a jeho uživateli.</p>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="project-ig-link">Zobrazit na Instagramu →</a>
+        </div>
       </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Editorial / Print</p>
-        <h3 class="overlay-title">Apartment Guide Estepona</h3>
-        <p class="overlay-desc">Průvodce apartmánem v Estepona — obálka s interiérovou fotografií, čistý editorial layout.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      <div class="project-photos layout-2">
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/IMG_8025.jpg" alt="Šatna — bílá" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/IMG_8026.jpg" alt="Šatna — tmavé dřevo" loading="lazy">
+        </a>
       </div>
-      <div class="gallery-info"><p class="project-cat">Editorial</p><h3>Apartment Guide</h3></div>
-    </a>
+    </section>
 
-    <!-- Café Mattoni — nápoje -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="grafika editorial" data-reveal data-delay="2">
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8090.jpg" alt="Café Mattoni — nápojový lístek" loading="lazy">
+    <!-- ═══════════════════════════════════════
+         6. SVATEBNÍ TISKOVINY — Tereza & Oliver
+    ═══════════════════════════════════════ -->
+    <section class="project-section" data-cat="grafika" data-reveal>
+      <div class="project-section-header">
+        <div class="project-section-meta">
+          <span class="section-label">Grafický design / Tiskoviny</span>
+          <h2>Tereza &amp; Oliver</h2>
+        </div>
+        <div class="project-section-desc">
+          <p>Svatební tiskoviny pro Terezu a Olivera. Dvoujazyčné menu v česko-anglickém provedení a jmenovky ke stolům — vše v jednotném vizuálním stylu s zlatým ornamentem a jemnou typografií.</p>
+          <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="project-ig-link">Zobrazit na Instagramu →</a>
+        </div>
       </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Grafický design</p>
-        <h3 class="overlay-title">Café Mattoni — nápoje</h3>
-        <p class="overlay-desc">Nápojový lístek s Nespresso nabídkou — elegantní typografie, jemná textura, zlaté akcenty.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
+      <div class="project-photos layout-2">
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/Wedding Menu.jpg" alt="Svatební menu — Tereza & Oliver" loading="lazy">
+        </a>
+        <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">
+          <img src="img/web/wedding jmenovky.jpg" alt="Svatební jmenovky" loading="lazy">
+        </a>
       </div>
-      <div class="gallery-info"><p class="project-cat">Grafický design</p><h3>Café Mattoni</h3></div>
-    </a>
-
-    <!-- MR&MRS HAAK — wedding details -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="editorial grafika" data-reveal>
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8035.jpg" alt="MR&MRS HAAK — Wedding Details" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Editorial design</p>
-        <h3 class="overlay-title">MR&amp;MRS HAAK — details</h3>
-        <p class="overlay-desc">Vnitřní strana svatebních novin — harmonogram dne, humor a příběh novomanželů.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Editorial</p><h3>MR&amp;MRS HAAK</h3></div>
-    </a>
-
-    <!-- BYT PAŠAVOVI — 2 -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="interier" data-reveal data-delay="1">
-      <div class="gallery-thumb">
-        <img src="img/web/BYT_PAŠAVOVI - 2.jpg" alt="Byt Pašavovi — detail" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Interiér</p>
-        <h3 class="overlay-title">Byt Pašavovi</h3>
-        <p class="overlay-desc">Detail interiéru — materiály, textury, světlo.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Interiér</p><h3>Byt Pašavovi</h3></div>
-    </a>
-
-    <!-- Wedding Menu -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="grafika editorial" data-reveal data-delay="2">
-      <div class="gallery-thumb">
-        <img src="img/web/Wedding Menu.jpg" alt="Svatební menu Tereza & Oliver" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Grafický design / Tiskoviny</p>
-        <h3 class="overlay-title">Svatební menu — Tereza &amp; Oliver</h3>
-        <p class="overlay-desc">Elegantní svatební menu s zlatým ornamentem — dvojjazyčné CZ/EN provedení.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Tiskoviny</p><h3>Svatební menu</h3></div>
-    </a>
-
-    <!-- Apartment Guide — obývák -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="editorial grafika" data-reveal>
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8086.jpg" alt="Apartment Guide — obývací pokoj" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Editorial / Print</p>
-        <h3 class="overlay-title">Apartment Guide — interiér</h3>
-        <p class="overlay-desc">Strana průvodce věnovaná obývacímu pokoji — vybavení, instrukce, fotografie prostoru.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Editorial</p><h3>Apartment Guide</h3></div>
-    </a>
-
-    <!-- Šatna tmavá -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="interier" data-reveal data-delay="1">
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8026.jpg" alt="Šatna — tmavé dřevo" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Interiér</p>
-        <h3 class="overlay-title">Šatna — tmavé dřevo</h3>
-        <p class="overlay-desc">Walk-in šatna s tmavým dřevěným dekorem, zrcadlovými panely a čalouněnou lavičkou.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Interiér</p><h3>Šatna — tmavá</h3></div>
-    </a>
-
-    <!-- Café Mattoni — dezerty -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="grafika editorial" data-reveal data-delay="2">
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8092.jpg" alt="Café Mattoni — dezerty" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Grafický design</p>
-        <h3 class="overlay-title">Café Mattoni — dezerty</h3>
-        <p class="overlay-desc">Fotografická strana menu s vlastními dezerty kavárny — vizuální prezentace sezónní nabídky.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Grafický design</p><h3>Café Mattoni</h3></div>
-    </a>
-
-    <!-- BYT PAŠAVOVI — 3 -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="interier" data-reveal>
-      <div class="gallery-thumb">
-        <img src="img/web/BYT_PAŠAVOVI - 3.jpg" alt="Byt Pašavovi — detail 3" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Interiér</p>
-        <h3 class="overlay-title">Byt Pašavovi</h3>
-        <p class="overlay-desc">Detail koupelny — čisté linie, teplé tóny, pečlivě vybraná dlažba a obklady.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Interiér</p><h3>Byt Pašavovi</h3></div>
-    </a>
-
-    <!-- Wedding jmenovky -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="grafika" data-reveal data-delay="1">
-      <div class="gallery-thumb">
-        <img src="img/web/wedding jmenovky.jpg" alt="Svatební jmenovky" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Grafický design / Tiskoviny</p>
-        <h3 class="overlay-title">Svatební jmenovky</h3>
-        <p class="overlay-desc">Jmenovky ke stolům pro svatební hosty — jednotný vizuální styl s menu a dalšími materiály.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Tiskoviny</p><h3>Jmenovky</h3></div>
-    </a>
-
-    <!-- Apartment Guide — průvodce cestou -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="editorial grafika" data-reveal data-delay="2">
-      <div class="gallery-thumb">
-        <img src="img/web/IMG_8082.jpg" alt="Apartment Guide — obálka a karta" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Editorial / Print</p>
-        <h3 class="overlay-title">Apartment Guide — set</h3>
-        <p class="overlay-desc">Průvodce Estepona — obálka a přiložená orientační karta. Konzistentní vizuální jazyk setu.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Editorial</p><h3>Apartment Guide</h3></div>
-    </a>
-
-    <!-- BYT PAŠAVOVI — 4 -->
-    <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener"
-       class="gallery-item" data-cat="interier" data-reveal>
-      <div class="gallery-thumb">
-        <img src="img/web/BYT_PAŠAVOVI - 4.jpg" alt="Byt Pašavovi — chodba" loading="lazy">
-      </div>
-      <div class="gallery-overlay">
-        <p class="overlay-cat">Interiér</p>
-        <h3 class="overlay-title">Byt Pašavovi</h3>
-        <p class="overlay-desc">Chodba a vstupní prostor — světlé tóny, vestavěné úložiště, propracovaný detail.</p>
-        <span class="overlay-link">Zobrazit na Instagramu →</span>
-      </div>
-      <div class="gallery-info"><p class="project-cat">Interiér</p><h3>Byt Pašavovi</h3></div>
-    </a>
+    </section>
 
   </div>
 
@@ -487,23 +436,18 @@
     }, { threshold: 0.05 });
     document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
 
-    // Filter
+    // Filter — works on project sections
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.gallery-item');
+    const sections = document.querySelectorAll('.project-section');
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.dataset.filter;
-        items.forEach(item => {
-          const cats = item.dataset.cat || '';
-          if (filter === 'vse' || cats.includes(filter)) {
-            item.removeAttribute('data-hidden');
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
+        sections.forEach(sec => {
+          const cats = sec.dataset.cat || '';
+          sec.style.display = (filter === 'vse' || cats.includes(filter)) ? '' : 'none';
         });
       });
     });
