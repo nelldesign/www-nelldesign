@@ -21,28 +21,62 @@
       line-height: .95;
     }
 
-    /* Content */
-    .about-content {
-      padding: 8rem 5vw;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 6rem;
+    /* Intro text — studio hlas (celá šíře) */
+    .about-intro {
+      padding: 6rem 5vw;
       border-top: 1px solid var(--border);
+      max-width: 52rem;
     }
-    .about-body p {
+    .about-intro p.lead {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 1.9vw, 1.45rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .about-intro p {
       font-size: 0.92rem;
       line-height: 1.95;
       color: var(--text-muted);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
     }
-    .about-body p.lead {
+
+    /* Photo + personal text side by side */
+    .about-portrait {
+      padding: 6rem 5vw;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+      border-top: 1px solid var(--border);
+    }
+    .about-portrait-img img {
+      width: 100%;
+      display: block;
+    }
+    .about-personal {
+      padding-top: 1rem;
+    }
+    .about-personal p.lead {
       font-family: var(--serif);
-      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
       font-style: italic;
       color: var(--text);
-      margin-bottom: 2.5rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
     }
-    .about-body p strong { color: var(--text); font-weight: 400; }
+    .about-personal p {
+      font-size: 0.92rem;
+      line-height: 1.95;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+
+    /* Content (old — keep for services label) */
+    .about-content {
+      display: none;
+    }
 
     /* Services */
     .services-section {
@@ -131,9 +165,10 @@
     }
 
     @media (max-width: 768px) {
-      .about-hero { grid-template-columns: 1fr; gap: 3rem; padding: 13rem 5vw 4rem; }
-      .about-hero-img { order: -1; }
-      .about-content { grid-template-columns: 1fr; gap: 2rem; }
+      .about-hero { grid-template-columns: 1fr; gap: 2rem; padding: 13rem 5vw 4rem; }
+      .about-hero-img { display: none; }
+      .about-intro { padding: 4rem 5vw; }
+      .about-portrait { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 5vw; }
       .services-grid { grid-template-columns: 1fr; }
       .values-strip { grid-template-columns: 1fr 1fr; gap: 1px; }
       .value-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem; }
@@ -165,20 +200,31 @@
       <span class="section-label">About</span>
       <h1>Design<br>with<br><em>intent.</em></h1>
     </div>
-    <div class="about-hero-img" data-reveal data-delay="2">
-      <img src="img/web/IMG_9650.jpg" alt="Nell Haak — Nell Design" style="width:100%; display:block; aspect-ratio: 3/4; object-fit: cover;">
-    </div>
+    <div class="about-hero-img" data-reveal data-delay="2"></div>
   </header>
 
-  <section class="about-content">
-    <div data-reveal>
-      <span class="section-label">Studio</span>
+  <!-- Studio intro — celá šíře -->
+  <section class="about-intro" data-reveal>
+    <span class="section-label">Studio</span>
+    <p class="lead">Za každým projektem stojí záměr. Věřím, že design má mluvit přesně — beze slov, ale s jasným sdělením.</p>
+    <p>Jsem nezávislé kreativní studio specializující se na tvorbu vizuálních identit, branding, interiérové vedení a digitální obsah. Pracuji s klienty, kteří hledají víc než jen hezký vzhled — hledají identitu, která funguje.</p>
+    <p>Každý projekt beru jako spolupráci. Zajímám se o váš příběh, vaše hodnoty a váš svět — a z toho pak vzniká design, který je autentický, promyšlený a trvalý.</p>
+    <p>Pracuji s klienty z ČR i zahraničí — v různých fázích jejich značky, od prvního loga po kompletní rebrand nebo vybavení interiéru s vizuálním vedením.</p>
+  </section>
+
+  <!-- Fotka vlevo + osobní text vpravo -->
+  <section class="about-portrait">
+    <div class="about-portrait-img" data-reveal>
+      <img src="img/web/IMG_9650.jpg" alt="Nell Haak — Nell Design">
     </div>
-    <div class="about-body" data-reveal data-delay="1">
-      <p class="lead">Za každým projektem stojí záměr. Věřím, že design má mluvit přesně — beze slov, ale s jasným sdělením.</p>
-      <p>Jsem nezávislé kreativní studio specializující se na tvorbu vizuálních identit, branding, interiérové vedení a digitální obsah. Pracuji s klienty, kteří hledají víc než jen hezký vzhled — hledají identitu, která funguje.</p>
-      <p>Každý projekt beru jako spolupráci. Zajímám se o váš příběh, vaše hodnoty a váš svět — a z toho pak vzniká design, který je autentický, promyšlený a trvalý.</p>
-      <p>Pracuji s klienty z ČR i zahraničí — v různých fázích jejich značky, od prvního loga po kompletní rebrand nebo vybavení interiéru s vizuálním vedením.</p>
+    <div class="about-personal" data-reveal data-delay="2">
+      <span class="section-label">O mně</span>
+      <p class="lead">Jsem Nell Haak — grafická designérka a zakladatelka Nell Design.</p>
+      <p>Pomáhám firmám, podnikatelům i jednotlivcům vytvářet vizuální identitu a prezentaci, která dává smysl. Věnuji se brandingu, grafickému designu, marketingovým materiálům, obsahu pro weby a sociální sítě i návrhům interiérů.</p>
+      <p>Každý projekt vnímám jako celek. Nezajímá mě pouze výsledný vzhled — zajímá mě, jak bude design fungovat v praxi, komu bude určen a co má sdělit. Pracuji na základě pochopení klienta, jeho hodnot a cílů, kterých chce dosáhnout.</p>
+      <p>Nevěřím v řešení pro jeden okamžik. Navrhuji věci, které jsou promyšlené, funkční a obstojí v čase.</p>
+      <p>Ať už jde o firemní identitu, tiskoviny, menu kavárny nebo návrh interiéru, hledám průsečík mezi estetikou a účelem. Protože dobrý design není o tom být nejhlasitější. Je o tom předat správnou myšlenku správným způsobem.</p>
+      <p><em>Design with intent. Design that works.</em></p>
     </div>
   </section>
 
