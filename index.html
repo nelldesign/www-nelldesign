@@ -8,9 +8,9 @@
   <link rel="stylesheet" href="style.css">
   <style>
     /* ─── Hero ─── */
-    .hero 
+    .hero {
       height: 100svh;
-      min-height: 600px
+      min-height: 600px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -94,27 +94,26 @@
     }
     .claim-word {
       font-family: 'Josefin Sans', sans-serif;
-    font-size: clamp(2.55rem, 4.76vw, 3.74rem);      
+      font-size: clamp(1.5rem, 3vw, 2.8rem);
       font-weight: 300;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--gold);
-          line-height: 1;
     }
     .claim-rest {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: clamp(0.75rem, 1.4vw, 1.1rem);
+      font-size: clamp(0.9rem, 1.65vw, 1.3rem);
       font-weight: 300;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.6;
       text-align: left;
     }
     @media (max-width: 480px) {
       .hero-claim { gap: 0.6em; }
       .claim-word { font-size: clamp(0.9rem, 5vw, 1.1rem); }
-      .claim-rest { font-size: 0.5rem; }
+      .claim-rest { font-size: 0.55rem; }
     }
     .hero-scroll {
       position: absolute;
