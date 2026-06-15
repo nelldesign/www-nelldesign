@@ -89,12 +89,13 @@
       display: flex;
       gap: 5px;
       width: max-content;
-      /* duration & drift-x set by JS */
-      animation: strip-drift var(--duration, 80s) linear infinite;
+      will-change: transform;
+      /* duration & drift-x set by JS after images load */
+      animation: strip-drift var(--duration, 9999s) linear infinite;
     }
     @keyframes strip-drift {
       from { transform: translateX(0); }
-      to   { transform: translateX(var(--drift-x, -50%)); }
+      to   { transform: translateX(var(--drift-x, 0px)); }
     }
     .photo-strip-wrap:hover .photo-strip {
       animation-play-state: paused;
@@ -527,35 +528,46 @@
     document.querySelectorAll('.ig-badge').forEach(b => { b.innerHTML = igSvg; });
 
     /* ─── Strip infinite scroll ─── */
-    const SPEED = 38; /* px per second — slower = more floating */
+    const SPEED = 38; /* px per second */
+
+    function setupStrip(strip) {
+      const origHTML  = strip.innerHTML;
+      const origWidth = strip.scrollWidth;
+
+      /* Duplicate until the total is at least 2.5× viewport */
+      let total = origWidth;
+      while (total < window.innerWidth * 2.5) {
+        strip.insertAdjacentHTML('beforeend', origHTML);
+        total += origWidth;
+      }
+
+      /* Re-inject IG icons into all cloned badges */
+      strip.querySelectorAll('.ig-badge').forEach(b => { b.innerHTML = igSvg; });
+
+      /* Animate by exactly one original set width — guarantees seamless loop */
+      const duration = origWidth / SPEED;
+      strip.style.setProperty('--duration', duration + 's');
+      strip.style.setProperty('--drift-x', `-${origWidth}px`);
+    }
 
     document.querySelectorAll('.photo-strip').forEach(strip => {
-      /* Wait for images to be measurable */
-      const init = () => {
-        const origWidth = strip.scrollWidth;
-        if (origWidth < 10) return; /* not ready yet */
+      /* Collect all images in this strip */
+      const imgs = Array.from(strip.querySelectorAll('img'));
 
-        /* Duplicate items until we have > 2× viewport width */
-        const origHTML = strip.innerHTML;
-        let total = origWidth;
-        while (total < window.innerWidth * 2.5) {
-          strip.innerHTML += origHTML;
-          total += origWidth;
-        }
-
-        /* Re-inject IG icons into cloned badges */
-        strip.querySelectorAll('.ig-badge').forEach(b => { b.innerHTML = igSvg; });
-
-        /* Duration = one origWidth traversal at SPEED px/s */
-        const duration = origWidth / SPEED;
-        strip.style.setProperty('--duration', duration + 's');
-        strip.style.setProperty('--drift-x', `-${origWidth}px`);
-      };
-
-      /* Try immediately, then wait for images */
-      init();
-      if (strip.scrollWidth < 10) {
-        window.addEventListener('load', init, { once: true });
+      /* Wait for every image to fully load before measuring widths */
+      const pending = imgs.filter(img => !img.complete || img.naturalWidth === 0);
+      if (pending.length === 0) {
+        setupStrip(strip);
+      } else {
+        let loaded = 0;
+        const onLoad = () => {
+          loaded++;
+          if (loaded === pending.length) setupStrip(strip);
+        };
+        pending.forEach(img => {
+          img.addEventListener('load',  onLoad, { once: true });
+          img.addEventListener('error', onLoad, { once: true });
+        });
       }
     });
 
