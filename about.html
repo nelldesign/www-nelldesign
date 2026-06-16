@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Nell Design</title>
+  <meta name="description" content="Nezávislé kreativní studio — branding, vizuální identity, interiéry, digitální obsah.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Hero */
+    .about-hero {
+      padding: 16rem 5vw 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: end;
+    }
+    .about-hero h1 {
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      font-weight: 300;
+      line-height: .95;
+    }
+
+    /* Intro text — studio hlas (celá šíře) */
+    .about-intro {
+      padding: 6rem 5vw;
+      border-top: 1px solid var(--border);
+      max-width: 52rem;
+    }
+    .about-intro p.lead {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 1.9vw, 1.45rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .about-intro p {
+      font-size: 0.92rem;
+      line-height: 1.95;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+
+    /* Photo + personal text side by side */
+    .about-portrait {
+      padding: 6rem 5vw;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+      border-top: 1px solid var(--border);
+    }
+    .about-portrait-img img {
+      width: 100%;
+      display: block;
+    }
+    .about-personal {
+      padding-top: 1rem;
+    }
+    .about-personal p.lead {
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .about-personal p {
+      font-size: 0.92rem;
+      line-height: 1.95;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+
+    /* Content (old — keep for services label) */
+    .about-content {
+      display: none;
+    }
+
+    /* Services */
+    .services-section {
+      padding: 8rem 5vw;
+      border-top: 1px solid var(--border);
+    }
+    .services-section h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 4rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+    }
+    .service-item {
+      padding: 2.5rem 2rem;
+      border: 1px solid var(--border);
+      transition: background .35s;
+    }
+    .service-item:hover { background: var(--bg-alt); }
+    .service-num {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .service-item h3 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: .9rem;
+    }
+    .service-item p {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    /* Values */
+    .values-strip {
+      padding: 6rem 5vw;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .value-item {
+      padding: 2rem 2rem 2rem 0;
+      border-right: 1px solid var(--border);
+    }
+    .value-item:last-child { border-right: none; padding-right: 0; }
+    .value-item:not(:first-child) { padding-left: 2rem; }
+    .value-dash {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .9rem;
+    }
+    .value-item h4 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: .6rem;
+    }
+    .value-item p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Personal claim — zvýrazněný text na konci about sekce */
+    .about-personal p.about-claim {
+      font-family: var(--display);
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      line-height: 1.5;
+      margin-top: 2.5rem;
+      margin-bottom: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+
+    /* CTA */
+    .about-cta {
+      padding: 8rem 5vw;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .about-cta h2 {
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      line-height: 1.05;
+    }
+
+    @media (max-width: 768px) {
+      .about-hero { grid-template-columns: 1fr; gap: 2rem; padding: 13rem 5vw 4rem; }
+      .about-hero-img { display: none; }
+      .about-intro { padding: 4rem 5vw; }
+      .about-portrait { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 5vw; }
+      .services-grid { grid-template-columns: 1fr; }
+      .values-strip { grid-template-columns: 1fr 1fr; gap: 1px; }
+      .value-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem; }
+      .value-item:nth-child(even) { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Nell Design</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Domů</a></li>
+      <li><a href="about.html" class="active">O mně</a></li>
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <header class="about-hero">
+    <div data-reveal>
+      <span class="section-label">About</span>
+      <h1>Design<br>with<br><em>intent.</em></h1>
+    </div>
+    <div class="about-hero-img" data-reveal data-delay="2" style="display:flex;align-items:center;justify-content:flex-end;">
+      <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="deco-gold-a" x1="25%" y1="0%" x2="75%" y2="100%">
+            <stop offset="0%"   stop-color="#6b4012"/>
+            <stop offset="18%"  stop-color="#b88528"/>
+            <stop offset="40%"  stop-color="#edd060"/>
+            <stop offset="58%"  stop-color="#c49030"/>
+            <stop offset="80%"  stop-color="#9a6818"/>
+            <stop offset="100%" stop-color="#5a380e"/>
+          </linearGradient>
+          <filter id="deco-glow-a" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="url(#deco-gold-a)" stroke-width="3.2" stroke-linecap="round"/>
+        <path class="g-gleam" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="rgba(255,250,215,0.96)" stroke-width="7" stroke-linecap="round"
+              filter="url(#deco-glow-a)"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- Studio intro — celá šíře -->
+  <section class="about-intro" data-reveal>
+    <span class="section-label">Studio</span>
+    <p class="lead">Za každým projektem stojí záměr. Věřím, že design má mluvit přesně — beze slov, ale s jasným sdělením.</p>
+    <p>Jsem nezávislé kreativní studio specializující se na tvorbu vizuálních identit, branding, interiérové vedení a digitální obsah. Pracuji s klienty, kteří hledají víc než jen hezký vzhled — hledají identitu, která funguje.</p>
+    <p>Každý projekt beru jako spolupráci. Zajímám se o váš příběh, vaše hodnoty a váš svět — a z toho pak vzniká design, který je autentický, promyšlený a trvalý.</p>
+    <p>Pracuji s klienty z ČR i zahraničí — v různých fázích jejich značky, od prvního loga po kompletní rebrand nebo vybavení interiéru s vizuálním vedením.</p>
+  </section>
+
+  <!-- Fotka vlevo + osobní text vpravo -->
+  <section class="about-portrait">
+    <div class="about-portrait-img" data-reveal>
+      <img src="img/IMG_9654.jpg" alt="Nell Haak — Nell Design">
+    </div>
+    <div class="about-personal" data-reveal data-delay="2">
+      <span class="section-label">O mně</span>
+      <p class="lead">Jsem Nell Haak — grafická designérka a zakladatelka Nell Design.</p>
+      <p>Pomáhám firmám, podnikatelům i jednotlivcům vytvářet vizuální identitu a prezentaci, která dává smysl. Věnuji se brandingu, grafickému designu, marketingovým materiálům, obsahu pro weby a sociální sítě i návrhům interiérů.</p>
+      <p>Každý projekt vnímám jako celek. Nezajímá mě pouze výsledný vzhled — zajímá mě, jak bude design fungovat v praxi, komu bude určen a co má sdělit. Pracuji na základě pochopení klienta, jeho hodnot a cílů, kterých chce dosáhnout.</p>
+      <p>Nevěřím v řešení pro jeden okamžik. Navrhuji věci, které jsou promyšlené, funkční a obstojí v čase.</p>
+      <p>Ať už jde o firemní identitu, tiskoviny, menu kavárny nebo návrh interiéru, hledám průsečík mezi estetikou a účelem. Protože dobrý design není o tom být nejhlasitější. Je o tom předat správnou myšlenku správným způsobem.</p>
+      <p class="about-claim">Design with intent.<br>Design that works.</p>
+    </div>
+  </section>
+
+  <section class="services-section">
+    <h2 data-reveal>What I do</h2>
+    <div class="services-grid">
+      <div class="service-item" data-reveal>
+        <span class="service-num">01</span>
+        <h3>Brand &amp; Visual Identity</h3>
+        <p>Logotypy, vizuální systémy, brand guidelines. Identita, která se drží pohromadě napříč všemi nosiči.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="1">
+        <span class="service-num">02</span>
+        <h3>Interior Direction</h3>
+        <p>Vizuální vedení interiérových projektů — výběr materiálů, barevnost, styling a celková atmosféra prostoru.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="2">
+        <span class="service-num">03</span>
+        <h3>Content &amp; Social Media</h3>
+        <p>Tvorba vizuálního obsahu, konceptuální fotografie, grafika a editorská strategie pro sociální sítě.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="3">
+        <span class="service-num">04</span>
+        <h3>Print &amp; Presentation</h3>
+        <p>Tiskoviny, katalogy, prezentace a veškeré materiály, které reprezentují vaši značku v hmotné podobě.</p>
+      </div>
+      <div class="service-item" data-reveal>
+        <span class="service-num">05</span>
+        <h3>Web Visual Direction</h3>
+        <p>Vizuální vedení webových projektů — UI styl, typografie, barevnost a celková estetika digitální přítomnosti.</p>
+      </div>
+      <div class="service-item" data-reveal data-delay="1">
+        <span class="service-num">06</span>
+        <h3>Brand Strategy</h3>
+        <p>Definice pozice značky, tonality, hodnot a vizuálního směru — základ pro vše, co bude následovat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="values-strip">
+    <div class="value-item" data-reveal>
+      <span class="value-dash">—</span>
+      <h4>Záměr</h4>
+      <p>Každý prvek má svůj důvod. Nic není náhoda.</p>
+    </div>
+    <div class="value-item" data-reveal data-delay="1">
+      <span class="value-dash">—</span>
+      <h4>Detail</h4>
+      <p>Kvalita se skrývá v tom, co si většina lidí nevšimne.</p>
+    </div>
+    <div class="value-item" data-reveal data-delay="2">
+      <span class="value-dash">—</span>
+      <h4>Přesnost</h4>
+      <p>Správná estetika ve správný čas pro správné publikum.</p>
+    </div>
+    <div class="value-item" data-reveal data-delay="3">
+      <span class="value-dash">—</span>
+      <h4>Nadčasovost</h4>
+      <p>Design, který nepomine s každou sezónou.</p>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div data-reveal>
+      <h2>Máte projekt?</h2>
+      <a href="contact.html" class="btn">Pojďme si promluvit <span class="btn-arrow">→</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">Nell Design</span>
+    <ul class="footer-links">
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Nell Design</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
+    }));
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  </script>
+
+</body>
+</html>

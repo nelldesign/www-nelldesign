@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Nell Design</title>
+  <meta name="description" content="Kontakt — Nell Design creative studio">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-hero {
+      min-height: 100svh;
+      padding: 14rem 5vw 8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-hero h1 {
+      font-size: clamp(4rem, 11vw, 11rem);
+      font-weight: 300;
+      line-height: .9;
+      margin-bottom: 5rem;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      padding-top: 4rem;
+      border-top: 1px solid var(--border);
+    }
+    .contact-info-label {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+    .contact-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color .3s;
+    }
+    .contact-link-item:first-of-type { border-top: 1px solid var(--border); }
+    .contact-link-item:hover { color: var(--gold); }
+    .contact-link-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .contact-link-value {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 300;
+    }
+    .contact-link-arrow { font-size: 1rem; color: var(--text-muted); transition: transform .3s; }
+    .contact-link-item:hover .contact-link-arrow { transform: translateX(4px); color: var(--gold); }
+
+    .contact-details-col { padding-top: .5rem; }
+    .contact-detail {
+      margin-bottom: 2.5rem;
+    }
+    .contact-detail span {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .5rem;
+    }
+    .contact-detail p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    /* Form section */
+    .contact-form-section {
+      padding: 8rem 5vw;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: start;
+    }
+    .form-header h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+      line-height: 1.1;
+    }
+    .form-header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+
+    form { display: flex; flex-direction: column; gap: 1.75rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+    .form-field { display: flex; flex-direction: column; gap: .5rem; }
+    label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    input, textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: .75rem 0;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      width: 100%;
+      transition: border-color .3s;
+      -webkit-appearance: none;
+    }
+    input:focus, textarea:focus { border-color: var(--gold); }
+    input::placeholder, textarea::placeholder {
+      color: var(--border);
+      font-style: italic;
+    }
+    textarea { resize: none; height: 110px; }
+    .btn-submit {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: .9rem 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      transition: border-color .35s, color .35s, gap .35s;
+      margin-top: .25rem;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { border-color: var(--gold); color: var(--gold); gap: 1.25rem; }
+
+    @media (max-width: 768px) {
+      .contact-hero h1 { margin-bottom: 3rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-form-section { grid-template-columns: 1fr; gap: 3.5rem; }
+      .form-row { grid-template-columns: 1fr; gap: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Nell Design</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Domů</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="contact.html" class="active">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <section class="contact-hero">
+    <div class="deco-g-abs" aria-hidden="true">
+      <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="deco-gold-c" x1="25%" y1="0%" x2="75%" y2="100%">
+            <stop offset="0%"   stop-color="#6b4012"/>
+            <stop offset="18%"  stop-color="#b88528"/>
+            <stop offset="40%"  stop-color="#edd060"/>
+            <stop offset="58%"  stop-color="#c49030"/>
+            <stop offset="80%"  stop-color="#9a6818"/>
+            <stop offset="100%" stop-color="#5a380e"/>
+          </linearGradient>
+          <filter id="deco-glow-c" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="url(#deco-gold-c)" stroke-width="3.2" stroke-linecap="round"/>
+        <path class="g-gleam" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="rgba(255,250,215,0.96)" stroke-width="7" stroke-linecap="round"
+              filter="url(#deco-glow-c)"/>
+      </svg>
+    </div>
+    <div data-reveal>
+      <h1>Say<br><em>hello.</em></h1>
+    </div>
+    <div class="contact-grid" data-reveal data-delay="1">
+      <div>
+        <p class="contact-info-label">Ráda se potkám s vaším projektem.</p>
+        <a href="mailto:hello@nelldesign.cz" class="contact-link-item">
+          <div>
+            <p class="contact-link-label">Email</p>
+            <p class="contact-link-value">hello@nelldesign.cz</p>
+          </div>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.instagram.com/nell_design_twwi/" class="contact-link-item" target="_blank" rel="noopener">
+          <div>
+            <p class="contact-link-label">Instagram</p>
+            <p class="contact-link-value">@nell.design</p>
+          </div>
+          <span class="contact-link-arrow">→</span>
+        </a>
+      </div>
+      <div class="contact-details-col">
+        <div class="contact-detail">
+          <span>Location</span>
+          <p>Česká republika</p>
+        </div>
+        <div class="contact-detail">
+          <span>Working with</span>
+          <p>Klienty v ČR i zahraničí<br>Remote &amp; in-person</p>
+        </div>
+        <div class="contact-detail">
+          <span>Response time</span>
+          <p>Do 48 hodin</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-form-section">
+    <div class="form-header" data-reveal>
+      <span class="section-label">Send a message</span>
+      <h2>Tell me about<br><em>your project</em></h2>
+      <p style="margin-top: 1rem;">Nebo mi napište přímo na email či Instagram — jsem dostupná na výše uvedených kontaktech.</p>
+    </div>
+    <form data-reveal data-delay="1" onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Jméno</label>
+          <input id="name" type="text" placeholder="Vaše jméno" autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="vas@email.cz" autocomplete="email">
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="subject">O čem je projekt</label>
+        <input id="subject" type="text" placeholder="Branding, interiér, social media…">
+      </div>
+      <div class="form-field">
+        <label for="message">Zpráva</label>
+        <textarea id="message" placeholder="Řekněte mi víc…"></textarea>
+      </div>
+      <button type="submit" class="btn-submit">
+        Odeslat <span>→</span>
+      </button>
+    </form>
+  </section>
+
+  <footer>
+    <span class="footer-logo">Nell Design</span>
+    <ul class="footer-links">
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 Nell Design</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
+    }));
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  </script>
+
+</body>
+</html>
