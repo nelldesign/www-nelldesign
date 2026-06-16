@@ -13,6 +13,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
     .contact-hero h1 {
       font-size: clamp(4rem, 11vw, 11rem);
@@ -173,6 +175,29 @@
   </nav>
 
   <section class="contact-hero">
+    <div class="deco-g-abs" aria-hidden="true">
+      <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="deco-gold-c" x1="25%" y1="0%" x2="75%" y2="100%">
+            <stop offset="0%"   stop-color="#6b4012"/>
+            <stop offset="18%"  stop-color="#b88528"/>
+            <stop offset="40%"  stop-color="#edd060"/>
+            <stop offset="58%"  stop-color="#c49030"/>
+            <stop offset="80%"  stop-color="#9a6818"/>
+            <stop offset="100%" stop-color="#5a380e"/>
+          </linearGradient>
+          <filter id="deco-glow-c" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="url(#deco-gold-c)" stroke-width="3.2" stroke-linecap="round"/>
+        <path class="g-gleam" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="rgba(255,250,215,0.96)" stroke-width="7" stroke-linecap="round"
+              filter="url(#deco-glow-c)"/>
+      </svg>
+    </div>
     <div data-reveal>
       <h1>Say<br><em>hello.</em></h1>
     </div>

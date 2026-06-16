@@ -215,7 +215,29 @@
       <span class="section-label">About</span>
       <h1>Design<br>with<br><em>intent.</em></h1>
     </div>
-    <div class="about-hero-img" data-reveal data-delay="2"></div>
+    <div class="about-hero-img" data-reveal data-delay="2" style="display:flex;align-items:center;justify-content:flex-end;">
+      <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="deco-gold-a" x1="25%" y1="0%" x2="75%" y2="100%">
+            <stop offset="0%"   stop-color="#6b4012"/>
+            <stop offset="18%"  stop-color="#b88528"/>
+            <stop offset="40%"  stop-color="#edd060"/>
+            <stop offset="58%"  stop-color="#c49030"/>
+            <stop offset="80%"  stop-color="#9a6818"/>
+            <stop offset="100%" stop-color="#5a380e"/>
+          </linearGradient>
+          <filter id="deco-glow-a" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="url(#deco-gold-a)" stroke-width="3.2" stroke-linecap="round"/>
+        <path class="g-gleam" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="rgba(255,250,215,0.96)" stroke-width="7" stroke-linecap="round"
+              filter="url(#deco-glow-a)"/>
+      </svg>
+    </div>
   </header>
 
   <!-- Studio intro — celá šíře -->
@@ -230,7 +252,7 @@
   <!-- Fotka vlevo + osobní text vpravo -->
   <section class="about-portrait">
     <div class="about-portrait-img" data-reveal>
-      <img src="img/web/IMG_9650.jpg" alt="Nell Haak — Nell Design">
+      <img src="img/IMG_9654.jpg" alt="Nell Haak — Nell Design">
     </div>
     <div class="about-personal" data-reveal data-delay="2">
       <span class="section-label">O mně</span>
