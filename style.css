@@ -288,18 +288,17 @@ footer {
   pointer-events: none;
   z-index: 0;
 }
-.g-gleam {
-  stroke-dasharray: 8 682;
-  stroke-dashoffset: 505;
+.g-star {
   opacity: 0;
-  animation: rolex-gleam 11s ease-in-out infinite 1.8s;
+  transform-origin: 0 0;
+  animation: g-star-flash 9s ease-in-out infinite 2.5s;
 }
-@keyframes rolex-gleam {
-  0%    { stroke-dashoffset: 505; opacity: 0; }
-  3%    { opacity: 0.9; }
-  27%   { stroke-dashoffset: -8;  opacity: 0; }
-  28%   { stroke-dashoffset: 505; opacity: 0; }
-  100%  { stroke-dashoffset: 505; opacity: 0; }
+@keyframes g-star-flash {
+  0%   { opacity: 0; transform: scale(0); }
+  3%   { opacity: 1; transform: scale(1.15); }
+  6%   { opacity: 0.7; transform: scale(0.9); }
+  10%  { opacity: 0; transform: scale(0); }
+  100% { opacity: 0; transform: scale(0); }
 }
 @media (max-width: 768px) {
   .deco-g {

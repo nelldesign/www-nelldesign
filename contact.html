@@ -16,6 +16,13 @@
       position: relative;
       overflow: hidden;
     }
+    .contact-hero .deco-g-abs {
+      top: 5rem;
+      transform: none;
+    }
+    .contact-hero .deco-g {
+      width: min(18vw, 200px);
+    }
     .contact-hero h1 {
       font-size: clamp(4rem, 11vw, 11rem);
       font-weight: 300;
@@ -193,9 +200,12 @@
         </defs>
         <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
               fill="none" stroke="url(#deco-gold-c)" stroke-width="3.2" stroke-linecap="round"/>
-        <path class="g-gleam" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
-              fill="none" stroke="rgba(255,250,215,0.96)" stroke-width="7" stroke-linecap="round"
-              filter="url(#deco-glow-c)"/>
+        <g class="g-star" transform="translate(157, 43)" filter="url(#deco-glow-c)">
+          <line x1="0" y1="-13" x2="0" y2="13" stroke="rgba(255,245,200,0.95)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="-13" y1="0" x2="13" y2="0" stroke="rgba(255,245,200,0.6)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="-8" y1="-8" x2="8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+          <line x1="8" y1="-8" x2="-8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+        </g>
       </svg>
     </div>
     <div data-reveal>
@@ -204,10 +214,10 @@
     <div class="contact-grid" data-reveal data-delay="1">
       <div>
         <p class="contact-info-label">Ráda se potkám s vaším projektem.</p>
-        <a href="mailto:hello@nelldesign.cz" class="contact-link-item">
+        <a href="mailto:nellhaak.f@gmail.com" class="contact-link-item">
           <div>
             <p class="contact-link-label">Email</p>
-            <p class="contact-link-value">hello@nelldesign.cz</p>
+            <p class="contact-link-value">nellhaak.f@gmail.com</p>
           </div>
           <span class="contact-link-arrow">→</span>
         </a>
@@ -240,26 +250,31 @@
     <div class="form-header" data-reveal>
       <span class="section-label">Send a message</span>
       <h2>Tell me about<br><em>your project</em></h2>
-      <p style="margin-top: 1rem;">Nebo mi napište přímo na email či Instagram — jsem dostupná na výše uvedených kontaktech.</p>
+      <p style="margin-top: 1rem;">Napište mi přímo zde — ozvu se do 48 hodin.</p>
     </div>
-    <form data-reveal data-delay="1" onsubmit="return false;">
+    <form data-reveal data-delay="1"
+          action="https://formsubmit.co/nellhaak.f@gmail.com"
+          method="POST">
+      <input type="hidden" name="_subject" value="Nová zpráva z Nell Design webu">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://www-nelldesign.pages.dev/contact.html?sent=1">
       <div class="form-row">
         <div class="form-field">
           <label for="name">Jméno</label>
-          <input id="name" type="text" placeholder="Vaše jméno" autocomplete="name">
+          <input id="name" name="name" type="text" placeholder="Vaše jméno" autocomplete="name" required>
         </div>
         <div class="form-field">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="vas@email.cz" autocomplete="email">
+          <label for="email">Váš email</label>
+          <input id="email" name="email" type="email" placeholder="vas@email.cz" autocomplete="email" required>
         </div>
       </div>
       <div class="form-field">
         <label for="subject">O čem je projekt</label>
-        <input id="subject" type="text" placeholder="Branding, interiér, social media…">
+        <input id="subject" name="subject" type="text" placeholder="Branding, interiér, social media…">
       </div>
       <div class="form-field">
         <label for="message">Zpráva</label>
-        <textarea id="message" placeholder="Řekněte mi víc…"></textarea>
+        <textarea id="message" name="message" placeholder="Řekněte mi víc…" style="height:160px;" required></textarea>
       </div>
       <button type="submit" class="btn-submit">
         Odeslat <span>→</span>

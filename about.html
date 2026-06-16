@@ -233,9 +233,12 @@
         </defs>
         <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
               fill="none" stroke="url(#deco-gold-a)" stroke-width="3.2" stroke-linecap="round"/>
-        <path class="g-gleam" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
-              fill="none" stroke="rgba(255,250,215,0.96)" stroke-width="7" stroke-linecap="round"
-              filter="url(#deco-glow-a)"/>
+        <g class="g-star" transform="translate(157, 43)" filter="url(#deco-glow-a)">
+          <line x1="0" y1="-13" x2="0" y2="13" stroke="rgba(255,245,200,0.95)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="-13" y1="0" x2="13" y2="0" stroke="rgba(255,245,200,0.6)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="-8" y1="-8" x2="8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+          <line x1="8" y1="-8" x2="-8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+        </g>
       </svg>
     </div>
   </header>
