@@ -289,20 +289,29 @@ footer {
   z-index: 0;
 }
 .g-gleam {
-  stroke-dasharray: 70 620;
+  stroke-dasharray: 8 682;
   stroke-dashoffset: 505;
   opacity: 0;
   animation: rolex-gleam 11s ease-in-out infinite 1.8s;
 }
 @keyframes rolex-gleam {
   0%    { stroke-dashoffset: 505; opacity: 0; }
-  3%    { opacity: 1; }
-  27%   { stroke-dashoffset: -70; opacity: 0; }
+  3%    { opacity: 0.9; }
+  27%   { stroke-dashoffset: -8;  opacity: 0; }
   28%   { stroke-dashoffset: 505; opacity: 0; }
   100%  { stroke-dashoffset: 505; opacity: 0; }
 }
 @media (max-width: 768px) {
-  .deco-g { display: none; }
+  .deco-g {
+    width: min(42vw, 180px);
+    opacity: 0.55;
+  }
+  .deco-g-abs {
+    right: 2vw;
+    top: auto;
+    bottom: 3rem;
+    transform: none;
+  }
 }
 
 /* ─── Responsive ─── */
