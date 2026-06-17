@@ -311,15 +311,13 @@ footer {
 }
 .g-star {
   opacity: 0;
-  transform-origin: 0 0;
   animation: g-star-flash 9s ease-in-out infinite 2.5s;
 }
 @keyframes g-star-flash {
-  0%   { opacity: 0; transform: scale(0); }
-  3%   { opacity: 1; transform: scale(1.15); }
-  6%   { opacity: 0.7; transform: scale(0.9); }
-  10%  { opacity: 0; transform: scale(0); }
-  100% { opacity: 0; transform: scale(0); }
+  0%   { opacity: 0; }
+  3%   { opacity: 1; }
+  7%   { opacity: 0; }
+  100% { opacity: 0; }
 }
 @media (max-width: 768px) {
   .deco-g {
