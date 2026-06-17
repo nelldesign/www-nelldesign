@@ -240,6 +240,10 @@
     }
 
     @media (max-width: 768px) {
+      .hero-title {
+        font-size: clamp(1.6rem, 7vw, 2.8rem);
+        letter-spacing: 0.18em;
+      }
       .work-preview-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .project-card.featured { grid-column: auto; }

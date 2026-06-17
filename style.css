@@ -2,8 +2,29 @@
    NELL DESIGN — Global Stylesheet
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Josefin+Sans:wght@100;200;300;400;600;700&display=swap');
-@import url('https://api.fontshare.com/v2/css?f[]=glacial-indifference@400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: url('glacial-indifference/GlacialIndifference-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: url('glacial-indifference/GlacialIndifference-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: url('glacial-indifference/GlacialIndifference-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ─── Tokens ─── */
 :root {
@@ -15,7 +36,7 @@
   --gold:       #b8975a;
   --serif:   'Cormorant Garamond', Georgia, serif;
   --sans:    'Inter', system-ui, -apple-system, sans-serif;
-  --display: 'Glacial Indifference', 'Inter', sans-serif;
+  --display: 'Glacial Indifference', sans-serif;
   --ease:    cubic-bezier(0.16, 1, 0.3, 1);
 }
 
