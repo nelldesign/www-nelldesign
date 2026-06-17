@@ -16,6 +16,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
       padding: 0 5vw;
       position: relative;
     }
@@ -244,6 +245,16 @@
         font-size: clamp(2.4rem, 10vw, 3.5rem);
         letter-spacing: 0.1em;
       }
+      .hero-deco-g {
+        display: block;
+        position: absolute;
+        top: 4.5rem;
+        right: 4vw;
+        width: 38vw;
+        max-width: 160px;
+        opacity: 0.7;
+        pointer-events: none;
+      }
       .work-preview-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .project-card.featured { grid-column: auto; }
@@ -276,6 +287,30 @@
 
   <!-- Hero -->
   <section class="hero">
+    <svg class="hero-deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="deco-gold-h" x1="25%" y1="0%" x2="75%" y2="100%">
+          <stop offset="0%"   stop-color="#6b4012"/>
+          <stop offset="18%"  stop-color="#b88528"/>
+          <stop offset="40%"  stop-color="#edd060"/>
+          <stop offset="58%"  stop-color="#c49030"/>
+          <stop offset="80%"  stop-color="#9a6818"/>
+          <stop offset="100%" stop-color="#5a380e"/>
+        </linearGradient>
+        <filter id="deco-glow-h" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="4.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+            fill="none" stroke="url(#deco-gold-h)" stroke-width="3.2" stroke-linecap="round"/>
+      <g class="g-star" transform="translate(157, 43)" filter="url(#deco-glow-h)">
+        <line x1="0" y1="-13" x2="0" y2="13" stroke="rgba(255,245,200,0.95)" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="-13" y1="0" x2="13" y2="0" stroke="rgba(255,245,200,0.6)" stroke-width="0.7" stroke-linecap="round"/>
+        <line x1="-8" y1="-8" x2="8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+        <line x1="8" y1="-8" x2="-8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+      </g>
+    </svg>
     <span class="hero-eyebrow">Creative studio &amp; brand direction</span>
     <h1 class="hero-title"><span class="glint-n">N</span>ell Desi<span class="glint-g">g</span>n</h1>
     <p class="hero-claim">
