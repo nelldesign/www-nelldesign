@@ -160,15 +160,56 @@
     }
     tr:hover td { background: var(--bg-alt); }
     td:first-child { font-weight: 400; }
-    td.dest-prace { color: var(--gold); }
-    td.dest-galerie { color: #7a9e7a; }
-    td.dest-skip { color: var(--text-muted); font-style: italic; }
     .thumb-mini {
       width: 48px;
       height: 36px;
       object-fit: cover;
       border: 1px solid var(--border);
     }
+    .dest-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.6rem;
+      outline: none;
+      cursor: pointer;
+      transition: border-color .3s, color .3s;
+      font-family: var(--sans);
+    }
+    .dest-select:focus { border-color: var(--gold); }
+    .dest-select.val-prace { border-color: var(--gold); color: var(--gold); }
+    .dest-select.val-galerie { border-color: #7a9e7a; color: #7a9e7a; }
+    .dest-select.val-nikam { border-color: var(--border); color: var(--text-muted); }
+    .web-text {
+      font-size: 0.72rem;
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 280px;
+    }
+    .export-bar {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .export-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.25rem;
+      cursor: pointer;
+      transition: border-color .3s, color .3s;
+    }
+    .export-btn:hover { border-color: var(--gold); color: var(--gold); }
 
     @media (max-width: 768px) {
       .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
@@ -512,15 +553,16 @@
 
   <!-- ═══ PÁROVACÍ TABULKA ═══ -->
   <section class="table-section">
-    <h2>Párovací tabulka — navrhované rozřazení</h2>
-    <table>
+    <h2>Párovací tabulka — nastav umístění</h2>
+    <table id="pairing-table">
       <thead>
         <tr>
           <th>Náhled</th>
           <th>Projekt</th>
           <th>Typ</th>
-          <th>Navrhované místo</th>
+          <th>Umístění</th>
           <th>Poznámka</th>
+          <th>Text na web</th>
         </tr>
       </thead>
       <tbody>
@@ -528,109 +570,188 @@
           <td><img class="thumb-mini" src="https://design.canva.ai/VWIWUWj4CxuPmWS" alt=""></td>
           <td>FENIX JERKY — brand + etikety + IG</td>
           <td>Branding / packaging</td>
-          <td class="dest-prace">Práce</td>
+          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
+            <option value="prace" selected>Práce</option>
+            <option value="galerie">Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Velký klientský projekt, dobrý jako case study</td>
+          <td><p class="web-text">Branding od základů. Identita pro českou značku sušeného masa — od loga přes etikety až po social media obsah.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/LBhJDm1pT9u9uZR" alt=""></td>
           <td>Café Mattoni — CZ / EN / DE menu + stojan</td>
           <td>Menu design / branding</td>
-          <td class="dest-prace">Práce</td>
+          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
+            <option value="prace" selected>Práce</option>
+            <option value="galerie">Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Vícejazyčný projekt, ukazuje šíři práce</td>
+          <td><p class="web-text">Trojjazyčné menu pro café v srdci Česka. Typografie, vizuální hierarchie a konzistentní jazyk — ve třech verzích.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/VUlfbDew11RNS0D" alt=""></td>
           <td>QUEEN'S MENU</td>
           <td>Menu design</td>
-          <td class="dest-prace">Práce</td>
+          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
+            <option value="prace" selected>Práce</option>
+            <option value="galerie">Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Možná spojit s Café Mattoni jako "menu projekty"</td>
+          <td><p class="web-text">Restaurační menu s charakterem. Čisté linie, záměrná typografie, zlaté detaily tam, kde záleží.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/jTvIgd5TrXGRlYZ" alt=""></td>
           <td>TMF čaje</td>
           <td>Brand / packaging</td>
-          <td class="dest-prace">Práce</td>
+          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
+            <option value="prace" selected>Práce</option>
+            <option value="galerie">Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Vizuálně silný, vhodný na titulní ukázku</td>
+          <td><p class="web-text">Packaging pro čajovou značku. Jemná rovnováha mezi přírodním původem a moderním designovým jazykem.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/c3JTVo6oGEwwEJ2" alt=""></td>
           <td>Riva del Garda — manuál</td>
           <td>Brand manual</td>
-          <td class="dest-prace">Práce</td>
+          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
+            <option value="prace" selected>Práce</option>
+            <option value="galerie">Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Mezinárodní projekt — dobrý signál pro klienty</td>
+          <td><p class="web-text">Brand manuál pro italský projekt u jezera Garda. Vizuální identita připravená pro mezinárodní publikum.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/_TSVteRsEyihAAv" alt=""></td>
           <td>Prima Vizus Medical</td>
           <td>Prezentace</td>
-          <td class="dest-prace">Práce</td>
+          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
+            <option value="prace" selected>Práce</option>
+            <option value="galerie">Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Ukazuje přesah do B2B sféry</td>
+          <td><p class="web-text">Korporátní prezentace pro zdravotnickou firmu. Přehlednost a důvěryhodnost jako základ vizuální komunikace.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/PgorFxbdtXhOCCl" alt=""></td>
           <td>WEDDING NEWSPAPER</td>
           <td>Tisková grafika</td>
-          <td class="dest-galerie">Galerie</td>
-          <td>Krásný vizuál, ale spíš galerie než case study</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
+          <td>Krásný vizuál, spíš galerie než case study</td>
+          <td><p class="web-text">Tisková grafika ve stylu novin. Každý detail jako záhyb bílého papíru — jemný, záměrný, nezapomenutelný.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/dn21j5kV2vzRcyb" alt=""></td>
           <td>Charlotte &amp; Alex / Kristýna &amp; Filip</td>
           <td>Svatební grafika</td>
-          <td class="dest-galerie">Galerie</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Série — sloučit jako "Wedding collection"</td>
+          <td><p class="web-text">Svatební grafika na míru. Každý pár má svůj příběh — design by ho měl vyprávět bez slov.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/OhxQork0uRQzrmb" alt=""></td>
           <td>KVIFF</td>
           <td>Festivalová grafika</td>
-          <td class="dest-galerie">Galerie</td>
-          <td>Kultovní festival — silný na do portfolia</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
+          <td>Kultovní festival — silný do portfolia</td>
+          <td><p class="web-text">Grafická práce inspirovaná jedním z nejvýznamnějších filmových festivalů v regionu. Ikona, která mluví.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/oWC8jgZanHacF6k" alt=""></td>
           <td>Graphic</td>
           <td>Grafické experimenty</td>
-          <td class="dest-galerie">Galerie</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Vizuální rozmanitost — dobré doplnění galerie</td>
+          <td><p class="web-text">Grafické experimenty bez zadání. Místo, kde design mluví sám za sebe a pravidla jsou jen výchozí bod.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/4QywGqBazSTi-DO" alt=""></td>
           <td>Vizitka Marilyn</td>
           <td>Tisková grafika</td>
-          <td class="dest-galerie">Galerie</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Drobná práce, ale vizuálně hezká</td>
+          <td><p class="web-text">Vizitka jako první dojem. Malý formát, jasný statement — identita, která se vejde do dlaně.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/ls6d5f_okx5GYNT" alt=""></td>
           <td>BYT PAŠAVOVI</td>
           <td>Interiér / prezentace</td>
-          <td class="dest-galerie">Galerie</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Pokud chceš ukázat i interiérové práce</td>
+          <td><p class="web-text">Interiérová prezentace bytu. Prostor zachycený tak, jak ho cítíte — ne jen jak vypadá na fotografii.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/FhAwSMSpQQcfW1w" alt=""></td>
           <td>Apartment Guide Estepona</td>
           <td>Editorial / interiér</td>
-          <td class="dest-galerie">Galerie</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Mezinárodní práce — hezký kontext</td>
+          <td><p class="web-text">Průvodce apartmánem na španělském pobřeží. Editorial design pro second-home living — jemný, vzdušný, přesný.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/zELQ5LJ9Dez7spY" alt=""></td>
           <td>Kalendář 2026</td>
           <td>Tisk / print design</td>
-          <td class="dest-galerie">Galerie</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Ukazuje print kompetence</td>
+          <td><p class="web-text">Tiskový design, který visí na zdi celý rok. Dvanáct listů, dvanáct příležitostí říct něco vizuálně.</p></td>
         </tr>
         <tr>
           <td><img class="thumb-mini" src="https://design.canva.ai/glqt1xI32MvpiPf" alt=""></td>
           <td>Letbalonem</td>
           <td>Plakát / event</td>
-          <td class="dest-galerie">Galerie</td>
+          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
+            <option value="prace">Práce</option>
+            <option value="galerie" selected>Galerie</option>
+            <option value="nikam">Nikam</option>
+          </select></td>
           <td>Příjemný vizuál</td>
+          <td><p class="web-text">Event grafika pro zážitek, který začíná ještě před startem. Plakát jako pozvání i příslib.</p></td>
         </tr>
       </tbody>
     </table>
+    <div class="export-bar">
+      <button class="export-btn" onclick="exportSummary()">Zobrazit výběr</button>
+    </div>
+    <pre id="export-output" style="display:none; margin-top:1.5rem; padding:1.25rem; border:1px solid var(--border); font-size:0.72rem; color:var(--text-muted); white-space:pre-wrap; line-height:1.8;"></pre>
   </section>
 
   <footer>
@@ -648,6 +769,35 @@
       toggle.classList.toggle('open', open);
       document.body.style.overflow = open ? 'hidden' : '';
     });
+
+    function updateSelect(sel) {
+      sel.className = 'dest-select val-' + sel.value;
+    }
+
+    function exportSummary() {
+      const rows = document.querySelectorAll('#pairing-table tbody tr');
+      const prace = [], galerie = [], nikam = [];
+      rows.forEach(row => {
+        const name = row.cells[1].textContent.trim();
+        const val  = row.querySelector('select').value;
+        const text = row.querySelector('.web-text').textContent.trim();
+        if (val === 'prace')   prace.push({ name, text });
+        if (val === 'galerie') galerie.push({ name, text });
+        if (val === 'nikam')   nikam.push({ name, text });
+      });
+      let out = '── PRÁCE ──────────────────────────────\n';
+      prace.forEach(p => out += `\n▸ ${p.name}\n  ${p.text}\n`);
+      out += '\n── GALERIE ─────────────────────────────\n';
+      galerie.forEach(p => out += `\n▸ ${p.name}\n  ${p.text}\n`);
+      if (nikam.length) {
+        out += '\n── NIKAM ───────────────────────────────\n';
+        nikam.forEach(p => out += `\n▸ ${p.name}\n`);
+      }
+      const el = document.getElementById('export-output');
+      el.textContent = out;
+      el.style.display = 'block';
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   </script>
 </body>
 </html>
