@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canva Projects — Párovací přehled</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { padding-top: 6rem; }
+    .page-header {
+      padding: 2rem 5vw 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header h1 {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 4vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .section {
+      padding: 4rem 5vw;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .section-header h2 {
+      font-family: var(--display);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .section-header .count {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+    }
+    .section-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color .3s;
+      cursor: pointer;
+    }
+    .project-card:hover { border-color: var(--gold); }
+    .project-card a {
+      display: block;
+      text-decoration: none;
+    }
+    .thumb-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .thumb-wrap.portrait { aspect-ratio: 3/4; }
+    .thumb-wrap.story { aspect-ratio: 9/16; max-height: 200px; aspect-ratio: unset; height: 200px; }
+    .thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+    .project-card:hover .thumb-wrap img { transform: scale(1.04); }
+    .card-info {
+      padding: 0.9rem 1rem;
+    }
+    .card-title {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      line-height: 1.4;
+    }
+    .card-meta {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border: 1px solid;
+      margin-top: 0.4rem;
+    }
+    .badge-prace { border-color: var(--gold); color: var(--gold); }
+    .badge-galerie { border-color: #7a9e7a; color: #7a9e7a; }
+    .badge-skip { border-color: var(--border); color: var(--text-muted); }
+
+    /* Pairing table */
+    .table-section {
+      padding: 4rem 5vw;
+    }
+    .table-section h2 {
+      font-family: var(--display);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+    }
+    th {
+      text-align: left;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+    tr:hover td { background: var(--bg-alt); }
+    td:first-child { font-weight: 400; }
+    td.dest-prace { color: var(--gold); }
+    td.dest-galerie { color: #7a9e7a; }
+    td.dest-skip { color: var(--text-muted); font-style: italic; }
+    .thumb-mini {
+      width: 48px;
+      height: 36px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      table { font-size: 0.68rem; }
+      th, td { padding: 0.5rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">Nell Design</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Domů</a></li>
+      <li><a href="about.html">O mně</a></li>
+      <li><a href="work.html">Práce</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+  </nav>
+
+  <div class="page-header">
+    <h1>Canva Projects</h1>
+    <p>Párovací přehled · návrhy pro Práce a Galerie · interní stránka</p>
+  </div>
+
+  <!-- ═══ SEKCE: PRÁCE (klientské projekty) ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <h2>→ Práce</h2>
+      <span class="count">navrhované klientské projekty</span>
+    </div>
+    <p class="section-desc">Ucelené klientské projekty — branding, menu, manuály. Patří do záložky Práce jako case studies.</p>
+    <div class="projects-grid">
+
+      <!-- FENIX JERKY -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/U-P-StOS8Kkxbg0" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/VWIWUWj4CxuPmWS" alt="FENIX JERKY">
+          </div>
+          <div class="card-info">
+            <p class="card-title">FENIX JERKY — brand</p>
+            <p class="card-meta">34 stran · packaging + identity</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <a href="https://www.canva.com/d/edHuDjOE2J-P0s-" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/JlEFpeWw9DT6Wn7" alt="Etikety FENIX">
+          </div>
+          <div class="card-info">
+            <p class="card-title">FENIX JERKY — etikety</p>
+            <p class="card-meta">23 stran · 9×6 cm labels</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <a href="https://www.canva.com/d/kCqMb-pkmEU2-qA" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/of0AVvxVPXq-A5D" alt="Fenix Instagram">
+          </div>
+          <div class="card-info">
+            <p class="card-title">FENIX JERKY — Instagram</p>
+            <p class="card-meta">social media · feed</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- CAFÉ MATTONI -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/_GJfAkR7uzntaGR" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/LBhJDm1pT9u9uZR" alt="CZ Menu Café Mattoni">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Café Mattoni — CZ menu</p>
+            <p class="card-meta">13 stran · menu design</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <a href="https://www.canva.com/d/WZ3lj8vAAxL4F0E" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/LWaV5hOtN0JWh-2" alt="EN Menu Café Mattoni">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Café Mattoni — EN menu</p>
+            <p class="card-meta">12 stran · menu design</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <a href="https://www.canva.com/d/vjgoslGObtULSR_" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/HRf2SVczYkwkEbG" alt="DE Menu Café Mattoni">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Café Mattoni — DE menu</p>
+            <p class="card-meta">12 stran · menu design</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- QUEEN'S MENU -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/oAaRbcrN1Z41voI" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/VUlfbDew11RNS0D" alt="Queen's Menu">
+          </div>
+          <div class="card-info">
+            <p class="card-title">QUEEN'S MENU</p>
+            <p class="card-meta">2 strany · restaurant menu</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- TMF ČAJE -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/Ld8aUKZGdfgnLX6" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/jTvIgd5TrXGRlYZ" alt="TMF čaje">
+          </div>
+          <div class="card-info">
+            <p class="card-title">TMF čaje</p>
+            <p class="card-meta">11 stran · brand / packaging</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- RIVA DEL GARDA MANUÁL -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/saazR5koMQB0-hN" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/c3JTVo6oGEwwEJ2" alt="Riva del Garda Manual">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Riva del Garda — manuál</p>
+            <p class="card-meta">9 stran · brand manual</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- PRIMA VIZUS MEDICAL -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/_q70zoN-4r2-ZIc" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/_TSVteRsEyihAAv" alt="Prima Vizus Medical">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Prima Vizus Medical</p>
+            <p class="card-meta">3 strany · prezentace</p>
+            <span class="badge badge-prace">Práce</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ SEKCE: GALERIE (vizuální / tiskové práce) ═══ -->
+  <section class="section">
+    <div class="section-header">
+      <h2>→ Galerie</h2>
+      <span class="count">vizuální + tiskové práce</span>
+    </div>
+    <p class="section-desc">Vizuálně silné kousky — svatební grafika, plakáty, interiér, social content. Patří do Galerie jako inspirační přehlídka.</p>
+    <div class="projects-grid">
+
+      <!-- WEDDING NEWSPAPER -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/cdjQPh5Gp-c6Ci4" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/PgorFxbdtXhOCCl" alt="Wedding Newspaper">
+          </div>
+          <div class="card-info">
+            <p class="card-title">WEDDING NEWSPAPER</p>
+            <p class="card-meta">9 stran · tisková grafika</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Charlotte Alex -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/Dxho_BbSJvKg4-R" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/dn21j5kV2vzRcyb" alt="Charlotte Alex">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Charlotte &amp; Alex</p>
+            <p class="card-meta">2 strany · svatební</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Kristyna & Filip -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/xaGNVetFFgKjODB" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/OgJbBcBE4Hk0MBo" alt="Kristyna Filip">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Kristýna &amp; Filip</p>
+            <p class="card-meta">4 strany · svatební</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- wedding jmenovky -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/BOrFD2q_pzJRmgW" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/6VuB5kMPHq09-Wq" alt="wedding jmenovky">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Wedding jmenovky</p>
+            <p class="card-meta">8 stran · tisková grafika</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- KVIFF -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/LUZc5DOnMf3MiSP" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/OhxQork0uRQzrmb" alt="KVIFF">
+          </div>
+          <div class="card-info">
+            <p class="card-title">KVIFF</p>
+            <p class="card-meta">festivalová grafika</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- graphic -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/6ONiYdGZt9-iyff" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/oWC8jgZanHacF6k" alt="graphic">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Graphic</p>
+            <p class="card-meta">10 stran · grafické experimenty</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- vizitka MARILYN -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/c0GJ_Uw5-yeg8gw" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/4QywGqBazSTi-DO" alt="vizitka Marilyn">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Vizitka — Marilyn</p>
+            <p class="card-meta">6 stran · business card</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- BYT PAŠAVOVI -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/Lf-4CPL6seo_6KP" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/ls6d5f_okx5GYNT" alt="BYT PAŠAVOVI">
+          </div>
+          <div class="card-info">
+            <p class="card-title">BYT PAŠAVOVI</p>
+            <p class="card-meta">interiér · prezentace</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- APARTMENT GUIDE Estepona -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/l8Y6Fs0OSce3XUG" target="_blank" rel="noopener">
+          <div class="thumb-wrap portrait">
+            <img src="https://design.canva.ai/FhAwSMSpQQcfW1w" alt="Apartment Guide Estepona">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Apartment Guide Estepona</p>
+            <p class="card-meta">5 stran · editorial / interiér</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- letbalonem -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/9w8C7GyE83r6Mve" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/glqt1xI32MvpiPf" alt="letbalonem">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Letbalonem</p>
+            <p class="card-meta">plakát / event</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Kalendář 2026 -->
+      <div class="project-card">
+        <a href="https://www.canva.com/d/FN24rak56gx5EtO" target="_blank" rel="noopener">
+          <div class="thumb-wrap">
+            <img src="https://design.canva.ai/zELQ5LJ9Dez7spY" alt="Kalendář 2026">
+          </div>
+          <div class="card-info">
+            <p class="card-title">Kalendář 2026</p>
+            <p class="card-meta">25 stran · tisk / design</p>
+            <span class="badge badge-galerie">Galerie</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ PÁROVACÍ TABULKA ═══ -->
+  <section class="table-section">
+    <h2>Párovací tabulka — navrhované rozřazení</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Náhled</th>
+          <th>Projekt</th>
+          <th>Typ</th>
+          <th>Navrhované místo</th>
+          <th>Poznámka</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/VWIWUWj4CxuPmWS" alt=""></td>
+          <td>FENIX JERKY — brand + etikety + IG</td>
+          <td>Branding / packaging</td>
+          <td class="dest-prace">Práce</td>
+          <td>Velký klientský projekt, dobrý jako case study</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/LBhJDm1pT9u9uZR" alt=""></td>
+          <td>Café Mattoni — CZ / EN / DE menu + stojan</td>
+          <td>Menu design / branding</td>
+          <td class="dest-prace">Práce</td>
+          <td>Vícejazyčný projekt, ukazuje šíři práce</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/VUlfbDew11RNS0D" alt=""></td>
+          <td>QUEEN'S MENU</td>
+          <td>Menu design</td>
+          <td class="dest-prace">Práce</td>
+          <td>Možná spojit s Café Mattoni jako "menu projekty"</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/jTvIgd5TrXGRlYZ" alt=""></td>
+          <td>TMF čaje</td>
+          <td>Brand / packaging</td>
+          <td class="dest-prace">Práce</td>
+          <td>Vizuálně silný, vhodný na titulní ukázku</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/c3JTVo6oGEwwEJ2" alt=""></td>
+          <td>Riva del Garda — manuál</td>
+          <td>Brand manual</td>
+          <td class="dest-prace">Práce</td>
+          <td>Mezinárodní projekt — dobrý signál pro klienty</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/_TSVteRsEyihAAv" alt=""></td>
+          <td>Prima Vizus Medical</td>
+          <td>Prezentace</td>
+          <td class="dest-prace">Práce</td>
+          <td>Ukazuje přesah do B2B sféry</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/PgorFxbdtXhOCCl" alt=""></td>
+          <td>WEDDING NEWSPAPER</td>
+          <td>Tisková grafika</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Krásný vizuál, ale spíš galerie než case study</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/dn21j5kV2vzRcyb" alt=""></td>
+          <td>Charlotte &amp; Alex / Kristýna &amp; Filip</td>
+          <td>Svatební grafika</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Série — sloučit jako "Wedding collection"</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/OhxQork0uRQzrmb" alt=""></td>
+          <td>KVIFF</td>
+          <td>Festivalová grafika</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Kultovní festival — silný na do portfolia</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/oWC8jgZanHacF6k" alt=""></td>
+          <td>Graphic</td>
+          <td>Grafické experimenty</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Vizuální rozmanitost — dobré doplnění galerie</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/4QywGqBazSTi-DO" alt=""></td>
+          <td>Vizitka Marilyn</td>
+          <td>Tisková grafika</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Drobná práce, ale vizuálně hezká</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/ls6d5f_okx5GYNT" alt=""></td>
+          <td>BYT PAŠAVOVI</td>
+          <td>Interiér / prezentace</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Pokud chceš ukázat i interiérové práce</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/FhAwSMSpQQcfW1w" alt=""></td>
+          <td>Apartment Guide Estepona</td>
+          <td>Editorial / interiér</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Mezinárodní práce — hezký kontext</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/zELQ5LJ9Dez7spY" alt=""></td>
+          <td>Kalendář 2026</td>
+          <td>Tisk / print design</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Ukazuje print kompetence</td>
+        </tr>
+        <tr>
+          <td><img class="thumb-mini" src="https://design.canva.ai/glqt1xI32MvpiPf" alt=""></td>
+          <td>Letbalonem</td>
+          <td>Plakát / event</td>
+          <td class="dest-galerie">Galerie</td>
+          <td>Příjemný vizuál</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <span class="footer-logo">Nell Design</span>
+    <span class="footer-copy">Interní přehled — není v navigaci</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  </script>
+</body>
+</html>
