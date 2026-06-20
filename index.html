@@ -107,7 +107,7 @@
     }
     .claim-word {
       font-family: var(--display);
-      font-size: clamp(1.66rem, 3.04vw, 2.43rem); /* = 3.2× claim-rest → stejná výška jako 2 řádky */
+      font-size: clamp(2.4rem, 4.5vw, 3.5rem); /* cap-height ≈ výška dvou řádků claim-rest na všech velikostech */
       font-weight: 300;
       letter-spacing: 0.25em;
       text-transform: uppercase;
@@ -125,7 +125,7 @@
     }
     @media (max-width: 480px) {
       .hero-claim { gap: 0.6em; }
-      .claim-word { font-size: clamp(0.8rem, 4.5vw, 1rem); }
+      .claim-word { font-size: clamp(2rem, 11vw, 2.4rem); }
       .claim-rest { font-size: 0.5rem; }
     }
     .hero-scroll {
