@@ -45,14 +45,18 @@
     .glint-n, .glint-g { position: relative; display: inline-block; }
     .glint-g {
       color: var(--gold);
-      animation: gLetterGlow 4s linear infinite;
     }
-    @keyframes gLetterGlow {
-      0%   { filter: drop-shadow(0 0 1px rgba(255,220,100,0.1)); }
-      40%  { filter: drop-shadow(0 0 1px rgba(255,220,100,0.1)); }
-      52%  { filter: drop-shadow(0 0 3px rgba(255,255,180,1)) drop-shadow(0 0 10px rgba(255,220,80,0.85)) drop-shadow(0 0 22px rgba(255,180,30,0.5)); }
-      64%  { filter: drop-shadow(0 0 1px rgba(255,220,100,0.1)); }
-      100% { filter: drop-shadow(0 0 1px rgba(255,220,100,0.1)); }
+    /* Skrýt bílou hvězdičku u G */
+    .glint-g::after { display: none !important; }
+    /* SVG laser překrývající písmeno G */
+    .g-title-laser {
+      position: absolute;
+      top: 0.05em;
+      left: 0.03em;
+      width: 0.88em;
+      height: 0.88em;
+      pointer-events: none;
+      overflow: visible;
     }
 .glint-n::after, .glint-g::after {
       content: '';
@@ -331,7 +335,7 @@
       </g>
     </svg>
     <span class="hero-eyebrow">Creative studio &amp; brand direction</span>
-    <h1 class="hero-title"><span class="glint-n">N</span>ell Desi<span class="glint-g">g</span>n</h1>
+    <h1 class="hero-title"><span class="glint-n">N</span>ell Desi<span class="glint-g">g<svg class="g-title-laser" viewBox="0 0 200 200" aria-hidden="true"><path class="g-laser-path" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43" fill="none" stroke="rgba(255,245,180,0.95)" stroke-width="4" stroke-linecap="round" pointer-events="none"/></svg></span>n</h1>
     <p class="hero-claim">
       <span class="claim-word">Design</span>
       <span class="claim-rest">that works<br>with intent</span>
