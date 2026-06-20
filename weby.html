@@ -59,28 +59,14 @@
       background: #080808;
     }
 
-    /* ── Site preview grid (real iframes) ── */
-    .site-preview-grid {
+    /* ── Single iframe preview ── */
+    .site-preview-wrap {
       position: absolute;
       inset: 0;
-      display: grid;
-      grid-template-rows: 60% 40%;
-      gap: 2px;
-      background: #000;
-    }
-    .spg-row2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-    .spg-main,
-    .spg-detail {
-      position: relative;
       overflow: hidden;
-      background: #0c0c0c;
+      background: #0a0a0a;
     }
-    .spg-main iframe,
-    .spg-detail iframe {
+    .site-preview-wrap iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -230,13 +216,7 @@
   <!-- ══ 01 FENIX JERKY ══ -->
   <article class="web-project" data-reveal>
     <div class="web-preview">
-      <div class="site-preview-grid">
-        <div class="spg-main"   id="p-fenix-main"></div>
-        <div class="spg-row2">
-          <div class="spg-detail" id="p-fenix-d1"></div>
-          <div class="spg-detail" id="p-fenix-d2"></div>
-        </div>
-      </div>
+      <div class="site-preview-wrap" id="p-fenix-main"></div>
     </div>
     <div class="web-info">
       <span class="web-num">01</span>
@@ -260,13 +240,7 @@
   <!-- ══ 02 ESTEPONA ══ -->
   <article class="web-project" data-reveal>
     <div class="web-preview">
-      <div class="site-preview-grid">
-        <div class="spg-main"   id="p-step-main"></div>
-        <div class="spg-row2">
-          <div class="spg-detail" id="p-step-d1"></div>
-          <div class="spg-detail" id="p-step-d2"></div>
-        </div>
-      </div>
+      <div class="site-preview-wrap" id="p-step-main"></div>
     </div>
     <div class="web-info">
       <span class="web-num">02</span>
@@ -291,13 +265,7 @@
   <!-- ══ 03 NELL DESIGN ══ -->
   <article class="web-project" data-reveal>
     <div class="web-preview">
-      <div class="site-preview-grid">
-        <div class="spg-main"   id="p-nell-main"></div>
-        <div class="spg-row2">
-          <div class="spg-detail" id="p-nell-d1"></div>
-          <div class="spg-detail" id="p-nell-d2"></div>
-        </div>
-      </div>
+      <div class="site-preview-wrap" id="p-nell-main"></div>
     </div>
     <div class="web-info">
       <span class="web-num">03</span>
@@ -375,39 +343,15 @@
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
 
-    /* ── Site iframe previews ──
-     * Each entry: { id, url, tx, ty, ifrH, zoomW }
-     *   tx / ty  = offset into the page (pre-scale pixels) to show
-     *   ifrH     = iframe height in px (set tall enough to render content at ty)
-     *   zoomW    = if set, scale so that only this many px of page width fill the container
-     *              (used for FENIX horizontal crops: left half vs right half)
-     */
+    /* ── Site iframe previews — one clean scaled iframe per project ── */
     (function initPreviews() {
-      const FENIX    = 'https://www-fenix.pages.dev/';
-      const ESTEPONA = 'https://www-estepona.pages.dev/';
-      const NELL     = 'https://www-nelldesign.pages.dev/';
-
       const defs = [
-        // FENIX — panel-based; all iframes show panel 01.
-        // Main: full width hero
-        { id: 'p-fenix-main', url: FENIX,    tx: 0,   ty: 0, ifrH: 1000 },
-        // Detail-1: left half (sidebar + left content)
-        { id: 'p-fenix-d1',   url: FENIX,    tx: 0,   ty: 0, ifrH: 1000, zoomW: 700 },
-        // Detail-2: right half (meat imagery)
-        { id: 'p-fenix-d2',   url: FENIX,    tx: 700, ty: 0, ifrH: 1000, zoomW: 700 },
-
-        // ESTEPONA — scroll-based; show 3 vertical sections
-        { id: 'p-step-main',  url: ESTEPONA, tx: 0, ty: 0,    ifrH: 3000 },
-        { id: 'p-step-d1',    url: ESTEPONA, tx: 0, ty: 850,  ifrH: 3000 },
-        { id: 'p-step-d2',    url: ESTEPONA, tx: 0, ty: 1700, ifrH: 3000 },
-
-        // NELL DESIGN — show 3 different pages of the portfolio
-        { id: 'p-nell-main',  url: NELL,                    tx: 0, ty: 0, ifrH: 1000 },
-        { id: 'p-nell-d1',    url: NELL + 'about.html',    tx: 0, ty: 0, ifrH: 1000 },
-        { id: 'p-nell-d2',    url: NELL + 'galerie.html',  tx: 0, ty: 0, ifrH: 1000 },
+        { id: 'p-fenix-main', url: 'https://www-fenix.pages.dev/',     ifrH: 900 },
+        { id: 'p-step-main',  url: 'https://www-estepona.pages.dev/',  ifrH: 900 },
+        { id: 'p-nell-main',  url: 'https://www-nelldesign.pages.dev/', ifrH: 900 },
       ];
 
-      defs.forEach(({ id, url, tx, ty, ifrH, zoomW }) => {
+      defs.forEach(({ id, url, ifrH }) => {
         const el = document.getElementById(id);
         if (!el) return;
 
@@ -421,10 +365,8 @@
         el.appendChild(ifr);
 
         function apply() {
-          const W       = el.offsetWidth;
-          const nativeW = zoomW || 1400;          // how many page-px to fill container width
-          const scale   = W / nativeW;
-          ifr.style.transform = `scale(${scale}) translate(${-tx}px,${-ty}px)`;
+          const scale = el.offsetWidth / 1400;
+          ifr.style.transform = `scale(${scale})`;
         }
 
         apply();
