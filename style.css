@@ -332,6 +332,20 @@ footer {
   }
 }
 
+/* ─── G laser — light travels along the G stroke ─── */
+.g-laser-path {
+  stroke-dasharray: 48 452;
+  stroke-dashoffset: 0;
+  animation: gLaser 4s linear infinite;
+  filter:
+    drop-shadow(0 0 3px rgba(255,235,120,0.95))
+    drop-shadow(0 0 8px rgba(255,200,50,0.55));
+}
+@keyframes gLaser {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -500; }
+}
+
 /* ─── Luxury accents ─── */
 
 /* Film grain — adds depth and richness like premium print */
