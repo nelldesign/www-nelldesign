@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canva Projects — Párovací přehled</title>
+  <title>Canva Projects — Nell Design</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    * { cursor: auto !important; }
     body { padding-top: 6rem; }
+
+    /* ── Page header ── */
     .page-header {
-      padding: 2rem 5vw 3rem;
+      padding: 3rem 5vw 3.5rem;
       border-bottom: 1px solid var(--border);
     }
     .page-header h1 {
@@ -21,11 +22,12 @@
       margin-bottom: 0.5rem;
     }
     .page-header p {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       letter-spacing: 0.08em;
     }
 
+    /* ── Section ── */
     .section {
       padding: 4rem 5vw;
       border-bottom: 1px solid var(--border);
@@ -45,47 +47,34 @@
       color: var(--gold);
     }
     .section-header .count {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       color: var(--text-muted);
       letter-spacing: 0.12em;
     }
-    .section-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.06em;
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-      line-height: 1.7;
-    }
 
+    /* ── Projects grid ── */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.25rem;
     }
+
+    /* ── Project card ── */
     .project-card {
       background: var(--bg-alt);
       border: 1px solid var(--border);
       overflow: hidden;
-      transition: border-color .3s;
       cursor: pointer;
+      transition: border-color .3s;
     }
     .project-card:hover { border-color: var(--gold); }
-    .project-card a {
-      display: block;
-      text-decoration: none;
-    }
     .thumb-wrap {
       width: 100%;
       aspect-ratio: 4/3;
       overflow: hidden;
       background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .thumb-wrap.portrait { aspect-ratio: 3/4; }
-    .thumb-wrap.story { aspect-ratio: 9/16; max-height: 200px; aspect-ratio: unset; height: 200px; }
     .thumb-wrap img {
       width: 100%;
       height: 100%;
@@ -95,131 +84,165 @@
     }
     .project-card:hover .thumb-wrap img { transform: scale(1.04); }
     .card-info {
-      padding: 0.9rem 1rem;
+      padding: 0.85rem 1rem;
     }
     .card-title {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 400;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       color: var(--text);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
       line-height: 1.4;
     }
     .card-meta {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       color: var(--text-muted);
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    .badge {
+    .pages-count {
       display: inline-block;
-      font-size: 0.55rem;
+      font-size: 0.54rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      padding: 0.15rem 0.5rem;
-      border: 1px solid;
-      margin-top: 0.4rem;
+      padding: 0.12rem 0.45rem;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      margin-top: 0.45rem;
     }
-    .badge-prace { border-color: var(--gold); color: var(--gold); }
-    .badge-galerie { border-color: #7a9e7a; color: #7a9e7a; }
-    .badge-skip { border-color: var(--border); color: var(--text-muted); }
 
-    /* Pairing table */
-    .table-section {
-      padding: 4rem 5vw;
+    /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+    .lb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(10, 9, 8, 0.97);
+      flex-direction: column;
     }
-    .table-section h2 {
-      font-family: var(--display);
-      font-size: 0.7rem;
-      font-weight: 400;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2rem;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.75rem;
-    }
-    th {
-      text-align: left;
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 0.5rem 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-    td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
-      vertical-align: middle;
-      color: var(--text);
-      letter-spacing: 0.04em;
-      line-height: 1.5;
-    }
-    tr:hover td { background: var(--bg-alt); }
-    td:first-child { font-weight: 400; }
-    .thumb-mini {
-      width: 48px;
-      height: 36px;
-      object-fit: cover;
-      border: 1px solid var(--border);
-    }
-    .dest-select {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      padding: 0.35rem 0.6rem;
-      outline: none;
-      cursor: pointer;
-      transition: border-color .3s, color .3s;
-      font-family: var(--sans);
-    }
-    .dest-select:focus { border-color: var(--gold); }
-    .dest-select.val-prace { border-color: var(--gold); color: var(--gold); }
-    .dest-select.val-galerie { border-color: #7a9e7a; color: #7a9e7a; }
-    .dest-select.val-nikam { border-color: var(--border); color: var(--text-muted); }
-    .web-text {
-      font-size: 0.72rem;
-      font-family: var(--serif);
-      font-style: italic;
-      color: var(--text-muted);
-      line-height: 1.65;
-      max-width: 280px;
-    }
-    .export-bar {
-      margin-top: 2rem;
+    .lb-overlay.open { display: flex; }
+
+    /* Header bar */
+    .lb-header {
+      flex-shrink: 0;
       display: flex;
-      gap: 1rem;
       align-items: center;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 1.1rem 1.5rem 0.9rem;
+      border-bottom: 1px solid var(--border);
     }
-    .export-btn {
+    .lb-title {
+      font-family: var(--display);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .lb-counter {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.14em;
+    }
+    .lb-close {
       background: none;
       border: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 0.6rem 1.25rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0.35rem 0.65rem;
       cursor: pointer;
-      transition: border-color .3s, color .3s;
+      transition: border-color .25s, color .25s;
     }
-    .export-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lb-close:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Main image area */
+    .lb-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 1rem 4.5rem;
+    }
+    .lb-img-wrap {
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lb-img-wrap img {
+      max-width: 100%;
+      max-height: calc(100vh - 220px);
+      object-fit: contain;
+      display: block;
+      transition: opacity .2s ease;
+    }
+
+    /* Prev / Next arrows */
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color .25s, color .25s;
+    }
+    .lb-arrow:hover { border-color: var(--gold); color: var(--gold); }
+    .lb-arrow.prev { left: 1rem; }
+    .lb-arrow.next { right: 1rem; }
+    .lb-arrow:disabled { opacity: 0.2; pointer-events: none; }
+
+    /* Thumbnail strip */
+    .lb-strip {
+      flex-shrink: 0;
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.75rem 1.5rem;
+      overflow-x: auto;
+      border-top: 1px solid var(--border);
+      scroll-behavior: smooth;
+    }
+    .lb-strip::-webkit-scrollbar { height: 3px; }
+    .lb-strip::-webkit-scrollbar-thumb { background: var(--border); }
+    .lb-thumb {
+      flex-shrink: 0;
+      width: 56px;
+      height: 42px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      opacity: 0.45;
+      transition: opacity .2s, border-color .2s;
+    }
+    .lb-thumb.active { opacity: 1; border-color: var(--gold); }
+    .lb-thumb:hover { opacity: 0.85; }
 
     @media (max-width: 768px) {
-      .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-      table { font-size: 0.68rem; }
-      th, td { padding: 0.5rem 0.5rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+      .lb-main { padding: 0.75rem 3rem; }
+      .lb-arrow { width: 2.2rem; height: 2.2rem; font-size: 1rem; }
+      .lb-arrow.prev { left: 0.3rem; }
+      .lb-arrow.next { right: 0.3rem; }
+      .lb-thumb { width: 44px; height: 33px; }
     }
   </style>
 </head>
 <body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
   <nav class="nav" id="nav">
     <a href="index.html" class="nav-logo">Nell Design</a>
@@ -235,528 +258,197 @@
 
   <div class="page-header">
     <h1>Canva Projects</h1>
-    <p>Párovací přehled · návrhy pro Práce a Galerie · interní stránka</p>
+    <p>21 projektů · 172 stránek · klik = celá sada</p>
   </div>
 
-  <!-- ═══ SEKCE: PRÁCE (klientské projekty) ═══ -->
+  <!-- ═══ PRÁCE ═══ -->
   <section class="section">
     <div class="section-header">
-      <h2>→ Práce</h2>
-      <span class="count">navrhované klientské projekty</span>
+      <h2>Práce</h2>
+      <span class="count">klientské projekty</span>
     </div>
-    <p class="section-desc">Ucelené klientské projekty — branding, menu, manuály. Patří do záložky Práce jako case studies.</p>
-    <div class="projects-grid">
-
-      <!-- FENIX JERKY -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/fenix-brand.jpg" alt="FENIX JERKY">
-          </div>
-          <div class="card-info">
-            <p class="card-title">FENIX JERKY — brand</p>
-            <p class="card-meta">34 stran · packaging + identity</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/fenix-etikety.jpg" alt="Etikety FENIX">
-          </div>
-          <div class="card-info">
-            <p class="card-title">FENIX JERKY — etikety</p>
-            <p class="card-meta">23 stran · 9×6 cm labels</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/fenix-ig.jpg" alt="Fenix Instagram">
-          </div>
-          <div class="card-info">
-            <p class="card-title">FENIX JERKY — Instagram</p>
-            <p class="card-meta">social media · feed</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <!-- CAFÉ MATTONI -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/mattoni-cz.jpg" alt="CZ Menu Café Mattoni">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Café Mattoni — CZ menu</p>
-            <p class="card-meta">13 stran · menu design</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/mattoni-en.jpg" alt="EN Menu Café Mattoni">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Café Mattoni — EN menu</p>
-            <p class="card-meta">12 stran · menu design</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/mattoni-de.jpg" alt="DE Menu Café Mattoni">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Café Mattoni — DE menu</p>
-            <p class="card-meta">12 stran · menu design</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <!-- QUEEN'S MENU -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/queens-menu.jpg" alt="Queen's Menu">
-          </div>
-          <div class="card-info">
-            <p class="card-title">QUEEN'S MENU</p>
-            <p class="card-meta">2 strany · restaurant menu</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <!-- TMF ČAJE -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/tmf-caje.jpg" alt="TMF čaje">
-          </div>
-          <div class="card-info">
-            <p class="card-title">TMF čaje</p>
-            <p class="card-meta">11 stran · brand / packaging</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <!-- RIVA DEL GARDA MANUÁL -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/riva-del-garda.jpg" alt="Riva del Garda Manual">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Riva del Garda — manuál</p>
-            <p class="card-meta">9 stran · brand manual</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-      <!-- PRIMA VIZUS MEDICAL -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/prima-vizus.jpg" alt="Prima Vizus Medical">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Prima Vizus Medical</p>
-            <p class="card-meta">3 strany · prezentace</p>
-            <span class="badge badge-prace">Práce</span>
-          </div>
-      </div>
-
-    </div>
+    <div class="projects-grid" id="grid-prace"></div>
   </section>
 
-  <!-- ═══ SEKCE: GALERIE (vizuální / tiskové práce) ═══ -->
+  <!-- ═══ GALERIE ═══ -->
   <section class="section">
     <div class="section-header">
-      <h2>→ Galerie</h2>
+      <h2>Galerie</h2>
       <span class="count">vizuální + tiskové práce</span>
     </div>
-    <p class="section-desc">Vizuálně silné kousky — svatební grafika, plakáty, interiér, social content. Patří do Galerie jako inspirační přehlídka.</p>
-    <div class="projects-grid">
-
-      <!-- WEDDING NEWSPAPER -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/wedding-newspaper.jpg" alt="Wedding Newspaper">
-          </div>
-          <div class="card-info">
-            <p class="card-title">WEDDING NEWSPAPER</p>
-            <p class="card-meta">9 stran · tisková grafika</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- Charlotte Alex -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/charlotte-alex.jpg" alt="Charlotte Alex">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Charlotte &amp; Alex</p>
-            <p class="card-meta">2 strany · svatební</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- Kristyna & Filip -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/kristyna-filip.jpg" alt="Kristyna Filip">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Kristýna &amp; Filip</p>
-            <p class="card-meta">4 strany · svatební</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- wedding jmenovky -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/wedding-jmenovky.jpg" alt="wedding jmenovky">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Wedding jmenovky</p>
-            <p class="card-meta">8 stran · tisková grafika</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- KVIFF -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/kviff.jpg" alt="KVIFF">
-          </div>
-          <div class="card-info">
-            <p class="card-title">KVIFF</p>
-            <p class="card-meta">festivalová grafika</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- graphic -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/graphic.jpg" alt="graphic">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Graphic</p>
-            <p class="card-meta">10 stran · grafické experimenty</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- vizitka MARILYN -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/vizitka-marilyn.jpg" alt="vizitka Marilyn">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Vizitka — Marilyn</p>
-            <p class="card-meta">6 stran · business card</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- BYT PAŠAVOVI -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/byt-pasavovi.jpg" alt="BYT PAŠAVOVI">
-          </div>
-          <div class="card-info">
-            <p class="card-title">BYT PAŠAVOVI</p>
-            <p class="card-meta">interiér · prezentace</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- APARTMENT GUIDE Estepona -->
-      <div class="project-card">
-          <div class="thumb-wrap portrait">
-            <img src="assets/canva/apartment-estepona.jpg" alt="Apartment Guide Estepona">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Apartment Guide Estepona</p>
-            <p class="card-meta">5 stran · editorial / interiér</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- letbalonem -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/letbalonem.jpg" alt="letbalonem">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Letbalonem</p>
-            <p class="card-meta">plakát / event</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-      <!-- Kalendář 2026 -->
-      <div class="project-card">
-          <div class="thumb-wrap">
-            <img src="assets/canva/kalendar-2026.jpg" alt="Kalendář 2026">
-          </div>
-          <div class="card-info">
-            <p class="card-title">Kalendář 2026</p>
-            <p class="card-meta">25 stran · tisk / design</p>
-            <span class="badge badge-galerie">Galerie</span>
-          </div>
-      </div>
-
-    </div>
+    <div class="projects-grid" id="grid-galerie"></div>
   </section>
 
-  <!-- ═══ PÁROVACÍ TABULKA ═══ -->
-  <section class="table-section">
-    <h2>Párovací tabulka — nastav umístění</h2>
-    <table id="pairing-table">
-      <thead>
-        <tr>
-          <th>Náhled</th>
-          <th>Projekt</th>
-          <th>Typ</th>
-          <th>Umístění</th>
-          <th>Poznámka</th>
-          <th>Text na web</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/fenix-brand.jpg" alt=""></td>
-          <td>FENIX JERKY — brand + etikety + IG</td>
-          <td>Branding / packaging</td>
-          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
-            <option value="prace" selected>Práce</option>
-            <option value="galerie">Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Velký klientský projekt, dobrý jako case study</td>
-          <td><p class="web-text">Branding od základů. Identita pro českou značku sušeného masa — od loga přes etikety až po social media obsah.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/mattoni-cz.jpg" alt=""></td>
-          <td>Café Mattoni — CZ / EN / DE menu + stojan</td>
-          <td>Menu design / branding</td>
-          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
-            <option value="prace" selected>Práce</option>
-            <option value="galerie">Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Vícejazyčný projekt, ukazuje šíři práce</td>
-          <td><p class="web-text">Trojjazyčné menu pro café v srdci Česka. Typografie, vizuální hierarchie a konzistentní jazyk — ve třech verzích.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/queens-menu.jpg" alt=""></td>
-          <td>QUEEN'S MENU</td>
-          <td>Menu design</td>
-          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
-            <option value="prace" selected>Práce</option>
-            <option value="galerie">Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Možná spojit s Café Mattoni jako "menu projekty"</td>
-          <td><p class="web-text">Restaurační menu s charakterem. Čisté linie, záměrná typografie, zlaté detaily tam, kde záleží.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/tmf-caje.jpg" alt=""></td>
-          <td>TMF čaje</td>
-          <td>Brand / packaging</td>
-          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
-            <option value="prace" selected>Práce</option>
-            <option value="galerie">Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Vizuálně silný, vhodný na titulní ukázku</td>
-          <td><p class="web-text">Packaging pro čajovou značku. Jemná rovnováha mezi přírodním původem a moderním designovým jazykem.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/riva-del-garda.jpg" alt=""></td>
-          <td>Riva del Garda — manuál</td>
-          <td>Brand manual</td>
-          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
-            <option value="prace" selected>Práce</option>
-            <option value="galerie">Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Mezinárodní projekt — dobrý signál pro klienty</td>
-          <td><p class="web-text">Brand manuál pro italský projekt u jezera Garda. Vizuální identita připravená pro mezinárodní publikum.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/prima-vizus.jpg" alt=""></td>
-          <td>Prima Vizus Medical</td>
-          <td>Prezentace</td>
-          <td><select class="dest-select val-prace" onchange="updateSelect(this)">
-            <option value="prace" selected>Práce</option>
-            <option value="galerie">Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Ukazuje přesah do B2B sféry</td>
-          <td><p class="web-text">Korporátní prezentace pro zdravotnickou firmu. Přehlednost a důvěryhodnost jako základ vizuální komunikace.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/wedding-newspaper.jpg" alt=""></td>
-          <td>WEDDING NEWSPAPER</td>
-          <td>Tisková grafika</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Krásný vizuál, spíš galerie než case study</td>
-          <td><p class="web-text">Tisková grafika ve stylu novin. Každý detail jako záhyb bílého papíru — jemný, záměrný, nezapomenutelný.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/charlotte-alex.jpg" alt=""></td>
-          <td>Charlotte &amp; Alex / Kristýna &amp; Filip</td>
-          <td>Svatební grafika</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Série — sloučit jako "Wedding collection"</td>
-          <td><p class="web-text">Svatební grafika na míru. Každý pár má svůj příběh — design by ho měl vyprávět bez slov.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/kviff.jpg" alt=""></td>
-          <td>KVIFF</td>
-          <td>Festivalová grafika</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Kultovní festival — silný do portfolia</td>
-          <td><p class="web-text">Grafická práce inspirovaná jedním z nejvýznamnějších filmových festivalů v regionu. Ikona, která mluví.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/graphic.jpg" alt=""></td>
-          <td>Graphic</td>
-          <td>Grafické experimenty</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Vizuální rozmanitost — dobré doplnění galerie</td>
-          <td><p class="web-text">Grafické experimenty bez zadání. Místo, kde design mluví sám za sebe a pravidla jsou jen výchozí bod.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/vizitka-marilyn.jpg" alt=""></td>
-          <td>Vizitka Marilyn</td>
-          <td>Tisková grafika</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Drobná práce, ale vizuálně hezká</td>
-          <td><p class="web-text">Vizitka jako první dojem. Malý formát, jasný statement — identita, která se vejde do dlaně.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/byt-pasavovi.jpg" alt=""></td>
-          <td>BYT PAŠAVOVI</td>
-          <td>Interiér / prezentace</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Pokud chceš ukázat i interiérové práce</td>
-          <td><p class="web-text">Interiérová prezentace bytu. Prostor zachycený tak, jak ho cítíte — ne jen jak vypadá na fotografii.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/apartment-estepona.jpg" alt=""></td>
-          <td>Apartment Guide Estepona</td>
-          <td>Editorial / interiér</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Mezinárodní práce — hezký kontext</td>
-          <td><p class="web-text">Průvodce apartmánem na španělském pobřeží. Editorial design pro second-home living — jemný, vzdušný, přesný.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/kalendar-2026.jpg" alt=""></td>
-          <td>Kalendář 2026</td>
-          <td>Tisk / print design</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Ukazuje print kompetence</td>
-          <td><p class="web-text">Tiskový design, který visí na zdi celý rok. Dvanáct listů, dvanáct příležitostí říct něco vizuálně.</p></td>
-        </tr>
-        <tr>
-          <td><img class="thumb-mini" src="assets/canva/letbalonem.jpg" alt=""></td>
-          <td>Letbalonem</td>
-          <td>Plakát / event</td>
-          <td><select class="dest-select val-galerie" onchange="updateSelect(this)">
-            <option value="prace">Práce</option>
-            <option value="galerie" selected>Galerie</option>
-            <option value="nikam">Nikam</option>
-          </select></td>
-          <td>Příjemný vizuál</td>
-          <td><p class="web-text">Event grafika pro zážitek, který začíná ještě před startem. Plakát jako pozvání i příslib.</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="export-bar">
-      <button class="export-btn" onclick="exportSummary()">Zobrazit výběr</button>
+  <!-- ══════════════ LIGHTBOX ══════════════ -->
+  <div class="lb-overlay" id="lightbox" role="dialog" aria-modal="true">
+    <div class="lb-header">
+      <span class="lb-title" id="lb-title"></span>
+      <span class="lb-counter" id="lb-counter"></span>
+      <button class="lb-close" id="lb-close" aria-label="Zavřít">✕</button>
     </div>
-    <pre id="export-output" style="display:none; margin-top:1.5rem; padding:1.25rem; border:1px solid var(--border); font-size:0.72rem; color:var(--text-muted); white-space:pre-wrap; line-height:1.8;"></pre>
-  </section>
+    <div class="lb-main">
+      <button class="lb-arrow prev" id="lb-prev" aria-label="Předchozí">‹</button>
+      <div class="lb-img-wrap">
+        <img id="lb-img" src="" alt="">
+      </div>
+      <button class="lb-arrow next" id="lb-next" aria-label="Další">›</button>
+    </div>
+    <div class="lb-strip" id="lb-strip"></div>
+  </div>
 
   <footer>
     <span class="footer-logo">Nell Design</span>
-    <span class="footer-copy">Interní přehled — není v navigaci</span>
+    <span class="footer-copy">© 2025</span>
   </footer>
 
   <script>
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    /* ── Project data ── */
+    const projects = [
+      // Práce
+      { slug:'fenix-brand',        title:'FENIX JERKY — brand',        pages:34, meta:'packaging + identity',   section:'prace' },
+      { slug:'fenix-etikety',      title:'FENIX JERKY — etikety',      pages:23, meta:'9×6 cm labels',          section:'prace' },
+      { slug:'fenix-ig',           title:'FENIX JERKY — Instagram',     pages:3,  meta:'social media · feed',    section:'prace' },
+      { slug:'mattoni-cz',         title:'Café Mattoni — CZ menu',      pages:13, meta:'menu design',            section:'prace', portrait:true },
+      { slug:'mattoni-en',         title:'Café Mattoni — EN menu',      pages:12, meta:'menu design',            section:'prace', portrait:true },
+      { slug:'mattoni-de',         title:'Café Mattoni — DE menu',      pages:12, meta:'menu design',            section:'prace', portrait:true },
+      { slug:'queens-menu',        title:"QUEEN'S MENU",                pages:2,  meta:'restaurant menu',        section:'prace', portrait:true },
+      { slug:'tmf-caje',           title:'TMF čaje',                    pages:11, meta:'brand · packaging',      section:'prace' },
+      { slug:'riva-del-garda',     title:'Riva del Garda — manuál',     pages:9,  meta:'brand manual',           section:'prace', portrait:true },
+      { slug:'prima-vizus',        title:'Prima Vizus Medical',         pages:3,  meta:'prezentace',             section:'prace' },
+      // Galerie
+      { slug:'wedding-newspaper',  title:'WEDDING NEWSPAPER',           pages:9,  meta:'tisková grafika',        section:'galerie', portrait:true },
+      { slug:'charlotte-alex',     title:'Charlotte & Alex',            pages:2,  meta:'svatební grafika',       section:'galerie', portrait:true },
+      { slug:'kristyna-filip',     title:'Kristýna & Filip',            pages:4,  meta:'svatební grafika',       section:'galerie', portrait:true },
+      { slug:'wedding-jmenovky',   title:'Wedding jmenovky',            pages:8,  meta:'tisková grafika',        section:'galerie' },
+      { slug:'kviff',              title:'KVIFF',                       pages:1,  meta:'festivalová grafika',    section:'galerie', portrait:true },
+      { slug:'graphic',            title:'Graphic',                     pages:10, meta:'grafické experimenty',   section:'galerie' },
+      { slug:'vizitka-marilyn',    title:'Vizitka — Marilyn',           pages:6,  meta:'business card',          section:'galerie' },
+      { slug:'byt-pasavovi',       title:'BYT PAŠAVOVI',                pages:5,  meta:'interiér · prezentace',  section:'galerie' },
+      { slug:'apartment-estepona', title:'Apartment Guide Estepona',    pages:5,  meta:'editorial · interiér',   section:'galerie', portrait:true },
+      { slug:'letbalonem',         title:'Letbalonem',                  pages:1,  meta:'plakát · event',         section:'galerie' },
+      { slug:'kalendar-2026',      title:'Kalendář 2026',               pages:25, meta:'tisk · print design',    section:'galerie' },
+    ];
+
+    /* ── Build grids ── */
+    const gridPrace   = document.getElementById('grid-prace');
+    const gridGalerie = document.getElementById('grid-galerie');
+
+    projects.forEach((p, idx) => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.dataset.idx = idx;
+      card.innerHTML = `
+        <div class="thumb-wrap${p.portrait ? ' portrait' : ''}">
+          <img src="assets/canva/${p.slug}/page-01.jpg"
+               alt="${p.title}"
+               loading="lazy">
+        </div>
+        <div class="card-info">
+          <p class="card-title">${p.title}</p>
+          <p class="card-meta">${p.meta}</p>
+          <span class="pages-count">${p.pages} ${p.pages === 1 ? 'strana' : p.pages < 5 ? 'strany' : 'stran'}</span>
+        </div>`;
+      card.addEventListener('click', () => openLightbox(idx));
+      (p.section === 'prace' ? gridPrace : gridGalerie).appendChild(card);
+    });
+
+    /* ── Lightbox state ── */
+    let curProject = null;
+    let curPage    = 0;
+
+    const lb        = document.getElementById('lightbox');
+    const lbTitle   = document.getElementById('lb-title');
+    const lbCounter = document.getElementById('lb-counter');
+    const lbImg     = document.getElementById('lb-img');
+    const lbStrip   = document.getElementById('lb-strip');
+    const lbPrev    = document.getElementById('lb-prev');
+    const lbNext    = document.getElementById('lb-next');
+    const lbClose   = document.getElementById('lb-close');
+
+    function pageUrl(p, n) {
+      return `assets/canva/${p.slug}/page-${String(n+1).padStart(2,'0')}.jpg`;
+    }
+
+    function setPage(n) {
+      const p = curProject;
+      curPage = n;
+      lbImg.style.opacity = 0;
+      lbImg.src = pageUrl(p, n);
+      lbImg.onload = () => { lbImg.style.opacity = 1; };
+      lbCounter.textContent = `${n+1} / ${p.pages}`;
+      lbPrev.disabled = n === 0;
+      lbNext.disabled = n === p.pages - 1;
+      // Sync strip
+      lbStrip.querySelectorAll('.lb-thumb').forEach((t,i) => t.classList.toggle('active', i === n));
+      // Scroll strip so active thumb is visible
+      const active = lbStrip.children[n];
+      if (active) active.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'smooth' });
+    }
+
+    function openLightbox(idx) {
+      curProject = projects[idx];
+      lbTitle.textContent = curProject.title;
+      // Build thumbnail strip
+      lbStrip.innerHTML = '';
+      for (let i = 0; i < curProject.pages; i++) {
+        const t = document.createElement('img');
+        t.className = 'lb-thumb';
+        t.src       = pageUrl(curProject, i);
+        t.alt       = `Strana ${i+1}`;
+        t.loading   = 'lazy';
+        t.addEventListener('click', () => setPage(i));
+        lbStrip.appendChild(t);
+      }
+      setPage(0);
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => curPage > 0 && setPage(curPage - 1));
+    lbNext.addEventListener('click', () => curPage < curProject.pages - 1 && setPage(curPage + 1));
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft')  lbPrev.disabled || setPage(curPage - 1);
+      if (e.key === 'ArrowRight') lbNext.disabled || setPage(curPage + 1);
+    });
+
+    // Click backdrop (outside img)
+    lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+
+    /* ── Nav ── */
+    const nav    = document.getElementById('nav');
     const toggle = document.getElementById('navToggle');
     const links  = document.getElementById('navLinks');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
     toggle.addEventListener('click', () => {
       const open = links.classList.toggle('open');
       toggle.classList.toggle('open', open);
       document.body.style.overflow = open ? 'hidden' : '';
     });
 
-    function updateSelect(sel) {
-      sel.className = 'dest-select val-' + sel.value;
-    }
-
-    function exportSummary() {
-      const rows = document.querySelectorAll('#pairing-table tbody tr');
-      const prace = [], galerie = [], nikam = [];
-      rows.forEach(row => {
-        const name = row.cells[1].textContent.trim();
-        const val  = row.querySelector('select').value;
-        const text = row.querySelector('.web-text').textContent.trim();
-        if (val === 'prace')   prace.push({ name, text });
-        if (val === 'galerie') galerie.push({ name, text });
-        if (val === 'nikam')   nikam.push({ name, text });
-      });
-      let out = '── PRÁCE ──────────────────────────────\n';
-      prace.forEach(p => out += `\n▸ ${p.name}\n  ${p.text}\n`);
-      out += '\n── GALERIE ─────────────────────────────\n';
-      galerie.forEach(p => out += `\n▸ ${p.name}\n  ${p.text}\n`);
-      if (nikam.length) {
-        out += '\n── NIKAM ───────────────────────────────\n';
-        nikam.forEach(p => out += `\n▸ ${p.name}\n`);
-      }
-      const el = document.getElementById('export-output');
-      el.textContent = out;
-      el.style.display = 'block';
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+    /* ── Cursor ── */
+    const cur  = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      cur.style.left  = e.clientX + 'px';
+      cur.style.top   = e.clientY + 'px';
+      rx += (e.clientX - rx) * 0.12;
+      ry += (e.clientY - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+    });
+    (function animate() { requestAnimationFrame(animate); })();
   </script>
 </body>
 </html>
