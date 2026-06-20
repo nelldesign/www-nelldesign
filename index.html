@@ -51,12 +51,11 @@
     /* SVG G — stejný tvar jako dekorativní G na dalších stránkách */
     .g-title-svg {
       display: inline-block;
-      width: 0.85em;
-      height: 0.85em;
-      vertical-align: -0.08em;
-      margin-left: 0.04em;
-      margin-right: -0.04em;
-      overflow: visible;
+      width: 0.8em;
+      height: 0.8em;
+      vertical-align: -0.06em;
+      margin: 0 0.02em;
+      overflow: hidden;
       pointer-events: none;
     }
 .glint-n::after, .glint-g::after {
@@ -272,7 +271,7 @@
         pointer-events: none;
       }
     }
-    .hero-deco-g { display: none; }
+    .hero-deco-g { display: none !important; }
     @media (max-width: 768px) {
       .hero-deco-g { display: block; }
       .work-preview-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
