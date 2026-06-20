@@ -334,12 +334,15 @@ footer {
 
 /* ─── G laser — light travels along the G stroke ─── */
 .g-laser-path {
-  stroke-dasharray: 48 452;
+  stroke-dasharray: 5 495;
   stroke-dashoffset: 0;
+  stroke-width: 4;
   animation: gLaser 4s linear infinite;
   filter:
-    drop-shadow(0 0 3px rgba(255,235,120,0.95))
-    drop-shadow(0 0 8px rgba(255,200,50,0.55));
+    drop-shadow(0 0 2px rgba(255,255,220,1))
+    drop-shadow(0 0 5px rgba(255,235,120,0.95))
+    drop-shadow(0 0 12px rgba(255,200,50,0.8))
+    drop-shadow(0 0 22px rgba(255,180,30,0.45));
 }
 @keyframes gLaser {
   from { stroke-dashoffset: 0; }
