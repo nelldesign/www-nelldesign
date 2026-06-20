@@ -44,19 +44,29 @@
     /* Záblesky z tahů písmen N a G */
     .glint-n, .glint-g { position: relative; display: inline-block; }
     .glint-g {
-      color: transparent; /* textové g skryto, nahrazeno SVG */
+      color: var(--gold);
     }
     /* Skrýt bílou hvězdičku u G */
     .glint-g::after { display: none !important; }
-    /* SVG G — stejný tvar jako dekorativní G na dalších stránkách */
-    .g-title-svg {
-      display: inline-block;
-      width: 0.65em;
-      height: 0.65em;
-      vertical-align: 0.04em;
-      margin: 0 0.12em;
-      overflow: hidden;
+    /* Laser bodík obíhá kolem G */
+    .glint-g::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 5px; height: 5px;
+      margin: -2.5px 0 0 -2.5px;
+      border-radius: 50%;
+      background: rgba(255,250,200,0.95);
+      filter:
+        drop-shadow(0 0 2px rgba(255,255,200,1))
+        drop-shadow(0 0 6px rgba(255,220,80,0.9))
+        drop-shadow(0 0 14px rgba(255,180,30,0.5));
+      animation: gOrbit 4s linear infinite;
       pointer-events: none;
+    }
+    @keyframes gOrbit {
+      from { transform: rotate(0deg) translateX(0.34em) rotate(0deg); }
+      to   { transform: rotate(-360deg) translateX(0.34em) rotate(360deg); }
     }
 .glint-n::after, .glint-g::after {
       content: '';
@@ -335,7 +345,7 @@
       </g>
     </svg>
     <span class="hero-eyebrow">Creative studio &amp; brand direction</span>
-    <h1 class="hero-title"><span class="glint-n">N</span>ell Desi<span class="glint-g"><svg class="g-title-svg" viewBox="22 22 156 156" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="deco-gold-t" x1="25%" y1="0%" x2="75%" y2="100%"><stop offset="0%" stop-color="#6b4012"/><stop offset="18%" stop-color="#b88528"/><stop offset="40%" stop-color="#edd060"/><stop offset="58%" stop-color="#c49030"/><stop offset="80%" stop-color="#9a6818"/><stop offset="100%" stop-color="#5a380e"/></linearGradient></defs><path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43" fill="none" stroke="url(#deco-gold-t)" stroke-width="5" stroke-linecap="round"/><path class="g-laser-path" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43" fill="none" stroke="rgba(255,245,180,0.95)" stroke-width="6" stroke-linecap="round" pointer-events="none"/></svg></span>n</h1>
+    <h1 class="hero-title"><span class="glint-n">N</span>ell Desi<span class="glint-g">g</span>n</h1>
     <p class="hero-claim">
       <span class="claim-word">Design</span>
       <span class="claim-rest">that works<br>with intent</span>
