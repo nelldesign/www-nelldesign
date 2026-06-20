@@ -56,112 +56,39 @@
     .web-preview {
       position: relative;
       overflow: hidden;
-      background: var(--bg-alt);
+      background: #080808;
     }
-    .web-preview-inner {
+
+    /* ── Site preview grid (real iframes) ── */
+    .site-preview-grid {
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      grid-template-rows: 60% 40%;
+      gap: 2px;
+      background: #000;
     }
-
-    /* Browser chrome mockup */
-    .browser-mock {
-      width: 85%;
-      max-width: 520px;
-      background: #1a1a1a;
-      border-radius: 8px;
+    .spg-row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .spg-main,
+    .spg-detail {
+      position: relative;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0,0,0,.5);
+      background: #0c0c0c;
     }
-    .browser-bar {
-      background: #2a2a2a;
-      padding: .5rem .85rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-    .browser-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #3a3a3a;
-    }
-    .browser-url {
-      flex: 1;
-      background: #1e1e1e;
-      border-radius: 3px;
-      padding: .25rem .6rem;
-      font-size: .6rem;
-      color: #666;
-      letter-spacing: .04em;
-      margin-left: .5rem;
-    }
-    .browser-screen {
-      width: 100%;
-      aspect-ratio: 16/10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--display);
-      font-size: clamp(.8rem, 2vw, 1.5rem);
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    /* FENIX screen */
-    .screen-fenix {
-      background: #1a0f00;
-      flex-direction: column;
-      gap: .5rem;
-    }
-    .screen-fenix .mock-logo {
-      font-size: clamp(1.2rem, 3vw, 2.2rem);
-      font-weight: 700;
-      color: #e05c1a;
-      letter-spacing: .2em;
-    }
-    .screen-fenix .mock-sub {
-      font-size: clamp(.5rem, 1.2vw, .75rem);
-      color: #7a4a20;
-      letter-spacing: .3em;
-    }
-
-    /* Estepona screen */
-    .screen-estepona {
-      background: #f4f0e8;
-      flex-direction: column;
-      gap: .4rem;
-    }
-    .screen-estepona .mock-logo {
-      font-size: clamp(.9rem, 2vw, 1.5rem);
-      font-weight: 300;
-      color: #2c4a2e;
-      letter-spacing: .2em;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-    }
-    .screen-estepona .mock-sub {
-      font-size: clamp(.4rem, 1vw, .65rem);
-      color: #8a9e7a;
-      letter-spacing: .25em;
-    }
-
-    /* Nell Design screen */
-    .screen-nell {
-      background: #0c0b09;
-      flex-direction: column;
-      gap: .4rem;
-    }
-    .screen-nell .mock-logo {
-      font-size: clamp(.85rem, 2vw, 1.4rem);
-      font-weight: 300;
-      color: #e0b435;
-      letter-spacing: .3em;
-    }
-    .screen-nell .mock-sub {
-      font-size: clamp(.4rem, .9vw, .6rem);
-      color: #4a4035;
-      letter-spacing: .2em;
+    .spg-main iframe,
+    .spg-detail iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1400px;
+      border: none;
+      pointer-events: none;
+      transform-origin: top left;
+      display: block;
     }
 
     /* Info pane */
@@ -270,7 +197,7 @@
     <div data-reveal>
       <span class="section-label">Web Design</span>
       <h1>Weby,<br>které<br><em>fungují.</em></h1>
-      <p>Navrhuji a stavím webové stránky od základů — s jasnou strukturou, promyšleným designem a příběhem, který má smysl.</p>
+      <p>Ukázka pár webů z mé práce — navržených a postavených od základů s čistým kódem, promyšleným designem a každým detailem na míru.</p>
     </div>
     <div class="page-header-deco" data-reveal data-delay="2">
       <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:clamp(180px,22vw,280px);height:auto;">
@@ -303,18 +230,11 @@
   <!-- ══ 01 FENIX JERKY ══ -->
   <article class="web-project" data-reveal>
     <div class="web-preview">
-      <div class="web-preview-inner">
-        <div class="browser-mock">
-          <div class="browser-bar">
-            <div class="browser-dot"></div>
-            <div class="browser-dot"></div>
-            <div class="browser-dot"></div>
-            <div class="browser-url">www-fenix.pages.dev</div>
-          </div>
-          <div class="browser-screen screen-fenix">
-            <span class="mock-logo">FENIX</span>
-            <span class="mock-sub">JERKY OD MAXE · KARLOVY VARY</span>
-          </div>
+      <div class="site-preview-grid">
+        <div class="spg-main"   id="p-fenix-main"></div>
+        <div class="spg-row2">
+          <div class="spg-detail" id="p-fenix-d1"></div>
+          <div class="spg-detail" id="p-fenix-d2"></div>
         </div>
       </div>
     </div>
@@ -340,18 +260,11 @@
   <!-- ══ 02 ESTEPONA ══ -->
   <article class="web-project" data-reveal>
     <div class="web-preview">
-      <div class="web-preview-inner">
-        <div class="browser-mock">
-          <div class="browser-bar">
-            <div class="browser-dot"></div>
-            <div class="browser-dot"></div>
-            <div class="browser-dot"></div>
-            <div class="browser-url">www-estepona.pages.dev</div>
-          </div>
-          <div class="browser-screen screen-estepona">
-            <span class="mock-logo">Náš druhý domov</span>
-            <span class="mock-sub">ESTEPONA · COSTA DEL SOL · ŠPANĚLSKO</span>
-          </div>
+      <div class="site-preview-grid">
+        <div class="spg-main"   id="p-step-main"></div>
+        <div class="spg-row2">
+          <div class="spg-detail" id="p-step-d1"></div>
+          <div class="spg-detail" id="p-step-d2"></div>
         </div>
       </div>
     </div>
@@ -378,18 +291,11 @@
   <!-- ══ 03 NELL DESIGN ══ -->
   <article class="web-project" data-reveal>
     <div class="web-preview">
-      <div class="web-preview-inner">
-        <div class="browser-mock">
-          <div class="browser-bar">
-            <div class="browser-dot"></div>
-            <div class="browser-dot"></div>
-            <div class="browser-dot"></div>
-            <div class="browser-url">www-nelldesign.pages.dev</div>
-          </div>
-          <div class="browser-screen screen-nell">
-            <span class="mock-logo">NELL DESIGN</span>
-            <span class="mock-sub">DESIGN THAT WORKS · WITH INTENT</span>
-          </div>
+      <div class="site-preview-grid">
+        <div class="spg-main"   id="p-nell-main"></div>
+        <div class="spg-row2">
+          <div class="spg-detail" id="p-nell-d1"></div>
+          <div class="spg-detail" id="p-nell-d2"></div>
         </div>
       </div>
     </div>
@@ -433,6 +339,7 @@
   </footer>
 
   <script>
+    /* ── Nav ── */
     const nav    = document.getElementById('nav');
     const toggle = document.getElementById('navToggle');
     const links  = document.getElementById('navLinks');
@@ -445,10 +352,14 @@
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
     }));
+
+    /* ── Reveal ── */
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
     }, { threshold: 0.06 });
     document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+
+    /* ── Custom cursor ── */
     const cursor = document.getElementById('cursor');
     const ring   = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -463,6 +374,63 @@
       el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
+
+    /* ── Site iframe previews ──
+     * Each entry: { id, url, tx, ty, ifrH, zoomW }
+     *   tx / ty  = offset into the page (pre-scale pixels) to show
+     *   ifrH     = iframe height in px (set tall enough to render content at ty)
+     *   zoomW    = if set, scale so that only this many px of page width fill the container
+     *              (used for FENIX horizontal crops: left half vs right half)
+     */
+    (function initPreviews() {
+      const FENIX    = 'https://www-fenix.pages.dev/';
+      const ESTEPONA = 'https://www-estepona.pages.dev/';
+      const NELL     = 'https://www-nelldesign.pages.dev/';
+
+      const defs = [
+        // FENIX — panel-based; all iframes show panel 01.
+        // Main: full width hero
+        { id: 'p-fenix-main', url: FENIX,    tx: 0,   ty: 0, ifrH: 1000 },
+        // Detail-1: left half (sidebar + left content)
+        { id: 'p-fenix-d1',   url: FENIX,    tx: 0,   ty: 0, ifrH: 1000, zoomW: 700 },
+        // Detail-2: right half (meat imagery)
+        { id: 'p-fenix-d2',   url: FENIX,    tx: 700, ty: 0, ifrH: 1000, zoomW: 700 },
+
+        // ESTEPONA — scroll-based; show 3 vertical sections
+        { id: 'p-step-main',  url: ESTEPONA, tx: 0, ty: 0,    ifrH: 3000 },
+        { id: 'p-step-d1',    url: ESTEPONA, tx: 0, ty: 850,  ifrH: 3000 },
+        { id: 'p-step-d2',    url: ESTEPONA, tx: 0, ty: 1700, ifrH: 3000 },
+
+        // NELL DESIGN — show 3 different pages of the portfolio
+        { id: 'p-nell-main',  url: NELL,                    tx: 0, ty: 0, ifrH: 1000 },
+        { id: 'p-nell-d1',    url: NELL + 'about.html',    tx: 0, ty: 0, ifrH: 1000 },
+        { id: 'p-nell-d2',    url: NELL + 'galerie.html',  tx: 0, ty: 0, ifrH: 1000 },
+      ];
+
+      defs.forEach(({ id, url, tx, ty, ifrH, zoomW }) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const ifr = document.createElement('iframe');
+        ifr.src = url;
+        ifr.title = 'preview';
+        ifr.setAttribute('loading', 'lazy');
+        ifr.style.cssText =
+          `width:1400px;height:${ifrH}px;border:none;pointer-events:none;` +
+          `position:absolute;top:0;left:0;transform-origin:top left;`;
+        el.appendChild(ifr);
+
+        function apply() {
+          const W       = el.offsetWidth;
+          const nativeW = zoomW || 1400;          // how many page-px to fill container width
+          const scale   = W / nativeW;
+          ifr.style.transform = `scale(${scale}) translate(${-tx}px,${-ty}px)`;
+        }
+
+        apply();
+        window.addEventListener('resize', apply, { passive: true });
+      });
+    })();
   </script>
 </body>
 </html>
