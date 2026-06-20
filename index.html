@@ -107,7 +107,7 @@
     }
     .claim-word {
       font-family: var(--display);
-      font-size: clamp(1.05rem, 2.6vw, 2.4rem);
+      font-size: clamp(1.66rem, 3.04vw, 2.43rem); /* = 3.2× claim-rest → stejná výška jako 2 řádky */
       font-weight: 300;
       letter-spacing: 0.25em;
       text-transform: uppercase;
@@ -261,8 +261,12 @@
         font-size: clamp(2.4rem, 10vw, 3.5rem);
         letter-spacing: 0.1em;
       }
-      /* Recalculate G offset for mobile letter-spacing (0.1em → subtract 0.05em) */
-      .g-title-svg { left: calc(50% - 0.05em); }
+      /* Smaller G on mobile — tight letter-spacing makes 1.22em look oversized */
+      .g-title-svg {
+        left: calc(50% - 0.05em);
+        width: 0.88em;
+        height: 0.88em;
+      }
       .hero-deco-g {
         display: block;
         position: absolute;
