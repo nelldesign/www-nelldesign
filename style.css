@@ -332,6 +332,58 @@ footer {
   }
 }
 
+/* ─── Luxury accents ─── */
+
+/* Film grain — adds depth and richness like premium print */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 250px 250px;
+}
+
+/* Gold gradient dividers — marquee strip */
+.marquee-wrap {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  position: relative;
+}
+.marquee-wrap::before,
+.marquee-wrap::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(224,180,53,0.45) 50%,
+    transparent 100%);
+  pointer-events: none;
+}
+.marquee-wrap::before { top: 0; }
+.marquee-wrap::after  { bottom: 0; }
+
+/* Gold gradient divider — footer */
+footer {
+  border-top-color: transparent;
+  position: relative;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 5vw; right: 5vw;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(224,180,53,0.4) 50%,
+    transparent 100%);
+  pointer-events: none;
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
   .nav { padding: 1.5rem 5vw; }
