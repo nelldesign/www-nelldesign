@@ -44,19 +44,18 @@
     /* Záblesky z tahů písmen N a G */
     .glint-n, .glint-g { position: relative; display: inline-block; }
     .glint-g {
-      color: var(--gold);
+      color: transparent; /* textové g skryto, nahrazeno SVG */
     }
     /* Skrýt bílou hvězdičku u G */
     .glint-g::after { display: none !important; }
-    /* SVG laser překrývající písmeno G */
-    .g-title-laser {
-      position: absolute;
-      top: 0.05em;
-      left: 0.03em;
-      width: 0.88em;
-      height: 0.88em;
-      pointer-events: none;
+    /* SVG G — stejný tvar jako dekorativní G na dalších stránkách */
+    .g-title-svg {
+      display: inline-block;
+      width: 0.82em;
+      height: 0.82em;
+      vertical-align: -0.06em;
       overflow: visible;
+      pointer-events: none;
     }
 .glint-n::after, .glint-g::after {
       content: '';
@@ -335,7 +334,7 @@
       </g>
     </svg>
     <span class="hero-eyebrow">Creative studio &amp; brand direction</span>
-    <h1 class="hero-title"><span class="glint-n">N</span>ell Desi<span class="glint-g">g<svg class="g-title-laser" viewBox="0 0 200 200" aria-hidden="true"><path class="g-laser-path" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43" fill="none" stroke="rgba(255,245,180,0.95)" stroke-width="4" stroke-linecap="round" pointer-events="none"/></svg></span>n</h1>
+    <h1 class="hero-title"><span class="glint-n">N</span>ell Desi<span class="glint-g"><svg class="g-title-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="deco-gold-t" x1="25%" y1="0%" x2="75%" y2="100%"><stop offset="0%" stop-color="#6b4012"/><stop offset="18%" stop-color="#b88528"/><stop offset="40%" stop-color="#edd060"/><stop offset="58%" stop-color="#c49030"/><stop offset="80%" stop-color="#9a6818"/><stop offset="100%" stop-color="#5a380e"/></linearGradient></defs><path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43" fill="none" stroke="url(#deco-gold-t)" stroke-width="3.2" stroke-linecap="round"/><path class="g-laser-path" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43" fill="none" stroke="rgba(255,245,180,0.95)" stroke-width="4" stroke-linecap="round" pointer-events="none"/></svg></span>n</h1>
     <p class="hero-claim">
       <span class="claim-word">Design</span>
       <span class="claim-rest">that works<br>with intent</span>
