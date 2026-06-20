@@ -107,15 +107,15 @@
     }
     .claim-word {
       font-family: var(--display);
-      font-size: clamp(1.35rem, 3.4vw, 3.05rem);
+      font-size: clamp(1.05rem, 2.6vw, 2.4rem);
       font-weight: 300;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: #b8a898;
+      color: #4a4440; /* tmavá teplá šedá — viditelná na černé, ale nevýrazná */
     }
     .claim-rest {
       font-family: var(--display);
-      font-size: clamp(0.6rem, 1.12vw, 0.88rem);
+      font-size: clamp(0.52rem, 0.95vw, 0.76rem);
       font-weight: 300;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -125,8 +125,8 @@
     }
     @media (max-width: 480px) {
       .hero-claim { gap: 0.6em; }
-      .claim-word { font-size: clamp(0.9rem, 5vw, 1.1rem); }
-      .claim-rest { font-size: 0.55rem; }
+      .claim-word { font-size: clamp(0.8rem, 4.5vw, 1rem); }
+      .claim-rest { font-size: 0.5rem; }
     }
     .hero-scroll {
       position: absolute;
@@ -261,6 +261,8 @@
         font-size: clamp(2.4rem, 10vw, 3.5rem);
         letter-spacing: 0.1em;
       }
+      /* Recalculate G offset for mobile letter-spacing (0.1em → subtract 0.05em) */
+      .g-title-svg { left: calc(50% - 0.05em); }
       .hero-deco-g {
         display: block;
         position: absolute;

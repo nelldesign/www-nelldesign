@@ -141,6 +141,10 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.42em;
   color: var(--text-muted);
 }
+@media (max-width: 768px) {
+  /* Hide sub-tagline on mobile — keeps nav compact so hamburger stays clickable */
+  .nav-logo-sub { display: none; }
+}
 .nav-links {
   display: flex;
   gap: 2.5rem;
