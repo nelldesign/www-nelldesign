@@ -10,8 +10,12 @@
     body { padding-top: 6rem; }
 
     .page-header {
-      padding: 8rem 5vw 5rem;
+      padding: 16rem 5vw 6rem;
       border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: end;
     }
     .page-header .section-label { display: block; margin-bottom: 1.25rem; }
     .page-header h1 {
@@ -27,6 +31,15 @@
       color: var(--text-muted);
       max-width: 36rem;
       line-height: 1.75;
+    }
+    .page-header-deco {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .page-header { grid-template-columns: 1fr; gap: 2rem; padding: 13rem 5vw 4rem; }
+      .page-header-deco { display: none; }
     }
 
     /* ── Project sections ── */
@@ -254,9 +267,37 @@
   </nav>
 
   <header class="page-header">
-    <span class="section-label">Web Design</span>
-    <h1>Weby,<br>které<br><em>fungují.</em></h1>
-    <p>Navrhuji a stavím webové stránky od základů — s jasnou strukturou, promyšleným designem a příběhem, který má smysl.</p>
+    <div data-reveal>
+      <span class="section-label">Web Design</span>
+      <h1>Weby,<br>které<br><em>fungují.</em></h1>
+      <p>Navrhuji a stavím webové stránky od základů — s jasnou strukturou, promyšleným designem a příběhem, který má smysl.</p>
+    </div>
+    <div class="page-header-deco" data-reveal data-delay="2">
+      <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:clamp(180px,22vw,280px);height:auto;">
+        <defs>
+          <linearGradient id="deco-gold-w" x1="25%" y1="0%" x2="75%" y2="100%">
+            <stop offset="0%"   stop-color="#6b4012"/>
+            <stop offset="18%"  stop-color="#b88528"/>
+            <stop offset="40%"  stop-color="#edd060"/>
+            <stop offset="58%"  stop-color="#c49030"/>
+            <stop offset="80%"  stop-color="#9a6818"/>
+            <stop offset="100%" stop-color="#5a380e"/>
+          </linearGradient>
+          <filter id="deco-glow-w" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
+              fill="none" stroke="url(#deco-gold-w)" stroke-width="3.2" stroke-linecap="round"/>
+        <g class="g-star" transform="translate(157, 43)" filter="url(#deco-glow-w)">
+          <line x1="0" y1="-13" x2="0" y2="13" stroke="rgba(255,245,200,0.95)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="-13" y1="0" x2="13" y2="0" stroke="rgba(255,245,200,0.6)" stroke-width="0.7" stroke-linecap="round"/>
+          <line x1="-8" y1="-8" x2="8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+          <line x1="8" y1="-8" x2="-8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
   </header>
 
   <!-- ══ 01 FENIX JERKY ══ -->
