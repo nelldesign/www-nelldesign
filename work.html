@@ -49,11 +49,19 @@
     }
     .project-item:hover { background: var(--bg-alt); }
 
-    .project-item-img .img-placeholder {
-      aspect-ratio: 4/3;
+    .project-item-img {
+      overflow: hidden;
+    }
+    .project-item-img img {
+      width: 100%;
       height: 100%;
       min-height: 300px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform .9s ease;
     }
+    .project-item:hover .project-item-img img { transform: scale(1.04); }
 
     .project-item-text {
       padding: 4rem 5vw;
@@ -110,7 +118,7 @@
       .project-item { grid-template-columns: 1fr; }
       .project-item.reverse .project-item-img,
       .project-item.reverse .project-item-text { order: unset; }
-      .project-item-img .img-placeholder { min-height: 60vw; }
+      .project-item-img img { min-height: 60vw; aspect-ratio: unset; }
       .project-item-text { padding: 2.5rem 5vw; }
     }
   </style>
@@ -176,7 +184,7 @@
 
     <article class="project-item" data-reveal>
       <div class="project-item-img">
-        <div class="img-placeholder"></div>
+        <img src="https://images.unsplash.com/photo-1636247497749-c3162e33e82a?w=1400&q=80&auto=format&fit=crop" alt="Brand identity mockup — white envelope on black">
       </div>
       <div class="project-item-text">
         <p class="project-num">01</p>
@@ -189,7 +197,7 @@
 
     <article class="project-item reverse" data-reveal>
       <div class="project-item-img">
-        <div class="img-placeholder"></div>
+        <img src="https://images.unsplash.com/photo-1682184805271-11671b7ecf4c?w=1400&q=80&auto=format&fit=crop" alt="Luxury interior — modern living room with large window">
       </div>
       <div class="project-item-text">
         <p class="project-num">02</p>
@@ -202,7 +210,7 @@
 
     <article class="project-item" data-reveal>
       <div class="project-item-img">
-        <div class="img-placeholder"></div>
+        <img src="https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=1400&q=80&auto=format&fit=crop" alt="Dark editorial — moody laptop in dim light">
       </div>
       <div class="project-item-text">
         <p class="project-num">03</p>
@@ -215,7 +223,7 @@
 
     <article class="project-item reverse" data-reveal>
       <div class="project-item-img">
-        <div class="img-placeholder"></div>
+        <img src="https://images.unsplash.com/photo-1636247498719-a8a04ed961a4?w=1400&q=80&auto=format&fit=crop" alt="Print materials — business cards mockup">
       </div>
       <div class="project-item-text">
         <p class="project-num">04</p>
@@ -228,7 +236,7 @@
 
     <article class="project-item" data-reveal>
       <div class="project-item-img">
-        <div class="img-placeholder"></div>
+        <img src="https://images.unsplash.com/photo-1677890465835-ab8c5c621771?w=1400&q=80&auto=format&fit=crop" alt="Luxury brand — white bag on elegant chair">
       </div>
       <div class="project-item-text">
         <p class="project-num">05</p>
