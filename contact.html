@@ -349,6 +349,9 @@
       <form action="https://formsubmit.co/nellhaak.f@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="Nová zpráva z Nell Design webu">
         <input type="hidden" name="_captcha" value="false">
+        <!-- Honeypot: lidé ho nevidí, boti ho vyplní -->
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off"
+               style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
         <textarea id="message" name="message"
           placeholder="Napište zprávu — a nezapomeňte na svůj email nebo telefon, abych se mohla ozvat." required></textarea>
         <button type="submit" class="btn-submit">
@@ -457,6 +460,9 @@
 
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      // Honeypot check — bot vyplnil skryté pole
+      const honey = contactForm.querySelector('[name="_honey"]');
+      if (honey && honey.value) return;
       const btn = contactForm.querySelector('.btn-submit');
       btn.textContent = '...';
       btn.disabled = true;
