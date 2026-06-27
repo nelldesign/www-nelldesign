@@ -126,52 +126,93 @@
       color: var(--text-muted);
     }
 
-    /* Values — gold glass panel */
+    /* Values — luxusní skleněný panel */
     .values-glass-wrap {
       padding: 0 5vw 5rem;
     }
     .values-glass {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      background: rgba(180, 130, 40, 0.06);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border: 1px solid rgba(200, 160, 60, 0.18);
-      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 248, 220, 0.022);
+      backdrop-filter: blur(32px) saturate(1.4);
+      -webkit-backdrop-filter: blur(32px) saturate(1.4);
+      border-top: 0.5px solid rgba(255, 240, 160, 0.22);
+      border-bottom: 0.5px solid rgba(255, 240, 160, 0.06);
+      border-left: 0.5px solid rgba(255, 240, 160, 0.10);
+      border-right: 0.5px solid rgba(255, 240, 160, 0.10);
       box-shadow:
-        0 8px 40px rgba(0,0,0,0.5),
-        0 2px 8px rgba(0,0,0,0.3),
-        inset 0 1px 0 rgba(255,220,100,0.10),
-        inset 0 -1px 0 rgba(180,130,40,0.06);
+        0 0 0 0.5px rgba(0,0,0,0.6),
+        0 24px 80px rgba(0,0,0,0.65),
+        0 8px 24px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255, 245, 180, 0.18),
+        inset 0 -1px 0 rgba(0,0,0,0.35);
     }
+
+    /* Světelný reflex sledující myš */
+    .values-glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        700px circle at var(--vgx, 50%) var(--vgy, -20%),
+        rgba(255, 225, 100, 0.07) 0%,
+        rgba(255, 200, 60, 0.03) 30%,
+        transparent 60%
+      );
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.05s linear;
+    }
+
+    /* Horní lesk — sklo vždy odráží světlo u horního okraje */
+    .values-glass::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 245, 180, 0.55) 30%,
+        rgba(255, 255, 220, 0.80) 50%,
+        rgba(255, 245, 180, 0.55) 70%,
+        transparent
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+
     .value-item {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid rgba(200, 160, 60, 0.12);
+      padding: 2rem 1.75rem;
+      border-right: 0.5px solid rgba(255, 240, 140, 0.07);
+      position: relative;
+      z-index: 1;
     }
     .value-item:last-child { border-right: none; }
     .value-dash {
-      font-size: 0.58rem;
+      font-size: 0.55rem;
       letter-spacing: 0.2em;
       color: var(--gold);
       display: block;
-      margin-bottom: .9rem;
+      margin-bottom: .75rem;
     }
     .value-item h4 {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 400;
-      margin-bottom: .6rem;
+      margin-bottom: .5rem;
     }
     .value-item p {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       line-height: 1.7;
     }
 
     @media (max-width: 768px) {
       .values-glass { grid-template-columns: 1fr 1fr; }
-      .value-item { border-bottom: 1px solid rgba(200,160,60,0.12); }
+      .value-item { border-bottom: 0.5px solid rgba(255,240,140,0.07); }
       .value-item:nth-child(even) { border-right: none; }
       .value-item:nth-last-child(-n+2) { border-bottom: none; }
     }
@@ -413,6 +454,18 @@
       el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
+
+    // Světelný reflex v glass panelu sleduje myš
+    const glassPanel = document.querySelector('.values-glass');
+    if (glassPanel) {
+      document.addEventListener('mousemove', (e) => {
+        const rect = glassPanel.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        glassPanel.style.setProperty('--vgx', x + '%');
+        glassPanel.style.setProperty('--vgy', y + '%');
+      });
+    }
   </script>
 
 </body>
