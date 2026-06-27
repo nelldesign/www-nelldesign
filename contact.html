@@ -160,6 +160,22 @@
     }
     textarea:focus { border-color: rgba(180,133,40,0.65); }
     textarea::placeholder { color: rgba(255,255,255,0.18); font-style: italic; }
+    input[name="_replyto"] {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(180,133,40,0.22);
+      border-top: none;
+      padding: 1rem 2rem;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 300;
+      outline: none;
+      width: 100%;
+      transition: border-color .3s;
+      -webkit-appearance: none;
+    }
+    input[name="_replyto"]:focus { border-color: rgba(180,133,40,0.65); }
+    input[name="_replyto"]::placeholder { color: rgba(255,255,255,0.18); font-style: italic; }
     .btn-submit {
       background: none;
       border: 1px solid rgba(180,133,40,0.22);
