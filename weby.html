@@ -65,6 +65,12 @@
     @media (max-width: 768px) {
       .page-header { grid-template-columns: 1fr; gap: 2rem; padding: 13rem 5vw 4rem; }
       .page-header-deco { display: none; }
+      .web-project { grid-template-columns: 1fr !important; direction: ltr !important; }
+      .web-project:nth-child(even) { direction: ltr; }
+      .web-preview { min-height: 56vw; }
+      .web-info { padding: 2.5rem 5vw 3rem; }
+      .web-tags { flex-wrap: wrap; }
+      .web-cta { padding: 5rem 5vw; }
     }
 
     /* ── Project sections ── */

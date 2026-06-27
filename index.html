@@ -328,7 +328,8 @@
       .work-preview-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .project-card.featured { grid-column: auto; }
-      .project-card.featured .project-thumb { aspect-ratio: 4/3; }
+      .project-card.featured .project-thumb,
+      .project-card:not(.featured) .project-thumb { aspect-ratio: 4/3; }
       .about-teaser { grid-template-columns: 1fr; gap: 3rem; }
       .about-teaser-img { order: -1; }
     }

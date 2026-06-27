@@ -177,6 +177,11 @@
       .kids-grid { grid-template-columns: 1fr 1fr; }
       .kids-grid-item:nth-child(even) { border-right: none; }
       .kids-grid-item { border-bottom: 1px solid var(--border); }
+      /* PŘED grid — single column on mobile */
+      .kids-grid-half { grid-template-columns: 1fr !important; }
+      /* Lightbox arrows — inside image edges on mobile */
+      .kids-lb-prev { left: 0.5rem; }
+      .kids-lb-next { right: 0.5rem; }
     }
 
     /* Laser button */
