@@ -123,11 +123,10 @@
     .gallery-item {
       overflow: hidden;
       background: var(--bg-alt);
-      aspect-ratio: 3/4;
+      height: clamp(180px, 22vw, 320px);
     }
-    .gallery-item.landscape { aspect-ratio: 4/3; }
-    .gallery-item.wide      { aspect-ratio: 16/9; }
-    .gallery-item.square    { aspect-ratio: 1/1; }
+    .gallery-item.landscape { height: clamp(160px, 18vw, 260px); }
+    .gallery-item.wide      { height: clamp(140px, 16vw, 220px); }
 
     .gallery-item button {
       display: block;
@@ -155,7 +154,7 @@
       .gallery-grid.cols-feature-stacked .gallery-item:first-child { grid-row: auto; }
       .gallery-grid.cols-5 { grid-template-columns: repeat(2, 1fr); }
       .gallery-grid.cols-5 .gallery-item { grid-column: span 1 !important; }
-      .gallery-item { aspect-ratio: 3/4; }
+      .gallery-item, .gallery-item.landscape, .gallery-item.wide { height: clamp(120px, 38vw, 220px); }
     }
 
     /* ─── Lightbox ─── */
