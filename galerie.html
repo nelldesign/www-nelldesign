@@ -61,98 +61,102 @@
     .filter-btn:hover { color: var(--text); border-color: var(--text-muted); }
     .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bg); }
 
-    /* ─── Strip gallery ─── */
-    .strips-gallery { padding: 0 0 8rem; }
+    /* ─── Editorial gallery ─── */
+    .editorial-gallery { padding: 0 0 6rem; }
 
-    .strip-section {
-      padding: 4rem 0;
+    .gallery-section {
       border-top: 1px solid var(--border);
+      padding: 5rem 0 0;
     }
-    .strip-section:last-of-type { border-bottom: 1px solid var(--border); }
+    .gallery-section:last-of-type { padding-bottom: 0; }
 
-    .strip-header {
-      padding: 0 5vw 2.5rem;
+    .gallery-header {
+      padding: 0 5vw 3rem;
       display: grid;
       grid-template-columns: 1fr 2fr;
-      gap: 4rem;
+      gap: 5rem;
       align-items: start;
     }
-    .strip-header-meta .section-label { margin-bottom: .75rem; }
-    .strip-header-meta h2 {
-      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    .gallery-header-meta .section-label { margin-bottom: .75rem; }
+    .gallery-header-meta h2 {
+      font-size: clamp(1.4rem, 2.2vw, 2.2rem);
       font-weight: 300;
       line-height: 1.1;
     }
-    .strip-desc {
+    .gallery-desc {
       font-family: var(--serif);
       font-style: italic;
-      font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      font-size: clamp(0.88rem, 1.3vw, 1rem);
       color: var(--text-muted);
-      line-height: 1.8;
-      padding-top: .2rem;
+      line-height: 1.85;
     }
 
-    /* ─── Scrolling strip ─── */
-    .photo-strip-wrap {
-      overflow: hidden;
-      width: 100%;
-      padding-bottom: 1.2rem;
+    /* ─── Grid layouts ─── */
+    .gallery-grid {
+      display: grid;
+      gap: 2px;
     }
-    .photo-strip {
-      display: flex;
-      gap: 5px;
-      width: max-content;
-      will-change: transform;
-      /* duration & drift-x set by JS after images load */
-      animation: strip-drift var(--duration, 9999s) linear infinite;
+    .gallery-grid.cols-3       { grid-template-columns: 1fr 1fr 1fr; }
+    .gallery-grid.cols-2       { grid-template-columns: 1fr 1fr; }
+    .gallery-grid.cols-feature { grid-template-columns: 2fr 1fr; }
+
+    /* Asymmetric: feature + 2 stacked */
+    .gallery-grid.cols-feature-stacked {
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 1fr 1fr;
     }
-    @keyframes strip-drift {
-      from { transform: translateX(0); }
-      to   { transform: translateX(var(--drift-x, 0px)); }
-    }
-    .photo-strip-wrap:hover .photo-strip {
-      animation-play-state: paused;
+    .gallery-grid.cols-feature-stacked .gallery-item:first-child {
+      grid-row: span 2;
     }
 
-    /* ─── Strip item ─── */
-    .strip-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 9px;
-      flex-shrink: 0;
+    /* 5 images: 2 big top + 3 bottom */
+    .gallery-grid.cols-5 {
+      grid-template-columns: repeat(6, 1fr);
     }
+    .gallery-grid.cols-5 .gallery-item:nth-child(1),
+    .gallery-grid.cols-5 .gallery-item:nth-child(2) { grid-column: span 3; }
+    .gallery-grid.cols-5 .gallery-item:nth-child(3),
+    .gallery-grid.cols-5 .gallery-item:nth-child(4),
+    .gallery-grid.cols-5 .gallery-item:nth-child(5) { grid-column: span 2; }
 
-    /* Photo button */
-    .strip-photo {
-      display: block;
-      height: 220px;
+    /* ─── Gallery item ─── */
+    .gallery-item {
       overflow: hidden;
       background: var(--bg-alt);
+      aspect-ratio: 3/4;
+    }
+    .gallery-item.landscape { aspect-ratio: 4/3; }
+    .gallery-item.wide      { aspect-ratio: 16/9; }
+    .gallery-item.square    { aspect-ratio: 1/1; }
+
+    .gallery-item button {
+      display: block;
+      width: 100%;
+      height: 100%;
       border: none;
       padding: 0;
+      background: none;
       cursor: pointer;
     }
-    .strip-photo img {
-      height: 220px;
-      width: auto;
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      transition: transform .7s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
+      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .strip-photo:hover img { transform: scale(1.05); }
+    .gallery-item:hover img { transform: scale(1.03); }
 
-    /* IG badge */
-    .ig-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      color: var(--text-muted);
-      transition: color .3s;
+    @media (max-width: 768px) {
+      .gallery-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .gallery-grid.cols-3,
+      .gallery-grid.cols-feature,
+      .gallery-grid.cols-feature-stacked { grid-template-columns: 1fr 1fr; }
+      .gallery-grid.cols-feature-stacked .gallery-item:first-child { grid-row: auto; }
+      .gallery-grid.cols-5 { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid.cols-5 .gallery-item { grid-column: span 1 !important; }
+      .gallery-item { aspect-ratio: 3/4; }
     }
-    .ig-badge:hover { color: var(--gold); }
 
     /* ─── Lightbox ─── */
     .lightbox {
@@ -231,6 +235,7 @@
       <li><a href="work.html">Práce</a></li>
       <li><a href="galerie.html" class="active">Galerie</a></li>
       <li><a href="weby.html">Weby</a></li>
+      <li><a href="kids.html">For Kids</a></li>
       <li><a href="contact.html">Kontakt</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -281,219 +286,177 @@
     <button class="filter-btn" data-filter="interier">Interiér</button>
   </div>
 
-  <div class="strips-gallery" id="stripsGallery">
+  <div class="editorial-gallery" id="editorialGallery">
 
-    <!-- ═══════════════════════════════════════
-         1. CAFÉ MATTONI
-    ═══════════════════════════════════════ -->
-    <section class="strip-section" data-cat="grafika" data-reveal>
-      <div class="strip-header">
-        <div class="strip-header-meta">
+    <!-- 1. CAFÉ MATTONI — 3 portrait cols -->
+    <section class="gallery-section" data-cat="grafika" data-reveal>
+      <div class="gallery-header">
+        <div class="gallery-header-meta">
           <span class="section-label">Grafický design / Tiskoviny</span>
           <h2>Café Mattoni</h2>
         </div>
-        <p class="strip-desc">Kompletní menu design pro kavárnu v Karlových Varech. Obálka, nápojový lístek s Nespresso nabídkou a dezertní menu — vše ve společném vizuálním jazyce s jemnou texturou a botanickými motivy.</p>
+        <p class="gallery-desc">Kompletní menu design pro kavárnu v Karlových Varech. Obálka, nápojový lístek s Nespresso nabídkou a dezertní menu — vše ve společném vizuálním jazyce s jemnou texturou a botanickými motivy.</p>
       </div>
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8088.jpg" data-alt="Café Mattoni — menu cover">
-              <img src="img/web/IMG_8088.jpg" alt="Café Mattoni — menu cover" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8090.jpg" data-alt="Café Mattoni — nápojový lístek">
-              <img src="img/web/IMG_8090.jpg" alt="Café Mattoni — nápojový lístek" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8091.jpg" data-alt="Café Mattoni — dezerty">
-              <img src="img/web/IMG_8091.jpg" alt="Café Mattoni — dezerty" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
+      <div class="gallery-grid cols-3">
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8088.jpg" data-alt="Café Mattoni — menu cover">
+            <img src="img/web/IMG_8088.jpg" alt="Café Mattoni — menu cover" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8090.jpg" data-alt="Café Mattoni — nápojový lístek">
+            <img src="img/web/IMG_8090.jpg" alt="Café Mattoni — nápojový lístek" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8091.jpg" data-alt="Café Mattoni — dezerty">
+            <img src="img/web/IMG_8091.jpg" alt="Café Mattoni — dezerty" loading="lazy">
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         2. MR&MRS HAAK
-    ═══════════════════════════════════════ -->
-    <section class="strip-section" data-cat="grafika" data-reveal>
-      <div class="strip-header">
-        <div class="strip-header-meta">
+    <!-- 2. MR&MRS HAAK — featured left + 2 stacked right -->
+    <section class="gallery-section" data-cat="grafika" data-reveal>
+      <div class="gallery-header">
+        <div class="gallery-header-meta">
           <span class="section-label">Editorial design</span>
           <h2>MR&amp;MRS HAAK</h2>
         </div>
-        <p class="strip-desc">Svatební noviny pro novomanžele. Novinářský layout s osobním příběhem, harmonogramem dne a humorem, který si hosté odnesli jako vzpomínku. Titulní strana, vnitřní rozvrh i děkovná strana — vše v jednom tisku.</p>
+        <p class="gallery-desc">Svatební noviny pro novomanžele. Novinářský layout s osobním příběhem, harmonogramem dne a humorem, který si hosté odnesli jako vzpomínku. Titulní strana, vnitřní rozvrh i děkovná strana — vše v jednom tisku.</p>
       </div>
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8034.jpg" data-alt="MR&MRS HAAK — titulní strana">
-              <img src="img/web/IMG_8034.jpg" alt="MR&MRS HAAK — titulní strana" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8035.jpg" data-alt="MR&MRS HAAK — Wedding Details">
-              <img src="img/web/IMG_8035.jpg" alt="MR&MRS HAAK — Wedding Details" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8036.jpg" data-alt="MR&MRS HAAK — Thank You">
-              <img src="img/web/IMG_8036.jpg" alt="MR&MRS HAAK — Thank You" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
+      <div class="gallery-grid cols-feature-stacked">
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8034.jpg" data-alt="MR&MRS HAAK — titulní strana">
+            <img src="img/web/IMG_8034.jpg" alt="MR&MRS HAAK — titulní strana" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8035.jpg" data-alt="MR&MRS HAAK — Wedding Details">
+            <img src="img/web/IMG_8035.jpg" alt="MR&MRS HAAK — Wedding Details" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8036.jpg" data-alt="MR&MRS HAAK — Thank You">
+            <img src="img/web/IMG_8036.jpg" alt="MR&MRS HAAK — Thank You" loading="lazy">
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         3. APARTMENT GUIDE ESTEPONA
-    ═══════════════════════════════════════ -->
-    <section class="strip-section" data-cat="grafika" data-reveal>
-      <div class="strip-header">
-        <div class="strip-header-meta">
+    <!-- 3. APARTMENT GUIDE — feature + 2 stacked -->
+    <section class="gallery-section" data-cat="grafika" data-reveal>
+      <div class="gallery-header">
+        <div class="gallery-header-meta">
           <span class="section-label">Editorial / Print</span>
           <h2>Apartment Guide<br>Estepona</h2>
         </div>
-        <p class="strip-desc">Průvodce apartmánem na španělském pobřeží. Vizuálně čistý set zahrnující obálku, orientační kartu a jednotlivé stránky s popisem pokojů a praktickými informacemi pro hosty. Jednoduše, elegantně, s důrazem na přehlednost.</p>
+        <p class="gallery-desc">Průvodce apartmánem na španělském pobřeží. Vizuálně čistý set zahrnující obálku, orientační kartu a jednotlivé stránky s popisem pokojů a praktickými informacemi pro hosty. Jednoduše, elegantně, s důrazem na přehlednost.</p>
       </div>
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8081.jpg" data-alt="Apartment Guide — obálka">
-              <img src="img/web/IMG_8081.jpg" alt="Apartment Guide — obálka" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8082.jpg" data-alt="Apartment Guide — set">
-              <img src="img/web/IMG_8082.jpg" alt="Apartment Guide — set" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8086.jpg" data-alt="Apartment Guide — obývací pokoj">
-              <img src="img/web/IMG_8086.jpg" alt="Apartment Guide — obývací pokoj" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
+      <div class="gallery-grid cols-feature-stacked">
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8081.jpg" data-alt="Apartment Guide — obálka">
+            <img src="img/web/IMG_8081.jpg" alt="Apartment Guide — obálka" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8082.jpg" data-alt="Apartment Guide — set">
+            <img src="img/web/IMG_8082.jpg" alt="Apartment Guide — set" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8086.jpg" data-alt="Apartment Guide — obývací pokoj">
+            <img src="img/web/IMG_8086.jpg" alt="Apartment Guide — obývací pokoj" loading="lazy">
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         4. BYT PAŠAVOVI
-    ═══════════════════════════════════════ -->
-    <section class="strip-section" data-cat="interier foto" data-reveal>
-      <div class="strip-header">
-        <div class="strip-header-meta">
+    <!-- 4. REALITNÍ PREZENTACE — 2 landscape top + 3 bottom -->
+    <section class="gallery-section" data-cat="interier foto" data-reveal>
+      <div class="gallery-header">
+        <div class="gallery-header-meta">
           <span class="section-label">Foto & grafika / Nemovitosti</span>
           <h2>Realitní prezentace</h2>
         </div>
-        <p class="strip-desc">Fotografická a grafická prezentace bytu určeného k prodeji nebo pronájmu. Cílem bylo ukázat prostor v nejlepším světle — od kompozice záběrů po vizuální materiály připravené k inzerci.</p>
+        <p class="gallery-desc">Fotografická a grafická prezentace bytu určeného k prodeji nebo pronájmu. Cílem bylo ukázat prostor v nejlepším světle — od kompozice záběrů po vizuální materiály připravené k inzerci.</p>
       </div>
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/real-estate-1.jpg" data-alt="Realitní prezentace">
-              <img src="img/web/real-estate-1.jpg" alt="Realitní prezentace" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/real-estate-2.jpg" data-alt="Realitní prezentace — detail">
-              <img src="img/web/real-estate-2.jpg" alt="Realitní prezentace — detail" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/real-estate-3.jpg" data-alt="Realitní prezentace — detail">
-              <img src="img/web/real-estate-3.jpg" alt="Realitní prezentace — detail" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/real-estate-4.jpg" data-alt="Realitní prezentace — chodba">
-              <img src="img/web/real-estate-4.jpg" alt="Realitní prezentace — chodba" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/real-estate-5.jpg" data-alt="Realitní prezentace — koupelna">
-              <img src="img/web/real-estate-5.jpg" alt="Realitní prezentace — koupelna" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
+      <div class="gallery-grid cols-5">
+        <div class="gallery-item landscape">
+          <button data-src="img/web/real-estate-1.jpg" data-alt="Realitní prezentace">
+            <img src="img/web/real-estate-1.jpg" alt="Realitní prezentace" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item landscape">
+          <button data-src="img/web/real-estate-2.jpg" data-alt="Realitní prezentace — detail">
+            <img src="img/web/real-estate-2.jpg" alt="Realitní prezentace — detail" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item landscape">
+          <button data-src="img/web/real-estate-3.jpg" data-alt="Realitní prezentace — obývací pokoj">
+            <img src="img/web/real-estate-3.jpg" alt="Realitní prezentace — obývací pokoj" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item landscape">
+          <button data-src="img/web/real-estate-4.jpg" data-alt="Realitní prezentace — chodba">
+            <img src="img/web/real-estate-4.jpg" alt="Realitní prezentace — chodba" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item landscape">
+          <button data-src="img/web/real-estate-5.jpg" data-alt="Realitní prezentace — koupelna">
+            <img src="img/web/real-estate-5.jpg" alt="Realitní prezentace — koupelna" loading="lazy">
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         5. ŠATNA
-    ═══════════════════════════════════════ -->
-    <section class="strip-section" data-cat="interier" data-reveal>
-      <div class="strip-header">
-        <div class="strip-header-meta">
+    <!-- 5. ŠATNA — 2 equal -->
+    <section class="gallery-section" data-cat="interier" data-reveal>
+      <div class="gallery-header">
+        <div class="gallery-header-meta">
           <span class="section-label">Interiér / Šatna</span>
           <h2>Návrh šatny</h2>
         </div>
-        <p class="strip-desc">Dvě realizace walk-in šaten — bílá minimalistická varianta se zrcadlovými posuvnými dveřmi a varianta v tmavém dřevě s čalouněnou lavičkou. Každá navržena na míru konkrétnímu prostoru a jeho uživateli.</p>
+        <p class="gallery-desc">Dvě realizace walk-in šaten — bílá minimalistická varianta se zrcadlovými posuvnými dveřmi a varianta v tmavém dřevě s čalouněnou lavičkou. Každá navržena na míru konkrétnímu prostoru a jeho uživateli.</p>
       </div>
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8025.jpg" data-alt="Šatna — bílá">
-              <img src="img/web/IMG_8025.jpg" alt="Šatna — bílá" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/IMG_8026.jpg" data-alt="Šatna — tmavé dřevo">
-              <img src="img/web/IMG_8026.jpg" alt="Šatna — tmavé dřevo" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
+      <div class="gallery-grid cols-2">
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8025.jpg" data-alt="Šatna — bílá">
+            <img src="img/web/IMG_8025.jpg" alt="Šatna — bílá" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/IMG_8026.jpg" data-alt="Šatna — tmavé dřevo">
+            <img src="img/web/IMG_8026.jpg" alt="Šatna — tmavé dřevo" loading="lazy">
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         6. TEREZA & OLIVER
-    ═══════════════════════════════════════ -->
-    <section class="strip-section" data-cat="grafika" data-reveal>
-      <div class="strip-header">
-        <div class="strip-header-meta">
+    <!-- 6. TEREZA & OLIVER — 2 equal -->
+    <section class="gallery-section" data-cat="grafika" data-reveal>
+      <div class="gallery-header">
+        <div class="gallery-header-meta">
           <span class="section-label">Grafický design / Tiskoviny</span>
           <h2>Tereza &amp; Oliver</h2>
         </div>
-        <p class="strip-desc">Svatební tiskoviny pro Terezu a Olivera. Dvoujazyčné menu v česko-anglickém provedení a jmenovky ke stolům — vše v jednotném vizuálním stylu s zlatým ornamentem a jemnou typografií.</p>
+        <p class="gallery-desc">Svatební tiskoviny pro Terezu a Olivera. Dvoujazyčné menu v česko-anglickém provedení a jmenovky ke stolům — vše v jednotném vizuálním stylu s zlatým ornamentem a jemnou typografií.</p>
       </div>
-      <div class="photo-strip-wrap">
-        <div class="photo-strip">
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/Wedding Menu.jpg" data-alt="Svatební menu — Tereza & Oliver">
-              <img src="img/web/Wedding Menu.jpg" alt="Svatební menu — Tereza & Oliver" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
-          <div class="strip-item">
-            <button class="strip-photo" data-src="img/web/wedding jmenovky.jpg" data-alt="Svatební jmenovky">
-              <img src="img/web/wedding jmenovky.jpg" alt="Svatební jmenovky" loading="lazy">
-            </button>
-            <a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener" class="ig-badge" aria-label="Instagram"></a>
-          </div>
+      <div class="gallery-grid cols-2">
+        <div class="gallery-item">
+          <button data-src="img/web/Wedding Menu.jpg" data-alt="Svatební menu — Tereza & Oliver">
+            <img src="img/web/Wedding Menu.jpg" alt="Svatební menu — Tereza & Oliver" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-item">
+          <button data-src="img/web/wedding jmenovky.jpg" data-alt="Svatební jmenovky">
+            <img src="img/web/wedding jmenovky.jpg" alt="Svatební jmenovky" loading="lazy">
+          </button>
         </div>
       </div>
     </section>
 
-  </div><!-- /strips-gallery -->
+  </div><!-- /editorial-gallery -->
 
   <!-- ─── Lightbox ─── -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Náhled fotografie">
@@ -520,6 +483,7 @@
       <li><a href="about.html">O mně</a></li>
       <li><a href="work.html">Práce</a></li>
       <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="kids.html">For Kids</a></li>
       <li><a href="contact.html">Kontakt</a></li>
       <li><a href="https://www.instagram.com/nell_design_twwi/" target="_blank" rel="noopener">Instagram</a></li>
     </ul>
@@ -549,7 +513,7 @@
 
     /* ─── Filter ─── */
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const sections   = document.querySelectorAll('.strip-section');
+    const sections   = document.querySelectorAll('.gallery-section');
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
@@ -559,58 +523,6 @@
           sec.style.display = (f === 'vse' || (sec.dataset.cat || '').includes(f)) ? '' : 'none';
         });
       });
-    });
-
-    /* ─── Instagram SVG icon ─── */
-    const igSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" aria-hidden="true">
-      <rect x="2" y="2" width="20" height="20" rx="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
-    </svg>`;
-    document.querySelectorAll('.ig-badge').forEach(b => { b.innerHTML = igSvg; });
-
-    /* ─── Strip infinite scroll ─── */
-    const SPEED = 38; /* px per second */
-
-    function setupStrip(strip) {
-      const origHTML  = strip.innerHTML;
-      const origWidth = strip.scrollWidth;
-
-      /* Duplicate until the total is at least 2.5× viewport */
-      let total = origWidth;
-      while (total < window.innerWidth * 2.5) {
-        strip.insertAdjacentHTML('beforeend', origHTML);
-        total += origWidth;
-      }
-
-      /* Re-inject IG icons into all cloned badges */
-      strip.querySelectorAll('.ig-badge').forEach(b => { b.innerHTML = igSvg; });
-
-      /* Animate by exactly one original set width — guarantees seamless loop */
-      const duration = origWidth / SPEED;
-      strip.style.setProperty('--duration', duration + 's');
-      strip.style.setProperty('--drift-x', `-${origWidth}px`);
-    }
-
-    document.querySelectorAll('.photo-strip').forEach(strip => {
-      /* Collect all images in this strip */
-      const imgs = Array.from(strip.querySelectorAll('img'));
-
-      /* Wait for every image to fully load before measuring widths */
-      const pending = imgs.filter(img => !img.complete || img.naturalWidth === 0);
-      if (pending.length === 0) {
-        setupStrip(strip);
-      } else {
-        let loaded = 0;
-        const onLoad = () => {
-          loaded++;
-          if (loaded === pending.length) setupStrip(strip);
-        };
-        pending.forEach(img => {
-          img.addEventListener('load',  onLoad, { once: true });
-          img.addEventListener('error', onLoad, { once: true });
-        });
-      }
     });
 
     /* ─── Lightbox ─── */
@@ -630,9 +542,8 @@
       lightboxImg.src = '';
     }
 
-    /* Event delegation — works on cloned items too */
-    document.getElementById('stripsGallery').addEventListener('click', e => {
-      const btn = e.target.closest('.strip-photo');
+    document.getElementById('editorialGallery').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-src]');
       if (!btn) return;
       openLightbox(btn.dataset.src, btn.dataset.alt);
     });
