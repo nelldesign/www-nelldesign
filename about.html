@@ -31,7 +31,7 @@
 
     /* Intro text — studio hlas (celá šíře) */
     .about-intro {
-      padding: 6rem 5vw;
+      padding: 6rem 5vw 4rem;
       border-top: 1px solid var(--border);
       max-width: 52rem;
     }
@@ -126,20 +126,30 @@
       color: var(--text-muted);
     }
 
-    /* Values */
-    .values-strip {
-      padding: 6rem 5vw;
+    /* Values — gold glass panel */
+    .values-glass-wrap {
+      padding: 0 5vw 5rem;
+    }
+    .values-glass {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0;
-      border-top: 1px solid var(--border);
+      background: rgba(180, 130, 40, 0.06);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(200, 160, 60, 0.18);
+      border-radius: 2px;
+      box-shadow:
+        0 8px 40px rgba(0,0,0,0.5),
+        0 2px 8px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,220,100,0.10),
+        inset 0 -1px 0 rgba(180,130,40,0.06);
     }
     .value-item {
-      padding: 2rem 2rem 2rem 0;
-      border-right: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(200, 160, 60, 0.12);
     }
-    .value-item:last-child { border-right: none; padding-right: 0; }
-    .value-item:not(:first-child) { padding-left: 2rem; }
+    .value-item:last-child { border-right: none; }
     .value-dash {
       font-size: 0.58rem;
       letter-spacing: 0.2em;
@@ -157,6 +167,13 @@
       font-size: 0.78rem;
       color: var(--text-muted);
       line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .values-glass { grid-template-columns: 1fr 1fr; }
+      .value-item { border-bottom: 1px solid rgba(200,160,60,0.12); }
+      .value-item:nth-child(even) { border-right: none; }
+      .value-item:nth-last-child(-n+2) { border-bottom: none; }
     }
 
     /* Personal claim — zvýrazněný text na konci about sekce */
@@ -266,6 +283,32 @@
     <p>Pracuji s klienty z ČR i zahraničí — v různých fázích jejich značky, od prvního loga po kompletní rebrand nebo vybavení interiéru s vizuálním vedením.</p>
   </section>
 
+  <!-- Hodnoty — zlatý skleněný panel -->
+  <div class="values-glass-wrap" data-reveal>
+    <div class="values-glass">
+      <div class="value-item">
+        <span class="value-dash">—</span>
+        <h4>Záměr</h4>
+        <p>Každý prvek má svůj důvod. Nic není náhoda.</p>
+      </div>
+      <div class="value-item">
+        <span class="value-dash">—</span>
+        <h4>Detail</h4>
+        <p>Kvalita se skrývá v tom, co si většina lidí nevšimne.</p>
+      </div>
+      <div class="value-item">
+        <span class="value-dash">—</span>
+        <h4>Přesnost</h4>
+        <p>Správná estetika ve správný čas pro správné publikum.</p>
+      </div>
+      <div class="value-item">
+        <span class="value-dash">—</span>
+        <h4>Nadčasovost</h4>
+        <p>Design, který nepomine s každou sezónou.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Fotka vlevo + osobní text vpravo -->
   <section class="about-portrait">
     <div class="about-portrait-img" data-reveal>
@@ -315,29 +358,6 @@
         <h3>Brand Strategy</h3>
         <p>Definice pozice značky, tonality, hodnot a vizuálního směru — základ pro vše, co bude následovat.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="values-strip">
-    <div class="value-item" data-reveal>
-      <span class="value-dash">—</span>
-      <h4>Záměr</h4>
-      <p>Každý prvek má svůj důvod. Nic není náhoda.</p>
-    </div>
-    <div class="value-item" data-reveal data-delay="1">
-      <span class="value-dash">—</span>
-      <h4>Detail</h4>
-      <p>Kvalita se skrývá v tom, co si většina lidí nevšimne.</p>
-    </div>
-    <div class="value-item" data-reveal data-delay="2">
-      <span class="value-dash">—</span>
-      <h4>Přesnost</h4>
-      <p>Správná estetika ve správný čas pro správné publikum.</p>
-    </div>
-    <div class="value-item" data-reveal data-delay="3">
-      <span class="value-dash">—</span>
-      <h4>Nadčasovost</h4>
-      <p>Design, který nepomine s každou sezónou.</p>
     </div>
   </section>
 
