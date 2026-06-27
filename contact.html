@@ -338,8 +338,10 @@
     const toggle = document.getElementById('navToggle');
     const links  = document.getElementById('navLinks');
     toggle.addEventListener('click', () => {
+      const navEl = document.getElementById('nav');
       const open = links.classList.toggle('open');
       toggle.classList.toggle('open', open);
+      if (navEl) { navEl.style.backdropFilter = open ? 'none' : ''; navEl.style.webkitBackdropFilter = open ? 'none' : ''; }
       document.body.style.overflow = open ? 'hidden' : '';
     });
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {

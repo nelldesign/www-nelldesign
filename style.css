@@ -440,6 +440,12 @@ footer::before {
     transition: opacity .4s var(--ease);
   }
   .nav-links.open { opacity: 1; pointer-events: auto; }
+  /* backdrop-filter na .nav.scrolled by way jako containing block pro fixed child —
+     zrušíme ho, když je menu otevřené */
+  .nav:has(.nav-links.open) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
   .nav-links a {
     font-family: var(--serif);
     font-size: 1.3rem;
