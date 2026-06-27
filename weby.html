@@ -72,7 +72,9 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       border-bottom: 1px solid var(--border);
-      align-items: stretch;
+    }
+    .web-preview {
+      min-height: 55vh;
     }
     .web-project:nth-child(even) { direction: rtl; }
     .web-project:nth-child(even) > * { direction: ltr; }
@@ -133,8 +135,8 @@
     }
 
     .site-preview-wrap {
-      position: relative;
-      width: 100%;
+      position: absolute;
+      inset: 0;
       overflow: hidden;
       background: #0a0a0a;
     }
@@ -453,16 +455,16 @@
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
 
-    /* ── Site iframe previews — one clean scaled iframe per project ── */
+    /* ── Site iframe previews — iframe fills container exactly ── */
     (function initPreviews() {
-      const defs = [
-        { id: 'p-fenix-main', url: 'https://www-fenix.pages.dev/',     ifrH: 900 },
-        { id: 'p-step-main',  url: 'https://www-estepona.pages.dev/',  ifrH: 900 },
-        { id: 'p-nell-main',  url: 'https://www-nelldesign.pages.dev/', ifrH: 900 },
-        { id: 'p-kanov-main', url: 'https://www-kanov.pages.dev/',     ifrH: 900 },
+      const urls = [
+        { id: 'p-fenix-main', url: 'https://www-fenix.pages.dev/' },
+        { id: 'p-step-main',  url: 'https://www-estepona.pages.dev/' },
+        { id: 'p-nell-main',  url: 'https://www-nelldesign.pages.dev/' },
+        { id: 'p-kanov-main', url: 'https://www-kanov.pages.dev/' },
       ];
 
-      defs.forEach(({ id, url, ifrH }) => {
+      urls.forEach(({ id, url }) => {
         const el = document.getElementById(id);
         if (!el) return;
 
@@ -471,14 +473,16 @@
         ifr.title = 'preview';
         ifr.setAttribute('loading', 'lazy');
         ifr.style.cssText =
-          `width:1400px;height:${ifrH}px;border:none;pointer-events:none;` +
-          `position:absolute;top:0;left:0;transform-origin:top left;`;
+          'width:1400px;border:none;pointer-events:none;' +
+          'position:absolute;top:0;left:0;transform-origin:top left;';
         el.appendChild(ifr);
 
         function apply() {
           const scale = el.offsetWidth / 1400;
+          // Výška iframe = přesně výška containeru dělená scale → iframe zaplní container bez mezer
+          const h = Math.ceil(el.offsetHeight / scale);
+          ifr.style.height = h + 'px';
           ifr.style.transform = `scale(${scale})`;
-          el.style.height = (ifrH * scale) + 'px';
         }
 
         apply();

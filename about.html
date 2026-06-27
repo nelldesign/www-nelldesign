@@ -135,19 +135,19 @@
       grid-template-columns: repeat(4, 1fr);
       position: relative;
       overflow: hidden;
-      background: rgba(255, 248, 220, 0.022);
-      backdrop-filter: blur(32px) saturate(1.4);
-      -webkit-backdrop-filter: blur(32px) saturate(1.4);
-      border-top: 0.5px solid rgba(255, 240, 160, 0.22);
-      border-bottom: 0.5px solid rgba(255, 240, 160, 0.06);
-      border-left: 0.5px solid rgba(255, 240, 160, 0.10);
-      border-right: 0.5px solid rgba(255, 240, 160, 0.10);
+      background: rgba(255, 245, 200, 0.04);
+      backdrop-filter: blur(40px) saturate(1.6);
+      -webkit-backdrop-filter: blur(40px) saturate(1.6);
+      border-top: 1px solid rgba(255, 240, 160, 0.32);
+      border-bottom: 1px solid rgba(255, 240, 160, 0.08);
+      border-left: 1px solid rgba(255, 240, 160, 0.14);
+      border-right: 1px solid rgba(255, 240, 160, 0.14);
       box-shadow:
-        0 0 0 0.5px rgba(0,0,0,0.6),
-        0 24px 80px rgba(0,0,0,0.65),
-        0 8px 24px rgba(0,0,0,0.4),
-        inset 0 1px 0 rgba(255, 245, 180, 0.18),
-        inset 0 -1px 0 rgba(0,0,0,0.35);
+        0 0 0 0.5px rgba(0,0,0,0.7),
+        0 32px 90px rgba(0,0,0,0.7),
+        0 8px 28px rgba(0,0,0,0.45),
+        inset 0 1.5px 0 rgba(255, 248, 180, 0.28),
+        inset 0 -1px 0 rgba(0,0,0,0.5);
     }
 
     /* Světelný reflex sledující myš */
@@ -156,28 +156,27 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(
-        700px circle at var(--vgx, 50%) var(--vgy, -20%),
-        rgba(255, 225, 100, 0.07) 0%,
-        rgba(255, 200, 60, 0.03) 30%,
-        transparent 60%
+        800px circle at var(--vgx, 50%) var(--vgy, -10%),
+        rgba(255, 225, 100, 0.11) 0%,
+        rgba(255, 200, 60, 0.05) 35%,
+        transparent 65%
       );
       pointer-events: none;
       z-index: 0;
-      transition: background 0.05s linear;
     }
 
-    /* Horní lesk — sklo vždy odráží světlo u horního okraje */
+    /* Horní lesk — ostrý reflex světla na horním okraji */
     .values-glass::after {
       content: '';
       position: absolute;
-      top: 0; left: 10%; right: 10%;
+      top: 0; left: 5%; right: 5%;
       height: 1px;
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 245, 180, 0.55) 30%,
-        rgba(255, 255, 220, 0.80) 50%,
-        rgba(255, 245, 180, 0.55) 70%,
+        rgba(255, 245, 180, 0.5) 20%,
+        rgba(255, 255, 230, 0.95) 50%,
+        rgba(255, 245, 180, 0.5) 80%,
         transparent
       );
       pointer-events: none;
@@ -185,29 +184,29 @@
     }
 
     .value-item {
-      padding: 2rem 1.75rem;
-      border-right: 0.5px solid rgba(255, 240, 140, 0.07);
+      padding: 2.5rem 2.25rem;
+      border-right: 1px solid rgba(255, 240, 140, 0.09);
       position: relative;
       z-index: 1;
     }
     .value-item:last-child { border-right: none; }
     .value-dash {
-      font-size: 0.55rem;
+      font-size: 0.58rem;
       letter-spacing: 0.2em;
       color: var(--gold);
       display: block;
-      margin-bottom: .75rem;
+      margin-bottom: 1rem;
     }
     .value-item h4 {
       font-family: var(--serif);
-      font-size: 1rem;
+      font-size: 1.25rem;
       font-weight: 400;
-      margin-bottom: .5rem;
+      margin-bottom: .65rem;
     }
     .value-item p {
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     @media (max-width: 768px) {
