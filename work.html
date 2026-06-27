@@ -9,8 +9,19 @@
   <style>
     .page-hero {
       padding: 18rem 5vw 5rem;
-      position: relative;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .page-hero-deco {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2rem; }
+      .page-hero-deco { display: none; }
     }
     .page-hero h1 {
       font-size: clamp(3.5rem, 9vw, 8.5rem);
@@ -130,7 +141,7 @@
       <h1>Selected<br><em>Work</em></h1>
       <p>Vybrané projekty z oblasti brandingu, interiérů a digitálního obsahu.</p>
     </div>
-    <div class="deco-g-abs" aria-hidden="true">
+    <div class="page-hero-deco" aria-hidden="true">
       <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="deco-gold-w" x1="25%" y1="0%" x2="75%" y2="100%">
