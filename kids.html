@@ -165,8 +165,13 @@
     .kids-lb-prev { left: -3.5rem; }
     .kids-lb-next { right: -3.5rem; }
 
+    .kids-project-reverse .kids-project-img { order: 2; }
+    .kids-project-reverse .kids-project-text { order: 1; }
+
     @media (max-width: 768px) {
       .kids-project { grid-template-columns: 1fr; min-height: auto; }
+      .kids-project-reverse .kids-project-img,
+      .kids-project-reverse .kids-project-text { order: unset; }
       .kids-project-img { height: 60vw; }
       .kids-project-text { padding: 2.5rem 5vw; }
       .kids-grid { grid-template-columns: 1fr 1fr; }
@@ -300,6 +305,30 @@
     </div>
     <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1652.jpg" data-caption="po rekonstrukci">
       <img src="assets/kids-po-IMG_1652.jpg" alt="Pokojíček po rekonstrukci">
+    </div>
+  </div>
+
+  <!-- Stav PŘED -->
+  <section class="kids-project kids-project-reverse" data-reveal style="margin-top: 4rem;">
+    <div class="kids-project-img">
+      <img src="assets/IMG_6472.JPG" alt="Rekonstrukce pokojíčku — stav před">
+    </div>
+    <div class="kids-project-text">
+      <p class="project-num">02</p>
+      <p class="project-cat">Interiér / Dětský pokoj</p>
+      <h2>Před<br><em>proměnou.</em></h2>
+      <p>Výchozí stav prostoru — základ, ze kterého vzešla celá proměna. Každý detail byl promyšlen tak, aby výsledek dýchal klidem a byl místem, kam se chce chodit.</p>
+      <span class="kids-phase-tag">Stav před</span>
+    </div>
+  </section>
+
+  <!-- Grid PŘED — druhá fotka -->
+  <div class="kids-grid kids-grid-half" style="grid-template-columns: 1fr 1fr; margin-top: 4rem;">
+    <div class="kids-grid-item" data-lb="assets/IMG_6472.JPG" data-caption="před rekonstrukcí">
+      <img src="assets/IMG_6472.JPG" alt="Pokojíček před rekonstrukcí">
+    </div>
+    <div class="kids-grid-item" data-lb="assets/IMG_6477.JPG" data-caption="před rekonstrukcí">
+      <img src="assets/IMG_6477.JPG" alt="Pokojíček před rekonstrukcí">
     </div>
   </div>
 
