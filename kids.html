@@ -42,10 +42,9 @@
       border-top: 1px solid var(--border);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      height: 62vh;
+      min-height: 72vh;
     }
     .kids-project-img {
-      height: 100%;
       overflow: hidden;
     }
     .kids-project-img img {
@@ -56,11 +55,11 @@
     }
     .kids-project:hover .kids-project-img img { transform: scale(1.02); }
     .kids-project-text {
-      height: 100%;
-      padding: 0 5vw;
+      padding: 5rem 5vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      overflow: hidden;
     }
     .kids-project-text .project-num {
       font-size: 0.58rem;
@@ -105,6 +104,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       border-top: 1px solid var(--border);
+      margin-top: 4rem;
     }
     .kids-grid-item {
       aspect-ratio: 3/4;
@@ -166,9 +166,9 @@
     .kids-lb-next { right: -3.5rem; }
 
     @media (max-width: 768px) {
-      .kids-project { grid-template-columns: 1fr; height: auto; }
+      .kids-project { grid-template-columns: 1fr; min-height: auto; }
       .kids-project-img { height: 60vw; }
-      .kids-project-text { padding: 2.5rem 5vw; height: auto; }
+      .kids-project-text { padding: 2.5rem 5vw; }
       .kids-grid { grid-template-columns: 1fr 1fr; }
       .kids-grid-item:nth-child(even) { border-right: none; }
       .kids-grid-item { border-bottom: 1px solid var(--border); }
