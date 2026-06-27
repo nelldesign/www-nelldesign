@@ -126,13 +126,25 @@
       position: fixed; inset: 0; z-index: 1000;
       background: rgba(0,0,0,.92);
       display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 1.5rem;
       opacity: 0; pointer-events: none;
       transition: opacity .35s;
     }
     .kids-lb.open { opacity: 1; pointer-events: auto; }
+    .kids-lb-img-wrap {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
     .kids-lb img {
-      max-width: 90vw; max-height: 90vh;
+      max-width: 88vw; max-height: 80vh;
       object-fit: contain; display: block;
+    }
+    .kids-lb-caption {
+      font-size: 0.55rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
     }
     .kids-lb-close {
       position: absolute; top: 2rem; right: 2.5rem;
@@ -141,6 +153,17 @@
       line-height: 1; transition: color .2s;
     }
     .kids-lb-close:hover { color: #fff; }
+    .kids-lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,.45); font-size: 1.5rem;
+      padding: 1rem 1.25rem;
+      transition: color .2s;
+      line-height: 1;
+    }
+    .kids-lb-nav:hover { color: #fff; }
+    .kids-lb-prev { left: -3.5rem; }
+    .kids-lb-next { right: -3.5rem; }
 
     @media (max-width: 768px) {
       .kids-project { grid-template-columns: 1fr; height: auto; }
@@ -149,6 +172,46 @@
       .kids-grid { grid-template-columns: 1fr 1fr; }
       .kids-grid-item:nth-child(even) { border-right: none; }
       .kids-grid-item { border-bottom: 1px solid var(--border); }
+    }
+
+    /* Laser button */
+    @property --la {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .btn-laser {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-laser::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--la) at 50% 50%,
+        transparent        0deg,
+        transparent      338deg,
+        rgba(255,245,200,0.25) 348deg,
+        rgba(255,255,255,0.95) 354deg,
+        rgba(255,245,200,0.25) 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: laserBtn 3s linear infinite;
+      pointer-events: none;
+    }
+    .btn-laser span { position: relative; z-index: 1; }
+    @keyframes laserBtn {
+      to { --la: 360deg; }
     }
   </style>
 </head>
@@ -160,12 +223,12 @@
   <nav class="nav" id="nav">
     <a href="index.html" class="nav-logo">Nell Design</a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Domů</a></li>
-      <li><a href="about.html">O mně</a></li>
-      <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="weby.html">Weby</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="galerie.html">Gallery</a></li>
+      <li><a href="weby.html">Websites</a></li>
       <li><a href="kids.html" class="active">For Kids</a></li>
-      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">
       <span></span><span></span>
@@ -220,22 +283,22 @@
       <h2>Rekonstrukce<br><em>pokojíčku</em><br>na spaní.</h2>
       <p>Proměna části dětského pokoje zaměřená na zónu spánku — nová barevnost, materiály a detail, který dělá z obyčejného místa místo, kam se těší.</p>
       <span class="kids-phase-tag">Stav po</span>
-      <a href="contact.html" class="btn">Máte podobný projekt? <span class="btn-arrow">→</span></a>
+      <a href="contact.html" class="btn btn-laser">Máte podobný projekt? <span class="btn-arrow">→</span></a>
     </div>
   </section>
 
   <!-- Foto grid — 4 zbývající fotky PO -->
   <div class="kids-grid">
-    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_0664.jpg">
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_0664.jpg" data-caption="po rekonstrukci">
       <img src="assets/kids-po-IMG_0664.jpg" alt="Pokojíček po rekonstrukci">
     </div>
-    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1400.jpg">
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1400.jpg" data-caption="po rekonstrukci">
       <img src="assets/kids-po-IMG_1400.jpg" alt="Pokojíček po rekonstrukci">
     </div>
-    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1402.jpg">
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1402.jpg" data-caption="po rekonstrukci">
       <img src="assets/kids-po-IMG_1402.jpg" alt="Pokojíček po rekonstrukci">
     </div>
-    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1652.jpg">
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1652.jpg" data-caption="po rekonstrukci">
       <img src="assets/kids-po-IMG_1652.jpg" alt="Pokojíček po rekonstrukci">
     </div>
   </div>
@@ -243,16 +306,21 @@
   <!-- Lightbox -->
   <div class="kids-lb" id="kidsLb">
     <button class="kids-lb-close" id="kidsLbClose">✕</button>
-    <img id="kidsLbImg" src="" alt="">
+    <div class="kids-lb-img-wrap">
+      <button class="kids-lb-nav kids-lb-prev" id="kidsLbPrev">←</button>
+      <img id="kidsLbImg" src="" alt="">
+      <button class="kids-lb-nav kids-lb-next" id="kidsLbNext">→</button>
+    </div>
+    <span class="kids-lb-caption" id="kidsLbCaption"></span>
   </div>
 
   <footer>
     <span class="footer-logo">Nell Design</span>
     <ul class="footer-links">
-      <li><a href="about.html">O mně</a></li>
-      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="galerie.html">Gallery</a></li>
       <li><a href="kids.html">For Kids</a></li>
-      <li><a href="contact.html">Kontakt</a></li>
+      <li><a href="contact.html">Contact</a></li>
       <li><a href="https://www.instagram.com/nell_design.pro/" target="_blank" rel="noopener">Instagram</a></li>
     </ul>
     <span class="footer-copy">© 2026 Nell Design</span>
@@ -291,20 +359,49 @@
     });
 
     // Lightbox
-    const lb    = document.getElementById('kidsLb');
-    const lbImg = document.getElementById('kidsLbImg');
-    const lbClose = document.getElementById('kidsLbClose');
-    document.querySelectorAll('.kids-grid-item').forEach(item => {
-      item.addEventListener('click', () => {
-        lbImg.src = item.dataset.lb;
-        lb.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
+    const lb       = document.getElementById('kidsLb');
+    const lbImg    = document.getElementById('kidsLbImg');
+    const lbClose  = document.getElementById('kidsLbClose');
+    const lbPrev   = document.getElementById('kidsLbPrev');
+    const lbNext   = document.getElementById('kidsLbNext');
+    const lbCaption = document.getElementById('kidsLbCaption');
+
+    const gridItems = Array.from(document.querySelectorAll('.kids-grid-item'));
+    let currentIdx = 0;
+
+    function openLb(idx) {
+      currentIdx = idx;
+      const item = gridItems[idx];
+      lbImg.src = item.dataset.lb;
+      lbCaption.textContent = item.dataset.caption || '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbPrev.style.opacity = gridItems.length > 1 ? '1' : '0';
+      lbNext.style.opacity = gridItems.length > 1 ? '1' : '0';
+    }
+
+    gridItems.forEach((item, i) => {
+      item.addEventListener('click', () => openLb(i));
     });
+
+    lbPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      openLb((currentIdx - 1 + gridItems.length) % gridItems.length);
+    });
+    lbNext.addEventListener('click', e => {
+      e.stopPropagation();
+      openLb((currentIdx + 1) % gridItems.length);
+    });
+
     function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
     lbClose.addEventListener('click', closeLb);
     lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') openLb((currentIdx - 1 + gridItems.length) % gridItems.length);
+      if (e.key === 'ArrowRight') openLb((currentIdx + 1) % gridItems.length);
+    });
   </script>
 
 </body>
