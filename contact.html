@@ -225,20 +225,12 @@
     }
     .form-toast-title {
       font-family: var(--display);
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-size: clamp(1.25rem, 3.5vw, 1.65rem);
       font-weight: 300;
       color: var(--text);
-      line-height: 1.1;
-      margin-bottom: .75rem;
+      line-height: 1.25;
     }
     .form-toast-title em { font-style: italic; }
-    .form-toast-sub {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
-    .form-toast-title { line-height: 1.15; }
     .form-toast-close {
       position: absolute;
       bottom: -3.5rem;
@@ -406,30 +398,20 @@
             <feGaussianBlur stdDeviation="8" result="b"/>
             <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
-          <!-- Orbit path = full circle for smooth laser loop -->
-          <path id="toast-orbit" d="M 360 200 A 160 160 0 1 1 359.99 200" fill="none"/>
+          <!-- Orbit = the G arc only (no bar), laser stays on the line -->
+          <path id="toast-orbit" d="M 240 200 L 360 200 A 160 160 0 1 1 314 86" fill="none"/>
         </defs>
-        <!-- G shape: horizontal bar + large arc, same as the deco G -->
+        <!-- G shape: bar + arc -->
         <path d="M 240 200 L 360 200 A 160 160 0 1 1 314 86"
-              fill="none" stroke="url(#tg)" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
-        <!-- Laser path overlay (bright shimmer on the G) -->
-        <path d="M 240 200 L 360 200 A 160 160 0 1 1 314 86"
-              fill="none" stroke="rgba(255,245,180,0.08)" stroke-width="2.2" stroke-linecap="round"/>
-        <!-- Glow halo traveling the circle -->
+              fill="none" stroke="url(#tg)" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+        <!-- Glow halo -->
         <circle r="14" fill="rgba(237,208,96,0.15)" filter="url(#tglow)">
-          <animateMotion dur="4s" repeatCount="indefinite"><mpath href="#toast-orbit"/></animateMotion>
+          <animateMotion dur="5s" repeatCount="indefinite"><mpath href="#toast-orbit"/></animateMotion>
         </circle>
         <!-- Laser dot -->
-        <circle r="3.8" fill="rgba(255,248,210,0.98)" filter="url(#tglow)">
-          <animateMotion dur="4s" repeatCount="indefinite"><mpath href="#toast-orbit"/></animateMotion>
+        <circle r="3.5" fill="rgba(255,248,210,0.98)" filter="url(#tglow)">
+          <animateMotion dur="5s" repeatCount="indefinite"><mpath href="#toast-orbit"/></animateMotion>
         </circle>
-        <!-- Star at the open end of G -->
-        <g transform="translate(314, 86)" filter="url(#tglow)">
-          <line x1="0" y1="-11" x2="0" y2="11" stroke="rgba(255,245,200,0.9)" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="-11" y1="0" x2="11" y2="0" stroke="rgba(255,245,200,0.55)" stroke-width="0.7" stroke-linecap="round"/>
-          <line x1="-7" y1="-7" x2="7" y2="7" stroke="rgba(255,245,200,0.35)" stroke-width="0.5" stroke-linecap="round"/>
-          <line x1="7" y1="-7" x2="-7" y2="7" stroke="rgba(255,245,200,0.35)" stroke-width="0.5" stroke-linecap="round"/>
-        </g>
       </svg>
       <div class="form-toast-content">
         <p class="form-toast-title">Děkujeme,<br><em>váš email</em><br>byl odeslán.</p>
