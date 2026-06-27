@@ -37,33 +37,118 @@
       max-width: 28rem;
     }
 
-    .coming-soon {
-      padding: 8rem 5vw 12rem;
+    /* Project — hlavní karta */
+    .kids-project {
       border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 62vh;
+    }
+    .kids-project-img {
+      height: 100%;
+      overflow: hidden;
+    }
+    .kids-project-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .9s ease;
+    }
+    .kids-project:hover .kids-project-img img { transform: scale(1.02); }
+    .kids-project-text {
+      height: 100%;
+      padding: 0 5vw;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 2rem;
+      justify-content: center;
     }
-    .coming-soon-label {
+    .kids-project-text .project-num {
       font-size: 0.58rem;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.22em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .kids-project-text .project-cat {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
+      margin-bottom: .75rem;
     }
-    .coming-soon h2 {
-      font-size: clamp(2rem, 5vw, 4rem);
+    .kids-project-text h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 300;
       line-height: 1.05;
+      margin-bottom: 1.25rem;
     }
-    .coming-soon p {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    .kids-project-text p {
+      font-size: 0.85rem;
+      line-height: 1.9;
       color: var(--text-muted);
-      max-width: 36rem;
-      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 28rem;
+    }
+    /* Štítky PO / PŘED */
+    .kids-phase-tag {
+      display: inline-block;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: .2rem .65rem;
+      margin-bottom: 2rem;
+      align-self: flex-start;
+    }
+    /* Foto grid */
+    .kids-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+    }
+    .kids-grid-item {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-right: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .kids-grid-item:last-child { border-right: none; }
+    .kids-grid-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .9s ease, opacity .3s;
+    }
+    .kids-grid-item:hover img { transform: scale(1.04); opacity: .85; }
+
+    /* Lightbox */
+    .kids-lb {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.92);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s;
+    }
+    .kids-lb.open { opacity: 1; pointer-events: auto; }
+    .kids-lb img {
+      max-width: 90vw; max-height: 90vh;
+      object-fit: contain; display: block;
+    }
+    .kids-lb-close {
+      position: absolute; top: 2rem; right: 2.5rem;
+      font-size: 1.5rem; color: rgba(255,255,255,.6);
+      background: none; border: none; cursor: pointer;
+      line-height: 1; transition: color .2s;
+    }
+    .kids-lb-close:hover { color: #fff; }
+
+    @media (max-width: 768px) {
+      .kids-project { grid-template-columns: 1fr; height: auto; }
+      .kids-project-img { height: 60vw; }
+      .kids-project-text { padding: 2.5rem 5vw; height: auto; }
+      .kids-grid { grid-template-columns: 1fr 1fr; }
+      .kids-grid-item:nth-child(even) { border-right: none; }
+      .kids-grid-item { border-bottom: 1px solid var(--border); }
     }
   </style>
 </head>
@@ -124,12 +209,42 @@
     </div>
   </header>
 
-  <section class="coming-soon" data-reveal>
-    <span class="coming-soon-label">Coming soon</span>
-    <h2>Tato sekce<br>se připravuje.</h2>
-    <p>Pracuji na sestavení kolekce projektů z oblasti dětského designu. Mezitím mě neváhejte kontaktovat přímo — ráda proberu váš projekt.</p>
-    <a href="contact.html" class="btn">Kontaktovat <span class="btn-arrow">→</span></a>
+  <!-- Projekt: Pokojíček — stav PO -->
+  <section class="kids-project" data-reveal>
+    <div class="kids-project-img">
+      <img src="assets/kids-po-IMG_0655.jpg" alt="Rekonstrukce pokojíčku — stav po">
+    </div>
+    <div class="kids-project-text">
+      <p class="project-num">01</p>
+      <p class="project-cat">Interiér / Dětský pokoj</p>
+      <h2>Rekonstrukce<br><em>pokojíčku</em><br>na spaní.</h2>
+      <p>Proměna části dětského pokoje zaměřená na zónu spánku — nová barevnost, materiály a detail, který dělá z obyčejného místa místo, kam se těší.</p>
+      <span class="kids-phase-tag">Stav po</span>
+      <a href="contact.html" class="btn">Máte podobný projekt? <span class="btn-arrow">→</span></a>
+    </div>
   </section>
+
+  <!-- Foto grid — 4 zbývající fotky PO -->
+  <div class="kids-grid">
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_0664.jpg">
+      <img src="assets/kids-po-IMG_0664.jpg" alt="Pokojíček po rekonstrukci">
+    </div>
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1400.jpg">
+      <img src="assets/kids-po-IMG_1400.jpg" alt="Pokojíček po rekonstrukci">
+    </div>
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1402.jpg">
+      <img src="assets/kids-po-IMG_1402.jpg" alt="Pokojíček po rekonstrukci">
+    </div>
+    <div class="kids-grid-item" data-lb="assets/kids-po-IMG_1652.jpg">
+      <img src="assets/kids-po-IMG_1652.jpg" alt="Pokojíček po rekonstrukci">
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="kids-lb" id="kidsLb">
+    <button class="kids-lb-close" id="kidsLbClose">✕</button>
+    <img id="kidsLbImg" src="" alt="">
+  </div>
 
   <footer>
     <span class="footer-logo">Nell Design</span>
@@ -174,6 +289,22 @@
       el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
+
+    // Lightbox
+    const lb    = document.getElementById('kidsLb');
+    const lbImg = document.getElementById('kidsLbImg');
+    const lbClose = document.getElementById('kidsLbClose');
+    document.querySelectorAll('.kids-grid-item').forEach(item => {
+      item.addEventListener('click', () => {
+        lbImg.src = item.dataset.lb;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
   </script>
 
 </body>
