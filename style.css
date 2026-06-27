@@ -426,19 +426,20 @@ footer::before {
   .nav { padding: 1.5rem 5vw; }
   .nav.scrolled { padding: 1rem 5vw; }
   .nav-links {
-    display: none;
+    display: flex;
     position: fixed;
     inset: 0;
     z-index: 9000;
-    background: var(--bg);
+    background: #0c0b09;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
     opacity: 0;
+    pointer-events: none;
     transition: opacity .4s var(--ease);
   }
-  .nav-links.open { display: flex; opacity: 1; }
+  .nav-links.open { opacity: 1; pointer-events: auto; }
   .nav-links a {
     font-family: var(--serif);
     font-size: 1.3rem;
