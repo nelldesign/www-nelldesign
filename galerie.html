@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galerie — Nell Design</title>
-  <meta name="description" content="Galerie prací — grafický design, interiéry, branding. Nell Design studio.">
+  <meta name="description" content="Galerie prací — branding, vizuální identity, interiéry, digitální obsah. Nell Design studio.">
   <link rel="stylesheet" href="style.css">
   <style>
     .page-hero {
-      padding: 16rem 5vw 5rem;
+      padding: 18rem 5vw 5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6rem;
@@ -28,185 +28,102 @@
       font-weight: 300;
       line-height: .95;
     }
+    .page-hero p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      color: var(--text-muted);
+      margin-top: 1.75rem;
+      max-width: 28rem;
+    }
     .hero-cz-reveal {
       display: block;
       font-size: 0.6rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-top: 1.2rem;
+      margin-top: 1.5rem;
       opacity: 0;
       transform: translateY(-6px);
       transition: opacity .7s ease, transform .7s ease;
       pointer-events: none;
     }
-    .hero-cz-reveal.revealed { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .hero-sub-en {
-      display: block;
-      font-size: clamp(0.75rem, 1.2vw, 0.95rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 1.75rem;
-    }
-    .page-hero p {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-      color: var(--text-muted);
-      margin-top: 1.5rem;
-      max-width: 30rem;
+    .hero-cz-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
-    /* ─── Filter bar ─── */
-    .filter-bar {
-      padding: 3rem 5vw 0;
-      display: flex;
-      gap: .5rem;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--border);
-    }
-    .filter-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-family: var(--sans);
-      font-size: 0.65rem;
-      font-weight: 400;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: .6rem 1.4rem;
-      transition: border-color .3s, color .3s, background .3s;
-      cursor: pointer;
-    }
-    .filter-btn:hover { color: var(--text); border-color: var(--text-muted); }
-    .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+    /* Projects */
+    .projects-list { padding: 4rem 0 8rem; }
 
-    /* ─── Editorial gallery ─── */
-    .editorial-gallery { padding: 0 0 6rem; }
-
-    .gallery-section {
-      border-top: 1px solid var(--border);
-      padding: 4.5rem 0 5rem;
-    }
-
-    .gallery-header {
-      padding: 0 5vw 2.5rem;
+    .project-item {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 5rem;
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      transition: background .4s;
     }
-    .gallery-header-meta .section-label { margin-bottom: .75rem; }
-    .gallery-header-meta h2 {
-      font-size: clamp(1.4rem, 2.2vw, 2.2rem);
-      font-weight: 300;
-      line-height: 1.1;
-    }
-    .gallery-desc {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: clamp(0.88rem, 1.3vw, 1rem);
-      color: var(--text-muted);
-      line-height: 1.85;
-    }
+    .project-item:hover { background: var(--bg-alt); }
 
-    /* ─── Glass panel ─── */
-    .gallery-glass {
-      margin: 0 5vw;
-      padding: 2rem 2.5rem;
-      background: rgba(255, 255, 255, 0.025);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 2px;
-      box-shadow:
-        0 8px 40px rgba(0, 0, 0, 0.55),
-        0 2px 8px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .gallery-thumbs {
+    .project-item-img {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .gallery-thumbs button {
-      border: none;
-      padding: 0;
-      background: none;
-      cursor: pointer;
-      display: block;
-      transition: opacity .35s;
-    }
-    .gallery-thumbs button:hover { opacity: 0.65; }
-
-    .gallery-thumbs img {
-      height: 108px;
-      width: auto;
-      display: block;
-      object-fit: contain;
-      pointer-events: none;
-    }
-
-    @media (max-width: 768px) {
-      .gallery-header { grid-template-columns: 1fr; gap: 1.5rem; }
-      .gallery-glass  { margin: 0 4vw; padding: 1.25rem 1.5rem; }
-      .gallery-thumbs img { height: 72px; }
-    }
-
-    /* ─── Lightbox ─── */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      background: rgba(12, 11, 9, 0.97);
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      background: var(--bg-alt);
     }
-    .lightbox.open {
-      display: flex;
-      animation: lb-in .25s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    @keyframes lb-in {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 88vh;
+    .project-item-img img {
+      width: 100%;
+      height: auto;
+      display: block;
       object-fit: contain;
-      animation: lb-scale .3s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transition: transform .9s ease;
     }
-    @keyframes lb-scale {
-      from { transform: scale(.93); }
-      to   { transform: scale(1); }
-    }
-    .lightbox-close {
-      position: absolute;
-      top: 1.75rem;
-      right: 2rem;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      padding: .5rem;
-      transition: color .3s;
-      line-height: 1;
-    }
-    .lightbox-close:hover { color: var(--text); }
+    .project-item:hover .project-item-img img { transform: scale(1.02); }
 
-    /* ─── IG CTA ─── */
-    .ig-cta {
-      padding: 6rem 5vw;
-      border-top: 1px solid var(--border);
-      text-align: center;
+    .project-item-text {
+      padding: 4rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    .ig-cta p {
+
+    .project-item.reverse .project-item-img { order: 2; }
+    .project-item.reverse .project-item-text { order: 1; }
+
+    .project-num {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .project-item-cat {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .75rem;
+    }
+    .project-item-text h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+    .project-item-text p {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 28rem;
+    }
+
+    /* IG section */
+    .ig-section {
+      padding: 7rem 5vw;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .ig-section p {
       font-family: var(--serif);
       font-style: italic;
       font-size: clamp(1.1rem, 2.5vw, 1.75rem);
@@ -216,8 +133,11 @@
     }
 
     @media (max-width: 768px) {
-      .strip-header { grid-template-columns: 1fr; gap: 1rem; }
-      .strip-photo, .strip-photo img { height: 160px; }
+      .project-item { grid-template-columns: 1fr; }
+      .project-item.reverse .project-item-img,
+      .project-item.reverse .project-item-text { order: unset; }
+      .project-item-img img { height: auto; }
+      .project-item-text { padding: 2.5rem 5vw; }
     }
   </style>
 </head>
@@ -231,7 +151,6 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Domů</a></li>
       <li><a href="about.html">O mně</a></li>
-      <li><a href="work.html">Práce</a></li>
       <li><a href="galerie.html" class="active">Galerie</a></li>
       <li><a href="weby.html">Weby</a></li>
       <li><a href="kids.html">For Kids</a></li>
@@ -244,16 +163,15 @@
 
   <header class="page-hero">
     <div data-reveal>
-      <span class="section-label">Ukázky práce</span>
-      <h1 id="galerieHero">Galerie</h1>
-      <span class="hero-sub-en" id="galerieSub">Light. Form. Feeling.</span>
-      <span class="hero-cz-reveal" id="galerieCz">Světlo. Forma. Pocit.</span>
-      <p>Výběr z mé tvorby — grafický design, interiéry a tiskoviny.</p>
+      <span class="section-label">Galerie</span>
+      <h1 id="workHero">Craft with<br><em>intention.</em></h1>
+      <span class="hero-cz-reveal" id="workCz">Tvořeno s přesností.</span>
+      <p>Vybrané projekty z oblasti brandingu, interiérů a digitálního obsahu.</p>
     </div>
     <div class="page-hero-deco" aria-hidden="true">
       <svg class="deco-g" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="deco-gold-g" x1="25%" y1="0%" x2="75%" y2="100%">
+          <linearGradient id="deco-gold-w" x1="25%" y1="0%" x2="75%" y2="100%">
             <stop offset="0%"   stop-color="#6b4012"/>
             <stop offset="18%"  stop-color="#b88528"/>
             <stop offset="40%"  stop-color="#edd060"/>
@@ -261,17 +179,17 @@
             <stop offset="80%"  stop-color="#9a6818"/>
             <stop offset="100%" stop-color="#5a380e"/>
           </linearGradient>
-          <filter id="deco-glow-g" x="-30%" y="-30%" width="160%" height="160%">
+          <filter id="deco-glow-w" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="4.5" result="blur"/>
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
         <path d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
-              fill="none" stroke="url(#deco-gold-g)" stroke-width="3.2" stroke-linecap="round"/>
+              fill="none" stroke="url(#deco-gold-w)" stroke-width="3.2" stroke-linecap="round"/>
         <path class="g-laser-path" d="M 120 100 L 180 100 A 80 80 0 1 1 157 43"
               fill="none" stroke="rgba(255,245,180,0.95)" stroke-width="3.2"
               stroke-linecap="round" pointer-events="none"/>
-        <g class="g-star" transform="translate(157, 43)" filter="url(#deco-glow-g)">
+        <g class="g-star" transform="translate(157, 43)" filter="url(#deco-glow-w)">
           <line x1="0" y1="-13" x2="0" y2="13" stroke="rgba(255,245,200,0.95)" stroke-width="1.2" stroke-linecap="round"/>
           <line x1="-13" y1="0" x2="13" y2="0" stroke="rgba(255,245,200,0.6)" stroke-width="0.7" stroke-linecap="round"/>
           <line x1="-8" y1="-8" x2="8" y2="8" stroke="rgba(255,245,200,0.4)" stroke-width="0.5" stroke-linecap="round"/>
@@ -281,150 +199,59 @@
     </div>
   </header>
 
-  <div class="filter-bar" data-reveal>
-    <button class="filter-btn active" data-filter="vse">Vše</button>
-    <button class="filter-btn" data-filter="grafika">Grafický design</button>
-    <button class="filter-btn" data-filter="interier">Interiér</button>
-  </div>
+  <section class="projects-list">
 
-  <div class="editorial-gallery" id="editorialGallery">
+    <article class="project-item" data-reveal>
+      <div class="project-item-img">
+        <img src="https://images.unsplash.com/photo-1682184805271-11671b7ecf4c?w=1400&q=80&auto=format&fit=crop" alt="Luxury interior — modern living room with large window">
+      </div>
+      <div class="project-item-text">
+        <p class="project-num">01</p>
+        <p class="project-item-cat">Interior Visual Direction</p>
+        <h2>Aurum<br>Interiors</h2>
+        <p>Vizuální vedení interiérového projektu — výběr materiálů, barevná paleta, styling, osvětlení a celková atmosféra prostoru s důrazem na nadčasovou eleganci.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
+      </div>
+    </article>
 
-    <!-- 1. CAFÉ MATTONI -->
-    <section class="gallery-section" data-cat="grafika" data-reveal>
-      <div class="gallery-header">
-        <div class="gallery-header-meta">
-          <span class="section-label">Grafický design / Tiskoviny</span>
-          <h2>Café Mattoni</h2>
-        </div>
-        <p class="gallery-desc">Kompletní menu design pro kavárnu v Karlových Varech. Obálka, nápojový lístek s Nespresso nabídkou a dezertní menu — vše ve společném vizuálním jazyce s jemnou texturou a botanickými motivy.</p>
+    <article class="project-item reverse" data-reveal>
+      <div class="project-item-img">
+        <img src="assets/charlotte-fantys.png" alt="Charlotte &amp; Co. — brand identity">
       </div>
-      <div class="gallery-glass">
-        <div class="gallery-thumbs">
-          <button data-src="img/web/IMG_8088.jpg" data-alt="Café Mattoni — menu cover"><img src="img/web/IMG_8088.jpg" alt="Café Mattoni — menu cover" loading="lazy"></button>
-          <button data-src="img/web/IMG_8090.jpg" data-alt="Café Mattoni — nápojový lístek"><img src="img/web/IMG_8090.jpg" alt="Café Mattoni — nápojový lístek" loading="lazy"></button>
-          <button data-src="img/web/IMG_8091.jpg" data-alt="Café Mattoni — dezerty"><img src="img/web/IMG_8091.jpg" alt="Café Mattoni — dezerty" loading="lazy"></button>
-        </div>
+      <div class="project-item-text">
+        <p class="project-num">02</p>
+        <p class="project-item-cat">Print &amp; Brand Materials</p>
+        <h2>Forma</h2>
+        <p>Tiskoviny a prezentační materiály — katalogy, vizitky, hlavičkové papíry a packaging v souladu s celkovou vizuální identitou klienta.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
       </div>
-    </section>
+    </article>
 
-    <!-- 2. MR&MRS HAAK -->
-    <section class="gallery-section" data-cat="grafika" data-reveal>
-      <div class="gallery-header">
-        <div class="gallery-header-meta">
-          <span class="section-label">Editorial design</span>
-          <h2>MR&amp;MRS HAAK</h2>
-        </div>
-        <p class="gallery-desc">Svatební noviny pro novomanžele. Novinářský layout s osobním příběhem, harmonogramem dne a humorem, který si hosté odnesli jako vzpomínku. Titulní strana, vnitřní rozvrh i děkovná strana — vše v jednom tisku.</p>
+    <article class="project-item" data-reveal>
+      <div class="project-item-img">
+        <img src="assets/cafe-mattoni.PNG" alt="Café Mattoni — social media design">
       </div>
-      <div class="gallery-glass">
-        <div class="gallery-thumbs">
-          <button data-src="img/web/IMG_8034.jpg" data-alt="MR&MRS HAAK — titulní strana"><img src="img/web/IMG_8034.jpg" alt="MR&MRS HAAK — titulní strana" loading="lazy"></button>
-          <button data-src="img/web/IMG_8035.jpg" data-alt="MR&MRS HAAK — Wedding Details"><img src="img/web/IMG_8035.jpg" alt="MR&MRS HAAK — Wedding Details" loading="lazy"></button>
-          <button data-src="img/web/IMG_8036.jpg" data-alt="MR&MRS HAAK — Thank You"><img src="img/web/IMG_8036.jpg" alt="MR&MRS HAAK — Thank You" loading="lazy"></button>
-        </div>
+      <div class="project-item-text">
+        <p class="project-num">03</p>
+        <p class="project-item-cat">Social Media &amp; Content</p>
+        <h2>Café Mattoni<br><em>Karlovy Vary</em></h2>
+        <p>Návrh vizuálního obsahu pro propagaci kavárny na sociálních sítích — grafika, šablony příspěvků a stories v konzistentní barevné a typografické lince značky.</p>
+        <a href="#" class="btn">View on Instagram <span class="btn-arrow">→</span></a>
       </div>
-    </section>
+    </article>
 
-    <!-- 3. APARTMENT GUIDE ESTEPONA -->
-    <section class="gallery-section" data-cat="grafika" data-reveal>
-      <div class="gallery-header">
-        <div class="gallery-header-meta">
-          <span class="section-label">Editorial / Print</span>
-          <h2>Apartment Guide<br>Estepona</h2>
-        </div>
-        <p class="gallery-desc">Průvodce apartmánem na španělském pobřeží. Vizuálně čistý set zahrnující obálku, orientační kartu a jednotlivé stránky s popisem pokojů a praktickými informacemi pro hosty. Jednoduše, elegantně, s důrazem na přehlednost.</p>
-      </div>
-      <div class="gallery-glass">
-        <div class="gallery-thumbs">
-          <button data-src="img/web/IMG_8081.jpg" data-alt="Apartment Guide — obálka"><img src="img/web/IMG_8081.jpg" alt="Apartment Guide — obálka" loading="lazy"></button>
-          <button data-src="img/web/IMG_8082.jpg" data-alt="Apartment Guide — set"><img src="img/web/IMG_8082.jpg" alt="Apartment Guide — set" loading="lazy"></button>
-          <button data-src="img/web/IMG_8086.jpg" data-alt="Apartment Guide — obývací pokoj"><img src="img/web/IMG_8086.jpg" alt="Apartment Guide — obývací pokoj" loading="lazy"></button>
-        </div>
-      </div>
-    </section>
+  </section>
 
-    <!-- 4. REALITNÍ PREZENTACE -->
-    <section class="gallery-section" data-cat="interier foto" data-reveal>
-      <div class="gallery-header">
-        <div class="gallery-header-meta">
-          <span class="section-label">Foto & grafika / Nemovitosti</span>
-          <h2>Realitní prezentace</h2>
-        </div>
-        <p class="gallery-desc">Fotografická a grafická prezentace bytu určeného k prodeji nebo pronájmu. Cílem bylo ukázat prostor v nejlepším světle — od kompozice záběrů po vizuální materiály připravené k inzerci.</p>
-      </div>
-      <div class="gallery-glass">
-        <div class="gallery-thumbs">
-          <button data-src="img/web/real-estate-1.jpg" data-alt="Realitní prezentace"><img src="img/web/real-estate-1.jpg" alt="Realitní prezentace" loading="lazy"></button>
-          <button data-src="img/web/real-estate-2.jpg" data-alt="Realitní prezentace — detail"><img src="img/web/real-estate-2.jpg" alt="detail" loading="lazy"></button>
-          <button data-src="img/web/real-estate-3.jpg" data-alt="Realitní prezentace — obývací pokoj"><img src="img/web/real-estate-3.jpg" alt="obývací pokoj" loading="lazy"></button>
-          <button data-src="img/web/real-estate-4.jpg" data-alt="Realitní prezentace — chodba"><img src="img/web/real-estate-4.jpg" alt="chodba" loading="lazy"></button>
-          <button data-src="img/web/real-estate-5.jpg" data-alt="Realitní prezentace — koupelna"><img src="img/web/real-estate-5.jpg" alt="koupelna" loading="lazy"></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. ŠATNA -->
-    <section class="gallery-section" data-cat="interier" data-reveal>
-      <div class="gallery-header">
-        <div class="gallery-header-meta">
-          <span class="section-label">Interiér / Šatna</span>
-          <h2>Návrh šatny</h2>
-        </div>
-        <p class="gallery-desc">Dvě realizace walk-in šaten — bílá minimalistická varianta se zrcadlovými posuvnými dveřmi a varianta v tmavém dřevě s čalouněnou lavičkou. Každá navržena na míru konkrétnímu prostoru a jeho uživateli.</p>
-      </div>
-      <div class="gallery-glass">
-        <div class="gallery-thumbs">
-          <button data-src="img/web/IMG_8025.jpg" data-alt="Šatna — bílá"><img src="img/web/IMG_8025.jpg" alt="Šatna — bílá" loading="lazy"></button>
-          <button data-src="img/web/IMG_8026.jpg" data-alt="Šatna — tmavé dřevo"><img src="img/web/IMG_8026.jpg" alt="Šatna — tmavé dřevo" loading="lazy"></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. TEREZA & OLIVER -->
-    <section class="gallery-section" data-cat="grafika" data-reveal>
-      <div class="gallery-header">
-        <div class="gallery-header-meta">
-          <span class="section-label">Grafický design / Tiskoviny</span>
-          <h2>Tereza &amp; Oliver</h2>
-        </div>
-        <p class="gallery-desc">Svatební tiskoviny pro Terezu a Olivera. Dvoujazyčné menu v česko-anglickém provedení a jmenovky ke stolům — vše v jednotném vizuálním stylu s zlatým ornamentem a jemnou typografií.</p>
-      </div>
-      <div class="gallery-glass">
-        <div class="gallery-thumbs">
-          <button data-src="img/web/Wedding Menu.jpg" data-alt="Svatební menu — Tereza & Oliver"><img src="img/web/Wedding Menu.jpg" alt="Svatební menu — Tereza & Oliver" loading="lazy"></button>
-          <button data-src="img/web/wedding jmenovky.jpg" data-alt="Svatební jmenovky"><img src="img/web/wedding jmenovky.jpg" alt="Svatební jmenovky" loading="lazy"></button>
-        </div>
-      </div>
-    </section>
-
-  </div><!-- /editorial-gallery -->
-
-  <!-- ─── Lightbox ─── -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Náhled fotografie">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Zavřít">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
-    <img src="" alt="" id="lightboxImg">
-  </div>
-
-  <!-- ─── IG CTA ─── -->
-  <div class="ig-cta" data-reveal>
-    <p>Další ukázky tvorby<br>najdete na mém Instagramu.</p>
-    <a href="https://www.instagram.com/nell_design.pro/" class="btn" target="_blank" rel="noopener">
-      @nell_design.pro <span class="btn-arrow">→</span>
-    </a>
+  <div class="ig-section" data-reveal>
+    <p>Více projektů naleznete<br>na mém Instagramu.</p>
+    <a href="https://www.instagram.com/nell_design.pro/" class="btn" target="_blank" rel="noopener">@nell_design.pro <span class="btn-arrow">→</span></a>
   </div>
 
   <footer>
     <span class="footer-logo">Nell Design</span>
     <ul class="footer-links">
       <li><a href="about.html">O mně</a></li>
-      <li><a href="work.html">Práce</a></li>
       <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="kids.html">For Kids</a></li>
       <li><a href="contact.html">Kontakt</a></li>
       <li><a href="https://www.instagram.com/nell_design.pro/" target="_blank" rel="noopener">Instagram</a></li>
     </ul>
@@ -432,16 +259,6 @@
   </footer>
 
   <script>
-    /* ─── Nav ─── */
-    // Hover-reveal Czech subtitle — stays after first hover
-    const galerieHero = document.getElementById('galerieHero');
-    const galerieSub  = document.getElementById('galerieSub');
-    const galerieCz   = document.getElementById('galerieCz');
-    if (galerieHero && galerieCz) {
-      galerieHero.addEventListener('mouseenter', () => galerieCz.classList.add('revealed'), { once: true });
-      if (galerieSub) galerieSub.addEventListener('mouseenter', () => galerieCz.classList.add('revealed'), { once: true });
-    }
-
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
     const toggle = document.getElementById('navToggle');
@@ -454,55 +271,17 @@
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
     }));
+    // Hover-reveal Czech subtitle — stays after first hover
+    const workHero = document.getElementById('workHero');
+    const workCz   = document.getElementById('workCz');
+    if (workHero && workCz) {
+      workHero.addEventListener('mouseenter', () => workCz.classList.add('revealed'), { once: true });
+    }
 
-    /* ─── Reveal ─── */
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
-    }, { threshold: 0.05 });
+    }, { threshold: 0.06 });
     document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
-
-    /* ─── Filter ─── */
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const sections   = document.querySelectorAll('.gallery-section');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = btn.dataset.filter;
-        sections.forEach(sec => {
-          sec.style.display = (f === 'vse' || (sec.dataset.cat || '').includes(f)) ? '' : 'none';
-        });
-      });
-    });
-
-    /* ─── Lightbox ─── */
-    const lightbox    = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lbClose     = document.getElementById('lightboxClose');
-
-    function openLightbox(src, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || '';
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-      lightboxImg.src = '';
-    }
-
-    document.getElementById('editorialGallery').addEventListener('click', e => {
-      const btn = e.target.closest('button[data-src]');
-      if (!btn) return;
-      openLightbox(btn.dataset.src, btn.dataset.alt);
-    });
-
-    lbClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-    /* ─── Cursor ─── */
     const cursor = document.getElementById('cursor');
     const ring   = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
