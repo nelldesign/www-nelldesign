@@ -22,7 +22,32 @@
       font-size: clamp(3rem, 7vw, 6.5rem);
       font-weight: 300;
       line-height: .95;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero-sub-en {
+      display: block;
+      font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .hero-cz-reveal {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: opacity .7s ease, transform .7s ease;
+      pointer-events: none;
+    }
+    .hero-cz-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     .page-header p {
       font-family: var(--serif);
@@ -229,7 +254,9 @@
   <header class="page-header">
     <div data-reveal>
       <span class="section-label">Web Design</span>
-      <h1>Weby,<br>které<br><em>fungují.</em></h1>
+      <h1 id="webyHero">Digital, but<br><em>personal.</em></h1>
+      <span class="hero-cz-reveal" id="webyCz">Digitální, ale osobní.</span>
+      <span class="hero-sub-en">Built with care.</span>
       <p>Ukázka pár webů z mé práce — navržených a postavených od základů s čistým kódem, promyšleným designem a každým detailem na míru.</p>
     </div>
     <div class="page-header-deco" data-reveal data-delay="2">
@@ -394,6 +421,13 @@
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
     }));
+
+    /* ── Hover-reveal Czech subtitle — stays after first hover ── */
+    const webyHero = document.getElementById('webyHero');
+    const webyCz   = document.getElementById('webyCz');
+    if (webyHero && webyCz) {
+      webyHero.addEventListener('mouseenter', () => webyCz.classList.add('revealed'), { once: true });
+    }
 
     /* ── Reveal ── */
     const ro = new IntersectionObserver(entries => {

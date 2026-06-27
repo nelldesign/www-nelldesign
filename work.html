@@ -36,6 +36,23 @@
       margin-top: 1.75rem;
       max-width: 28rem;
     }
+    .hero-cz-reveal {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity .7s ease, transform .7s ease;
+      pointer-events: none;
+    }
+    .hero-cz-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
 
     /* Projects */
     .projects-list { padding: 4rem 0 8rem; }
@@ -146,7 +163,8 @@
   <header class="page-hero">
     <div data-reveal>
       <span class="section-label">Portfolio</span>
-      <h1>Selected<br><em>Work</em></h1>
+      <h1 id="workHero">Craft with<br><em>intention.</em></h1>
+      <span class="hero-cz-reveal" id="workCz">Tvořeno s přesností.</span>
       <p>Vybrané projekty z oblasti brandingu, interiérů a digitálního obsahu.</p>
     </div>
     <div class="page-hero-deco" aria-hidden="true">
@@ -184,7 +202,7 @@
 
     <article class="project-item" data-reveal>
       <div class="project-item-img">
-        <img src="https://images.unsplash.com/photo-1636247497749-c3162e33e82a?w=1400&q=80&auto=format&fit=crop" alt="Brand identity mockup — white envelope on black">
+        <img src="https://images.unsplash.com/photo-1759563874671-22b56a3bc6d3?w=1400&q=80&auto=format&fit=crop" alt="Luxury brand identity — Dior gift box with wax seal">
       </div>
       <div class="project-item-text">
         <p class="project-num">01</p>
@@ -223,7 +241,7 @@
 
     <article class="project-item reverse" data-reveal>
       <div class="project-item-img">
-        <img src="https://images.unsplash.com/photo-1636247498719-a8a04ed961a4?w=1400&q=80&auto=format&fit=crop" alt="Print materials — business cards mockup">
+        <img src="https://images.unsplash.com/photo-1759563874670-9ccc048192ee?w=1400&q=80&auto=format&fit=crop" alt="Print materials — luxury card and gift box on white fabric">
       </div>
       <div class="project-item-text">
         <p class="project-num">04</p>
@@ -236,7 +254,7 @@
 
     <article class="project-item" data-reveal>
       <div class="project-item-img">
-        <img src="https://images.unsplash.com/photo-1677890465835-ab8c5c621771?w=1400&q=80&auto=format&fit=crop" alt="Luxury brand — white bag on elegant chair">
+        <img src="https://images.unsplash.com/photo-1725182524928-bc1de6a87d82?w=1400&q=80&auto=format&fit=crop" alt="Beauty brand — perfume bottle on dark surface">
       </div>
       <div class="project-item-text">
         <p class="project-num">05</p>
@@ -279,6 +297,13 @@
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       links.classList.remove('open'); toggle.classList.remove('open'); document.body.style.overflow = '';
     }));
+    // Hover-reveal Czech subtitle — stays after first hover
+    const workHero = document.getElementById('workHero');
+    const workCz   = document.getElementById('workCz');
+    if (workHero && workCz) {
+      workHero.addEventListener('mouseenter', () => workCz.classList.add('revealed'), { once: true });
+    }
+
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
     }, { threshold: 0.06 });
