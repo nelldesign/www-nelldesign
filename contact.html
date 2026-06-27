@@ -135,6 +135,18 @@
       color: var(--text-muted);
       line-height: 1.85;
     }
+    .form-intro-text {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-top: 1.5rem;
+      color: var(--text);
+    }
+    .form-intro-text em {
+      font-style: italic;
+      color: var(--gold);
+    }
 
     form { display: flex; flex-direction: column; gap: 1.75rem; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
@@ -349,31 +361,17 @@
   <section class="contact-form-section">
     <div class="form-header" data-reveal>
       <span class="section-label">Send a message</span>
-      <h2>Tell me about<br><em>your project</em></h2>
-      <p style="margin-top: 1rem;">Napište mi přímo zde — ozvu se do 48 hodin.</p>
+      <p class="form-intro-text">Vizitka, tiskoviny, web<br>nebo design interiéru —<br><em>nezávazně poptejte.</em></p>
     </div>
     <form data-reveal data-delay="1"
           action="https://formsubmit.co/nellhaak.f@gmail.com"
           method="POST">
       <input type="hidden" name="_subject" value="Nová zpráva z Nell Design webu">
       <input type="hidden" name="_captcha" value="false">
-      <div class="form-row">
-        <div class="form-field">
-          <label for="name">Jméno</label>
-          <input id="name" name="name" type="text" placeholder="Vaše jméno" autocomplete="name" required>
-        </div>
-        <div class="form-field">
-          <label for="email">Váš email</label>
-          <input id="email" name="email" type="email" placeholder="vas@email.cz" autocomplete="email" required>
-        </div>
-      </div>
       <div class="form-field">
-        <label for="subject">O čem je projekt</label>
-        <input id="subject" name="subject" type="text" placeholder="Branding, interiér, social media…">
-      </div>
-      <div class="form-field">
-        <label for="message">Zpráva</label>
-        <textarea id="message" name="message" placeholder="Řekněte mi víc…" style="height:160px;" required></textarea>
+        <textarea id="message" name="message"
+          placeholder="Napište zprávu — a nezapomeňte na svůj email nebo telefon, abych se mohla ozvat."
+          style="height:220px;" required></textarea>
       </div>
       <button type="submit" class="btn-submit">
         Odeslat <span>→</span>
