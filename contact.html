@@ -117,84 +117,68 @@
 
     /* Form section */
     .contact-form-section {
-      padding: 8rem 5vw;
+      padding: 6rem 5vw 10rem;
       border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8rem;
-      align-items: start;
     }
-    .form-header h2 {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 300;
-      margin-bottom: 1.25rem;
-      line-height: 1.1;
-    }
-    .form-header p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.85;
+    .contact-form-panel {
+      max-width: 64rem;
+      padding: 4rem 4.5rem 3.5rem;
+      background: linear-gradient(135deg,
+        rgba(180,133,40,0.09) 0%,
+        rgba(237,208,96,0.04) 40%,
+        rgba(90,56,14,0.10) 100%
+      );
+      border: 1px solid rgba(180,133,40,0.28);
+      box-shadow: 0 0 80px rgba(180,133,40,0.07), inset 0 1px 0 rgba(255,245,200,0.07);
     }
     .form-intro-text {
       font-family: var(--display);
-      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
       font-weight: 300;
       line-height: 1.2;
-      margin-top: 1.5rem;
-      color: var(--text);
+      margin-top: 1rem;
+      margin-bottom: 2.5rem;
     }
-    .form-intro-text em {
-      font-style: italic;
-      color: var(--gold);
-    }
+    .form-intro-text em { font-style: italic; color: var(--gold); }
 
-    form { display: flex; flex-direction: column; gap: 1.75rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
-    .form-field { display: flex; flex-direction: column; gap: .5rem; }
-    label {
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    input, textarea {
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--border);
-      padding: .75rem 0;
+    form { display: flex; flex-direction: column; gap: 0; }
+    textarea {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(180,133,40,0.22);
+      padding: 1.75rem 2rem;
       color: var(--text);
       font-family: var(--sans);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 300;
+      line-height: 1.8;
       outline: none;
       width: 100%;
+      resize: none;
+      height: 200px;
       transition: border-color .3s;
       -webkit-appearance: none;
     }
-    input:focus, textarea:focus { border-color: var(--gold); }
-    input::placeholder, textarea::placeholder {
-      color: var(--border);
-      font-style: italic;
-    }
-    textarea { resize: none; height: 110px; }
+    textarea:focus { border-color: rgba(180,133,40,0.65); }
+    textarea::placeholder { color: rgba(255,255,255,0.18); font-style: italic; }
     .btn-submit {
       background: none;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(180,133,40,0.22);
+      border-top: none;
       color: var(--text);
       font-family: var(--sans);
       font-size: 0.68rem;
       font-weight: 400;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      padding: .9rem 2rem;
-      display: inline-flex;
+      padding: 1.1rem 2rem;
+      display: flex;
       align-items: center;
-      gap: .75rem;
-      transition: border-color .35s, color .35s, gap .35s;
-      margin-top: .25rem;
-      align-self: flex-start;
+      justify-content: space-between;
+      width: 100%;
+      transition: border-color .35s, color .35s;
+      cursor: pointer;
     }
-    .btn-submit:hover { border-color: var(--gold); color: var(--gold); gap: 1.25rem; }
+    .btn-submit:hover { border-color: var(--gold); color: var(--gold); }
 
     /* ── Form success toast ─────────────────────────── */
     .form-toast {
@@ -359,24 +343,19 @@
   </section>
 
   <section class="contact-form-section">
-    <div class="form-header" data-reveal>
+    <div class="contact-form-panel" data-reveal>
       <span class="section-label">Send a message</span>
       <p class="form-intro-text">Vizitka, tiskoviny, web<br>nebo design interiéru —<br><em>nezávazně poptejte.</em></p>
-    </div>
-    <form data-reveal data-delay="1"
-          action="https://formsubmit.co/nellhaak.f@gmail.com"
-          method="POST">
-      <input type="hidden" name="_subject" value="Nová zpráva z Nell Design webu">
-      <input type="hidden" name="_captcha" value="false">
-      <div class="form-field">
+      <form action="https://formsubmit.co/nellhaak.f@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nová zpráva z Nell Design webu">
+        <input type="hidden" name="_captcha" value="false">
         <textarea id="message" name="message"
-          placeholder="Napište zprávu — a nezapomeňte na svůj email nebo telefon, abych se mohla ozvat."
-          style="height:220px;" required></textarea>
-      </div>
-      <button type="submit" class="btn-submit">
-        Odeslat <span>→</span>
-      </button>
-    </form>
+          placeholder="Napište zprávu — a nezapomeňte na svůj email nebo telefon, abych se mohla ozvat." required></textarea>
+        <button type="submit" class="btn-submit">
+          Odeslat <span>→</span>
+        </button>
+      </form>
+    </div>
   </section>
 
   <!-- Form success toast -->
