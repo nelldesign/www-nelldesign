@@ -66,12 +66,11 @@
 
     .gallery-section {
       border-top: 1px solid var(--border);
-      padding: 5rem 0 0;
+      padding: 4.5rem 0 5rem;
     }
-    .gallery-section:last-of-type { padding-bottom: 0; }
 
     .gallery-header {
-      padding: 0 5vw 3rem;
+      padding: 0 5vw 2.5rem;
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 5rem;
@@ -91,70 +90,50 @@
       line-height: 1.85;
     }
 
-    /* ─── Grid layouts ─── */
-    .gallery-grid {
-      display: grid;
-      gap: 2px;
-    }
-    .gallery-grid.cols-3       { grid-template-columns: 1fr 1fr 1fr; }
-    .gallery-grid.cols-2       { grid-template-columns: 1fr 1fr; }
-    .gallery-grid.cols-feature { grid-template-columns: 2fr 1fr; }
-
-    /* Asymmetric: feature + 2 stacked */
-    .gallery-grid.cols-feature-stacked {
-      grid-template-columns: 2fr 1fr;
-      grid-template-rows: 1fr 1fr;
-    }
-    .gallery-grid.cols-feature-stacked .gallery-item:first-child {
-      grid-row: span 2;
+    /* ─── Glass panel ─── */
+    .gallery-glass {
+      margin: 0 5vw;
+      padding: 2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.025);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 2px;
+      box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.55),
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
-    /* 5 images: 2 big top + 3 bottom */
-    .gallery-grid.cols-5 {
-      grid-template-columns: repeat(6, 1fr);
+    .gallery-thumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-start;
     }
-    .gallery-grid.cols-5 .gallery-item:nth-child(1),
-    .gallery-grid.cols-5 .gallery-item:nth-child(2) { grid-column: span 3; }
-    .gallery-grid.cols-5 .gallery-item:nth-child(3),
-    .gallery-grid.cols-5 .gallery-item:nth-child(4),
-    .gallery-grid.cols-5 .gallery-item:nth-child(5) { grid-column: span 2; }
 
-    /* ─── Gallery item ─── */
-    .gallery-item {
-      overflow: hidden;
-      background: var(--bg-alt);
-      height: clamp(180px, 22vw, 320px);
-    }
-    .gallery-item.landscape { height: clamp(160px, 18vw, 260px); }
-    .gallery-item.wide      { height: clamp(140px, 16vw, 220px); }
-
-    .gallery-item button {
-      display: block;
-      width: 100%;
-      height: 100%;
+    .gallery-thumbs button {
       border: none;
       padding: 0;
       background: none;
       cursor: pointer;
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
       display: block;
-      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity .35s;
     }
-    .gallery-item:hover img { transform: scale(1.03); }
+    .gallery-thumbs button:hover { opacity: 0.65; }
+
+    .gallery-thumbs img {
+      height: 108px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
 
     @media (max-width: 768px) {
       .gallery-header { grid-template-columns: 1fr; gap: 1.5rem; }
-      .gallery-grid.cols-3,
-      .gallery-grid.cols-feature,
-      .gallery-grid.cols-feature-stacked { grid-template-columns: 1fr 1fr; }
-      .gallery-grid.cols-feature-stacked .gallery-item:first-child { grid-row: auto; }
-      .gallery-grid.cols-5 { grid-template-columns: repeat(2, 1fr); }
-      .gallery-grid.cols-5 .gallery-item { grid-column: span 1 !important; }
-      .gallery-item, .gallery-item.landscape, .gallery-item.wide { height: clamp(120px, 38vw, 220px); }
+      .gallery-glass  { margin: 0 4vw; padding: 1.25rem 1.5rem; }
+      .gallery-thumbs img { height: 72px; }
     }
 
     /* ─── Lightbox ─── */
@@ -287,7 +266,7 @@
 
   <div class="editorial-gallery" id="editorialGallery">
 
-    <!-- 1. CAFÉ MATTONI — 3 portrait cols -->
+    <!-- 1. CAFÉ MATTONI -->
     <section class="gallery-section" data-cat="grafika" data-reveal>
       <div class="gallery-header">
         <div class="gallery-header-meta">
@@ -296,26 +275,16 @@
         </div>
         <p class="gallery-desc">Kompletní menu design pro kavárnu v Karlových Varech. Obálka, nápojový lístek s Nespresso nabídkou a dezertní menu — vše ve společném vizuálním jazyce s jemnou texturou a botanickými motivy.</p>
       </div>
-      <div class="gallery-grid cols-3">
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8088.jpg" data-alt="Café Mattoni — menu cover">
-            <img src="img/web/IMG_8088.jpg" alt="Café Mattoni — menu cover" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8090.jpg" data-alt="Café Mattoni — nápojový lístek">
-            <img src="img/web/IMG_8090.jpg" alt="Café Mattoni — nápojový lístek" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8091.jpg" data-alt="Café Mattoni — dezerty">
-            <img src="img/web/IMG_8091.jpg" alt="Café Mattoni — dezerty" loading="lazy">
-          </button>
+      <div class="gallery-glass">
+        <div class="gallery-thumbs">
+          <button data-src="img/web/IMG_8088.jpg" data-alt="Café Mattoni — menu cover"><img src="img/web/IMG_8088.jpg" alt="Café Mattoni — menu cover" loading="lazy"></button>
+          <button data-src="img/web/IMG_8090.jpg" data-alt="Café Mattoni — nápojový lístek"><img src="img/web/IMG_8090.jpg" alt="Café Mattoni — nápojový lístek" loading="lazy"></button>
+          <button data-src="img/web/IMG_8091.jpg" data-alt="Café Mattoni — dezerty"><img src="img/web/IMG_8091.jpg" alt="Café Mattoni — dezerty" loading="lazy"></button>
         </div>
       </div>
     </section>
 
-    <!-- 2. MR&MRS HAAK — featured left + 2 stacked right -->
+    <!-- 2. MR&MRS HAAK -->
     <section class="gallery-section" data-cat="grafika" data-reveal>
       <div class="gallery-header">
         <div class="gallery-header-meta">
@@ -324,26 +293,16 @@
         </div>
         <p class="gallery-desc">Svatební noviny pro novomanžele. Novinářský layout s osobním příběhem, harmonogramem dne a humorem, který si hosté odnesli jako vzpomínku. Titulní strana, vnitřní rozvrh i děkovná strana — vše v jednom tisku.</p>
       </div>
-      <div class="gallery-grid cols-feature-stacked">
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8034.jpg" data-alt="MR&MRS HAAK — titulní strana">
-            <img src="img/web/IMG_8034.jpg" alt="MR&MRS HAAK — titulní strana" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8035.jpg" data-alt="MR&MRS HAAK — Wedding Details">
-            <img src="img/web/IMG_8035.jpg" alt="MR&MRS HAAK — Wedding Details" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8036.jpg" data-alt="MR&MRS HAAK — Thank You">
-            <img src="img/web/IMG_8036.jpg" alt="MR&MRS HAAK — Thank You" loading="lazy">
-          </button>
+      <div class="gallery-glass">
+        <div class="gallery-thumbs">
+          <button data-src="img/web/IMG_8034.jpg" data-alt="MR&MRS HAAK — titulní strana"><img src="img/web/IMG_8034.jpg" alt="MR&MRS HAAK — titulní strana" loading="lazy"></button>
+          <button data-src="img/web/IMG_8035.jpg" data-alt="MR&MRS HAAK — Wedding Details"><img src="img/web/IMG_8035.jpg" alt="MR&MRS HAAK — Wedding Details" loading="lazy"></button>
+          <button data-src="img/web/IMG_8036.jpg" data-alt="MR&MRS HAAK — Thank You"><img src="img/web/IMG_8036.jpg" alt="MR&MRS HAAK — Thank You" loading="lazy"></button>
         </div>
       </div>
     </section>
 
-    <!-- 3. APARTMENT GUIDE — feature + 2 stacked -->
+    <!-- 3. APARTMENT GUIDE ESTEPONA -->
     <section class="gallery-section" data-cat="grafika" data-reveal>
       <div class="gallery-header">
         <div class="gallery-header-meta">
@@ -352,26 +311,16 @@
         </div>
         <p class="gallery-desc">Průvodce apartmánem na španělském pobřeží. Vizuálně čistý set zahrnující obálku, orientační kartu a jednotlivé stránky s popisem pokojů a praktickými informacemi pro hosty. Jednoduše, elegantně, s důrazem na přehlednost.</p>
       </div>
-      <div class="gallery-grid cols-feature-stacked">
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8081.jpg" data-alt="Apartment Guide — obálka">
-            <img src="img/web/IMG_8081.jpg" alt="Apartment Guide — obálka" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8082.jpg" data-alt="Apartment Guide — set">
-            <img src="img/web/IMG_8082.jpg" alt="Apartment Guide — set" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8086.jpg" data-alt="Apartment Guide — obývací pokoj">
-            <img src="img/web/IMG_8086.jpg" alt="Apartment Guide — obývací pokoj" loading="lazy">
-          </button>
+      <div class="gallery-glass">
+        <div class="gallery-thumbs">
+          <button data-src="img/web/IMG_8081.jpg" data-alt="Apartment Guide — obálka"><img src="img/web/IMG_8081.jpg" alt="Apartment Guide — obálka" loading="lazy"></button>
+          <button data-src="img/web/IMG_8082.jpg" data-alt="Apartment Guide — set"><img src="img/web/IMG_8082.jpg" alt="Apartment Guide — set" loading="lazy"></button>
+          <button data-src="img/web/IMG_8086.jpg" data-alt="Apartment Guide — obývací pokoj"><img src="img/web/IMG_8086.jpg" alt="Apartment Guide — obývací pokoj" loading="lazy"></button>
         </div>
       </div>
     </section>
 
-    <!-- 4. REALITNÍ PREZENTACE — 2 landscape top + 3 bottom -->
+    <!-- 4. REALITNÍ PREZENTACE -->
     <section class="gallery-section" data-cat="interier foto" data-reveal>
       <div class="gallery-header">
         <div class="gallery-header-meta">
@@ -380,36 +329,18 @@
         </div>
         <p class="gallery-desc">Fotografická a grafická prezentace bytu určeného k prodeji nebo pronájmu. Cílem bylo ukázat prostor v nejlepším světle — od kompozice záběrů po vizuální materiály připravené k inzerci.</p>
       </div>
-      <div class="gallery-grid cols-5">
-        <div class="gallery-item landscape">
-          <button data-src="img/web/real-estate-1.jpg" data-alt="Realitní prezentace">
-            <img src="img/web/real-estate-1.jpg" alt="Realitní prezentace" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item landscape">
-          <button data-src="img/web/real-estate-2.jpg" data-alt="Realitní prezentace — detail">
-            <img src="img/web/real-estate-2.jpg" alt="Realitní prezentace — detail" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item landscape">
-          <button data-src="img/web/real-estate-3.jpg" data-alt="Realitní prezentace — obývací pokoj">
-            <img src="img/web/real-estate-3.jpg" alt="Realitní prezentace — obývací pokoj" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item landscape">
-          <button data-src="img/web/real-estate-4.jpg" data-alt="Realitní prezentace — chodba">
-            <img src="img/web/real-estate-4.jpg" alt="Realitní prezentace — chodba" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item landscape">
-          <button data-src="img/web/real-estate-5.jpg" data-alt="Realitní prezentace — koupelna">
-            <img src="img/web/real-estate-5.jpg" alt="Realitní prezentace — koupelna" loading="lazy">
-          </button>
+      <div class="gallery-glass">
+        <div class="gallery-thumbs">
+          <button data-src="img/web/real-estate-1.jpg" data-alt="Realitní prezentace"><img src="img/web/real-estate-1.jpg" alt="Realitní prezentace" loading="lazy"></button>
+          <button data-src="img/web/real-estate-2.jpg" data-alt="Realitní prezentace — detail"><img src="img/web/real-estate-2.jpg" alt="detail" loading="lazy"></button>
+          <button data-src="img/web/real-estate-3.jpg" data-alt="Realitní prezentace — obývací pokoj"><img src="img/web/real-estate-3.jpg" alt="obývací pokoj" loading="lazy"></button>
+          <button data-src="img/web/real-estate-4.jpg" data-alt="Realitní prezentace — chodba"><img src="img/web/real-estate-4.jpg" alt="chodba" loading="lazy"></button>
+          <button data-src="img/web/real-estate-5.jpg" data-alt="Realitní prezentace — koupelna"><img src="img/web/real-estate-5.jpg" alt="koupelna" loading="lazy"></button>
         </div>
       </div>
     </section>
 
-    <!-- 5. ŠATNA — 2 equal -->
+    <!-- 5. ŠATNA -->
     <section class="gallery-section" data-cat="interier" data-reveal>
       <div class="gallery-header">
         <div class="gallery-header-meta">
@@ -418,21 +349,15 @@
         </div>
         <p class="gallery-desc">Dvě realizace walk-in šaten — bílá minimalistická varianta se zrcadlovými posuvnými dveřmi a varianta v tmavém dřevě s čalouněnou lavičkou. Každá navržena na míru konkrétnímu prostoru a jeho uživateli.</p>
       </div>
-      <div class="gallery-grid cols-2">
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8025.jpg" data-alt="Šatna — bílá">
-            <img src="img/web/IMG_8025.jpg" alt="Šatna — bílá" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/IMG_8026.jpg" data-alt="Šatna — tmavé dřevo">
-            <img src="img/web/IMG_8026.jpg" alt="Šatna — tmavé dřevo" loading="lazy">
-          </button>
+      <div class="gallery-glass">
+        <div class="gallery-thumbs">
+          <button data-src="img/web/IMG_8025.jpg" data-alt="Šatna — bílá"><img src="img/web/IMG_8025.jpg" alt="Šatna — bílá" loading="lazy"></button>
+          <button data-src="img/web/IMG_8026.jpg" data-alt="Šatna — tmavé dřevo"><img src="img/web/IMG_8026.jpg" alt="Šatna — tmavé dřevo" loading="lazy"></button>
         </div>
       </div>
     </section>
 
-    <!-- 6. TEREZA & OLIVER — 2 equal -->
+    <!-- 6. TEREZA & OLIVER -->
     <section class="gallery-section" data-cat="grafika" data-reveal>
       <div class="gallery-header">
         <div class="gallery-header-meta">
@@ -441,16 +366,10 @@
         </div>
         <p class="gallery-desc">Svatební tiskoviny pro Terezu a Olivera. Dvoujazyčné menu v česko-anglickém provedení a jmenovky ke stolům — vše v jednotném vizuálním stylu s zlatým ornamentem a jemnou typografií.</p>
       </div>
-      <div class="gallery-grid cols-2">
-        <div class="gallery-item">
-          <button data-src="img/web/Wedding Menu.jpg" data-alt="Svatební menu — Tereza & Oliver">
-            <img src="img/web/Wedding Menu.jpg" alt="Svatební menu — Tereza & Oliver" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-item">
-          <button data-src="img/web/wedding jmenovky.jpg" data-alt="Svatební jmenovky">
-            <img src="img/web/wedding jmenovky.jpg" alt="Svatební jmenovky" loading="lazy">
-          </button>
+      <div class="gallery-glass">
+        <div class="gallery-thumbs">
+          <button data-src="img/web/Wedding Menu.jpg" data-alt="Svatební menu — Tereza & Oliver"><img src="img/web/Wedding Menu.jpg" alt="Svatební menu — Tereza & Oliver" loading="lazy"></button>
+          <button data-src="img/web/wedding jmenovky.jpg" data-alt="Svatební jmenovky"><img src="img/web/wedding jmenovky.jpg" alt="Svatební jmenovky" loading="lazy"></button>
         </div>
       </div>
     </section>
