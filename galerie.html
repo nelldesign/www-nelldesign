@@ -28,6 +28,27 @@
       font-weight: 300;
       line-height: .95;
     }
+    .hero-cz-reveal {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 1.2rem;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity .7s ease, transform .7s ease;
+      pointer-events: none;
+    }
+    .hero-cz-reveal.revealed { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .hero-sub-en {
+      display: block;
+      font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 1.75rem;
+    }
     .page-hero p {
       font-family: var(--serif);
       font-style: italic;
@@ -224,7 +245,9 @@
   <header class="page-hero">
     <div data-reveal>
       <span class="section-label">Ukázky práce</span>
-      <h1>Galerie</h1>
+      <h1 id="galerieHero">Galerie</h1>
+      <span class="hero-sub-en" id="galerieSub">Light. Form. Feeling.</span>
+      <span class="hero-cz-reveal" id="galerieCz">Světlo. Forma. Pocit.</span>
       <p>Výběr z mé tvorby — grafický design, interiéry a tiskoviny.</p>
     </div>
     <div class="page-hero-deco" aria-hidden="true">
@@ -410,6 +433,15 @@
 
   <script>
     /* ─── Nav ─── */
+    // Hover-reveal Czech subtitle — stays after first hover
+    const galerieHero = document.getElementById('galerieHero');
+    const galerieSub  = document.getElementById('galerieSub');
+    const galerieCz   = document.getElementById('galerieCz');
+    if (galerieHero && galerieCz) {
+      galerieHero.addEventListener('mouseenter', () => galerieCz.classList.add('revealed'), { once: true });
+      if (galerieSub) galerieSub.addEventListener('mouseenter', () => galerieCz.classList.add('revealed'), { once: true });
+    }
+
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
     const toggle = document.getElementById('navToggle');
