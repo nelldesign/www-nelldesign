@@ -184,6 +184,72 @@
     }
     .btn-submit:hover { border-color: var(--gold); color: var(--gold); gap: 1.25rem; }
 
+    /* ── Form success toast ─────────────────────────── */
+    .form-toast {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(12, 11, 9, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .5s ease;
+    }
+    .form-toast.show { opacity: 1; pointer-events: auto; }
+    .form-toast-inner {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-toast-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .form-toast-content {
+      position: relative;
+      text-align: center;
+      padding: 0 2rem;
+      z-index: 1;
+    }
+    .form-toast-title {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: .75rem;
+    }
+    .form-toast-title em { font-style: italic; }
+    .form-toast-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .form-toast-close {
+      position: absolute;
+      bottom: -3.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      opacity: .6;
+      transition: opacity .3s;
+    }
+    .form-toast-close:hover { opacity: 1; }
+
     @media (max-width: 768px) {
       .contact-hero h1 { margin-bottom: 3rem; }
       .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -295,7 +361,6 @@
           method="POST">
       <input type="hidden" name="_subject" value="Nová zpráva z Nell Design webu">
       <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://www-nelldesign.pages.dev/contact.html?sent=1">
       <div class="form-row">
         <div class="form-field">
           <label for="name">Jméno</label>
@@ -319,6 +384,44 @@
       </button>
     </form>
   </section>
+
+  <!-- Form success toast -->
+  <div class="form-toast" id="formToast">
+    <div class="form-toast-inner">
+      <svg class="form-toast-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="tg" x1="25%" y1="0%" x2="75%" y2="100%">
+            <stop offset="0%"   stop-color="#6b4012"/>
+            <stop offset="18%"  stop-color="#b88528"/>
+            <stop offset="40%"  stop-color="#edd060"/>
+            <stop offset="58%"  stop-color="#c49030"/>
+            <stop offset="80%"  stop-color="#9a6818"/>
+            <stop offset="100%" stop-color="#5a380e"/>
+          </linearGradient>
+          <filter id="tglow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="7" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <path id="toast-orbit" d="M 150 18 A 132 132 0 1 1 149.99 18" fill="none"/>
+        </defs>
+        <!-- Gold base ring -->
+        <circle cx="150" cy="150" r="132" fill="none" stroke="url(#tg)" stroke-width="1.2" opacity="0.65"/>
+        <!-- Glow halo -->
+        <circle r="12" fill="rgba(237,208,96,0.18)" filter="url(#tglow)">
+          <animateMotion dur="4s" repeatCount="indefinite"><mpath href="#toast-orbit"/></animateMotion>
+        </circle>
+        <!-- Laser dot -->
+        <circle r="3.5" fill="rgba(255,248,210,0.98)" filter="url(#tglow)">
+          <animateMotion dur="4s" repeatCount="indefinite"><mpath href="#toast-orbit"/></animateMotion>
+        </circle>
+      </svg>
+      <div class="form-toast-content">
+        <p class="form-toast-title">Děkujeme,<br><em>ozveme se.</em></p>
+        <p class="form-toast-sub">váš email byl odeslán.<br>Ozvu se do 48 hodin.</p>
+      </div>
+      <span class="form-toast-close" id="formToastClose">kliknutím zavřete</span>
+    </div>
+  </div>
 
   <footer>
     <span class="footer-logo">Nell Design</span>
@@ -372,6 +475,41 @@
       el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
+
+    // Form AJAX submit → show toast
+    const contactForm = document.querySelector('form');
+    const toast = document.getElementById('formToast');
+    const toastClose = document.getElementById('formToastClose');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = contactForm.querySelector('.btn-submit');
+      btn.textContent = '...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok || res.status === 200) {
+          toast.classList.add('show');
+          contactForm.reset();
+        } else {
+          contactForm.submit(); // fallback
+        }
+      } catch {
+        contactForm.submit(); // fallback
+      } finally {
+        btn.innerHTML = 'Odeslat <span>→</span>';
+        btn.disabled = false;
+      }
+    });
+
+    function closeToast() { toast.classList.remove('show'); }
+    toast.addEventListener('click', closeToast);
+    toastClose.addEventListener('click', (e) => { e.stopPropagation(); closeToast(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeToast(); });
   </script>
 
 </body>
