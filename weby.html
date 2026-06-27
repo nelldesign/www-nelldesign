@@ -71,8 +71,8 @@
     .web-project {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 80vh;
       border-bottom: 1px solid var(--border);
+      align-items: stretch;
     }
     .web-project:nth-child(even) { direction: rtl; }
     .web-project:nth-child(even) > * { direction: ltr; }
@@ -133,8 +133,8 @@
     }
 
     .site-preview-wrap {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      width: 100%;
       overflow: hidden;
       background: #0a0a0a;
     }
@@ -478,6 +478,7 @@
         function apply() {
           const scale = el.offsetWidth / 1400;
           ifr.style.transform = `scale(${scale})`;
+          el.style.height = (ifrH * scale) + 'px';
         }
 
         apply();
