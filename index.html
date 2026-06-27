@@ -178,13 +178,12 @@
       font-weight: 300;
     }
     .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 2px;
     }
-    .project-card.featured { grid-column: span 2; }
-    .project-card.featured .project-thumb { aspect-ratio: 21/9; }
-    .project-card:not(.featured) .project-thumb { aspect-ratio: 4/3; }
+    .project-card.featured .project-thumb { aspect-ratio: 16/7; }
+    .project-card:not(.featured) .project-thumb { aspect-ratio: 16/7; }
     .project-thumb {
       width: 100%;
       background: var(--bg-alt);
@@ -212,6 +211,51 @@
       font-family: var(--serif);
       font-size: clamp(1.3rem, 2.2vw, 1.9rem);
       font-weight: 400;
+    }
+
+    /* ─── Web iframe thumbs ─── */
+    @property --la-h {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .web-thumb {
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+    }
+    .web-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--la-h) at 50% 50%,
+        transparent        0deg,
+        transparent      338deg,
+        rgba(255,245,200,0.25) 348deg,
+        rgba(255,255,255,0.95) 354deg,
+        rgba(255,245,200,0.25) 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: laserHome 4s linear infinite;
+    }
+    @keyframes laserHome { to { --la-h: 360deg; } }
+    .web-thumb iframe {
+      position: absolute;
+      top: 0; left: 0;
+      transform-origin: top left;
+      pointer-events: none;
+      border: none;
     }
 
     /* ─── About teaser ─── */
@@ -397,12 +441,17 @@
         </div>
       </div>
       <div class="project-card" data-reveal data-delay="2">
-        <div class="project-thumb">
-          <img src="assets/cafe-mattoni.PNG" alt="Café Mattoni — social media design">
-        </div>
+        <div class="project-thumb web-thumb" id="home-step"></div>
         <div class="project-info">
-          <p class="project-cat">Social Media &amp; Content</p>
-          <h3 class="project-name">Café Mattoni KV</h3>
+          <p class="project-cat">Web Design</p>
+          <h3 class="project-name">Estepona — Náš druhý domov</h3>
+        </div>
+      </div>
+      <div class="project-card" data-reveal data-delay="3">
+        <div class="project-thumb web-thumb" id="home-kanov"></div>
+        <div class="project-info">
+          <p class="project-cat">Web Design</p>
+          <h3 class="project-name">KANOV — Podnikatelský inkubátor</h3>
         </div>
       </div>
     </div>
@@ -487,6 +536,28 @@
     document.querySelectorAll('a, button').forEach(el => {
       el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+
+    // Web iframe thumbnails
+    [
+      { id: 'home-step',  url: 'https://www-estepona.pages.dev/' },
+      { id: 'home-kanov', url: 'https://www-kanov.pages.dev/' }
+    ].forEach(({ id, url }) => {
+      const wrap = document.getElementById(id);
+      if (!wrap) return;
+      const ifr = document.createElement('iframe');
+      ifr.src = url;
+      ifr.loading = 'lazy';
+      wrap.appendChild(ifr);
+      function applyScale() {
+        const scale = wrap.offsetWidth / 1400;
+        const h = Math.ceil(wrap.offsetHeight / scale);
+        ifr.style.width  = '1400px';
+        ifr.style.height = h + 'px';
+        ifr.style.transform = `scale(${scale})`;
+      }
+      applyScale();
+      new ResizeObserver(applyScale).observe(wrap);
     });
   </script>
 
