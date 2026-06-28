@@ -131,17 +131,75 @@
       padding: 6rem 5vw 10rem;
       border-top: 1px solid var(--border);
     }
+
+    /* ── Glass panel + laser border ─────────────────────── */
+    @property --la-form {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
     .contact-form-panel {
+      position: relative;
       max-width: 64rem;
       padding: 4rem 4.5rem 3.5rem;
+      /* Glass */
       background: linear-gradient(135deg,
-        rgba(180,133,40,0.09) 0%,
-        rgba(237,208,96,0.04) 40%,
-        rgba(90,56,14,0.10) 100%
+        rgba(255,255,255,0.055) 0%,
+        rgba(255,255,255,0.02)  50%,
+        rgba(255,255,255,0.04)  100%
       );
-      border: 1px solid rgba(180,133,40,0.28);
-      box-shadow: 0 0 80px rgba(180,133,40,0.07), inset 0 1px 0 rgba(255,245,200,0.07);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow:
+        0 12px 48px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -1px 0 rgba(255,255,255,0.04);
+      overflow: hidden;
     }
+    /* Laser — otáčí se po hraně panelu */
+    .contact-form-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--la-form) at 50% 50%,
+        transparent           0deg,
+        transparent         338deg,
+        rgba(255,245,200,0.25) 348deg,
+        rgba(255,255,255,0.95) 354deg,
+        rgba(255,245,200,0.25) 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: laserForm 6s linear infinite;
+    }
+    @keyframes laserForm { to { --la-form: 360deg; } }
+    /* Statická tenká bílá linka na vrchu — glass shine */
+    .contact-form-panel::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 8%; right: 8%;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,0.5) 50%,
+        transparent
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* Veškerý obsah panelu musí být nad laser vrstvou */
+    .contact-form-panel > * { position: relative; z-index: 2; }
+
     .form-intro-text {
       font-family: var(--display);
       font-size: clamp(1.8rem, 4vw, 3.2rem);
@@ -152,45 +210,53 @@
     }
     .form-intro-text em { font-style: italic; color: var(--gold); }
 
-    form { display: flex; flex-direction: column; gap: 0; }
-    textarea {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(180,133,40,0.22);
-      padding: 1.75rem 2rem;
+    /* ── Pole formuláře ─────────────────────────────────── */
+    form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form-field { display: flex; flex-direction: column; gap: 0.45rem; }
+    .form-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .form-label .opt {
+      color: rgba(255,255,255,0.18);
+      font-style: italic;
+      letter-spacing: 0.1em;
+      text-transform: none;
+      margin-left: 0.35rem;
+    }
+    .form-input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.95rem 1.4rem;
       color: var(--text);
       font-family: var(--sans);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 300;
-      line-height: 1.8;
       outline: none;
       width: 100%;
+      transition: border-color .3s, background .3s;
+      -webkit-appearance: none;
+    }
+    .form-input:focus {
+      border-color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.07);
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.18); }
+    textarea.form-input {
       resize: none;
-      height: 200px;
-      transition: border-color .3s;
-      -webkit-appearance: none;
+      height: 180px;
+      line-height: 1.8;
     }
-    textarea:focus { border-color: rgba(180,133,40,0.65); }
-    textarea::placeholder { color: rgba(255,255,255,0.18); font-style: italic; }
-    input[name="_replyto"] {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(180,133,40,0.22);
-      border-top: none;
-      padding: 1rem 2rem;
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      font-weight: 300;
-      outline: none;
-      width: 100%;
-      transition: border-color .3s;
-      -webkit-appearance: none;
-    }
-    input[name="_replyto"]:focus { border-color: rgba(180,133,40,0.65); }
-    input[name="_replyto"]::placeholder { color: rgba(255,255,255,0.18); font-style: italic; }
     .btn-submit {
       background: none;
-      border: 1px solid rgba(180,133,40,0.22);
-      border-top: none;
+      border: 1px solid rgba(255,255,255,0.14);
       color: var(--text);
       font-family: var(--sans);
       font-size: 0.68rem;
@@ -202,11 +268,15 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      transition: border-color .35s, color .35s;
+      margin-top: 0.5rem;
+      transition: border-color .35s, color .35s, background .35s;
       cursor: pointer;
     }
-    .btn-submit:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
-    .btn-submit:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-submit:hover:not(:disabled) {
+      border-color: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.05);
+    }
+    .btn-submit:disabled { opacity: 0.3; cursor: not-allowed; }
     .btn-submit:disabled::after {
       content: '';
       display: inline-block;
@@ -218,6 +288,11 @@
       margin-left: .5rem;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-panel { padding: 2.5rem 1.75rem 2rem; }
+    }
 
     /* ── Form success toast ─────────────────────────── */
     .form-toast {
@@ -403,18 +478,41 @@ Nell Design
 
 Design that works
 Design with intent">
-        <!-- BOT PROTECTION LAYER 1: Více honeypot polí — boti vyplní vše, lidé nic nevidí -->
-        <input type="text" name="_honey"   tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
-        <input type="text" name="website"  tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
-        <input type="text" name="url"      tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
-        <input type="text" name="phone2"   tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
-        <!-- BOT PROTECTION LAYER 2: Časová kontrola — boti odesílají okamžitě -->
+        <!-- Bot protection: honeypots -->
+        <input type="text" name="_honey"  tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <input type="text" name="url"     tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <input type="text" name="phone2"  tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
         <input type="hidden" name="_ts" id="_ts">
-        <textarea id="message" name="message"
-          placeholder="Napište zprávu…" required></textarea>
-        <input type="email" name="_replyto" id="replyto"
-          placeholder="Váš email (pro odpověď)" autocomplete="email" required>
-        <!-- Submit disabled do té doby, než JS potvrdí, že uživatel je člověk -->
+
+        <!-- Jméno + Email -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="fname">Jméno</label>
+            <input class="form-input" type="text" name="name" id="fname"
+              placeholder="Jana Nováková" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="replyto">Email</label>
+            <input class="form-input" type="email" name="_replyto" id="replyto"
+              placeholder="jana@example.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <!-- Telefon (nepovinné) -->
+        <div class="form-field">
+          <label class="form-label" for="phone">Telefon<span class="opt">(nepovinné)</span></label>
+          <input class="form-input" type="tel" name="phone" id="phone"
+            placeholder="+420 123 456 789" autocomplete="tel">
+        </div>
+
+        <!-- Zpráva -->
+        <div class="form-field">
+          <label class="form-label" for="message">Zpráva</label>
+          <textarea class="form-input" id="message" name="message"
+            placeholder="Co pro vás mohu vytvořit?" required></textarea>
+        </div>
+
         <button type="submit" class="btn-submit" id="submitBtn" disabled aria-label="Odeslat zprávu">
           Odeslat <span>→</span>
         </button>
