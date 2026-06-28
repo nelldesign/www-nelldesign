@@ -1,0 +1,46 @@
+User-agent: *
+Allow: /
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Seznam
+User-agent: SeznamBot
+Allow: /
+
+# AI – OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# AI – Google Gemini
+User-agent: Google-Extended
+Allow: /
+
+# AI – xAI Grok
+User-agent: Grok
+Allow: /
+
+# AI – Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# AI – Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# AI – Meta
+User-agent: FacebookBot
+Allow: /
+
+Sitemap: https://www.nelldesign.pro/sitemap.xml
