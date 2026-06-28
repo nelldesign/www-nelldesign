@@ -205,7 +205,19 @@
       transition: border-color .35s, color .35s;
       cursor: pointer;
     }
-    .btn-submit:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-submit:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+    .btn-submit:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-submit:disabled::after {
+      content: '';
+      display: inline-block;
+      width: 10px; height: 10px;
+      border: 1px solid var(--text-muted);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin-left: .5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── Form success toast ─────────────────────────── */
     .form-toast {
@@ -373,7 +385,7 @@
     <div class="contact-form-panel" data-reveal>
       <span class="section-label">Send a message</span>
       <p class="form-intro-text">Vizitka, tiskoviny, web<br>nebo design interiéru —<br><em>nezávazně poptejte.</em></p>
-      <form action="https://formsubmit.co/nellhaak.f@gmail.com" method="POST">
+      <form action="https://formsubmit.co/nellhaak.f@gmail.com" method="POST" id="contactForm">
         <input type="hidden" name="_subject" value="Nová zpráva z Nell Design webu">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_autoresponse" value="Dobrý den,
@@ -391,12 +403,19 @@ Nell Design
 
 Design that works
 Design with intent">
-        <!-- Honeypot: lidé ho nevidí, boti ho vyplní -->
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off"
-               style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <!-- BOT PROTECTION LAYER 1: Více honeypot polí — boti vyplní vše, lidé nic nevidí -->
+        <input type="text" name="_honey"   tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <input type="text" name="website"  tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <input type="text" name="url"      tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <input type="text" name="phone2"   tabindex="-1" autocomplete="off" aria-hidden="true" class="bot-trap" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;z-index:-1;">
+        <!-- BOT PROTECTION LAYER 2: Časová kontrola — boti odesílají okamžitě -->
+        <input type="hidden" name="_ts" id="_ts">
         <textarea id="message" name="message"
-          placeholder="Napište zprávu — a nezapomeňte na svůj email nebo telefon, abych se mohla ozvat." required></textarea>
-        <button type="submit" class="btn-submit">
+          placeholder="Napište zprávu…" required></textarea>
+        <input type="email" name="_replyto" id="replyto"
+          placeholder="Váš email (pro odpověď)" autocomplete="email" required>
+        <!-- Submit disabled do té doby, než JS potvrdí, že uživatel je člověk -->
+        <button type="submit" class="btn-submit" id="submitBtn" disabled aria-label="Odeslat zprávu">
           Odeslat <span>→</span>
         </button>
       </form>
@@ -495,18 +514,42 @@ Design with intent">
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
 
-    // Form AJAX submit → show toast
-    const contactForm = document.querySelector('form');
+    // ── Bot protection setup ───────────────────────────────────
+    const _pageLoad = Date.now();
+
+    // Nastav timestamp do skrytého pole
+    const _tsField = document.getElementById('_ts');
+    if (_tsField) _tsField.value = _pageLoad;
+
+    // Tlačítko je disabled — odblokuj ho až po 3 sekundách
+    // (boti odesílají okamžitě, lidé potřebují čas na přečtení formuláře)
+    const submitBtn = document.getElementById('submitBtn');
+    setTimeout(() => {
+      if (submitBtn) submitBtn.disabled = false;
+    }, 3000);
+
+    // ── Form AJAX submit ────────────────────────────────────────
+    const contactForm = document.getElementById('contactForm');
     const toast = document.getElementById('formToast');
     const toastClose = document.getElementById('formToastClose');
 
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Honeypot check — bot vyplnil skryté pole
-      const honey = contactForm.querySelector('[name="_honey"]');
-      if (honey && honey.value) return;
+
+      // VRSTVA 1: Časová kontrola — příliš rychlé odeslání = bot
+      if (Date.now() - _pageLoad < 3000) return;
+
+      // VRSTVA 2: Všechny honeypot kontroly
+      const traps = contactForm.querySelectorAll('[name="_honey"], .bot-trap');
+      for (const t of traps) { if (t.value) return; }
+
+      // VRSTVA 3: Spam detekce — příliš mnoho URL v zprávě = spam
+      const msgVal = (contactForm.querySelector('[name="message"]') || {}).value || '';
+      const urlMatches = msgVal.match(/https?:\/\//gi) || [];
+      if (urlMatches.length > 2) return;
+
+      // Odeslání
       const btn = contactForm.querySelector('.btn-submit');
-      btn.textContent = '...';
       btn.disabled = true;
       try {
         const res = await fetch(contactForm.action, {
@@ -517,14 +560,15 @@ Design with intent">
         if (res.ok || res.status === 200) {
           toast.classList.add('show');
           contactForm.reset();
+          // Po resetu znovu zablokuj tlačítko
+          if (submitBtn) submitBtn.disabled = true;
         } else {
-          contactForm.submit(); // fallback
+          contactForm.submit();
         }
       } catch {
-        contactForm.submit(); // fallback
+        contactForm.submit();
       } finally {
         btn.innerHTML = 'Odeslat <span>→</span>';
-        btn.disabled = false;
       }
     });
 
