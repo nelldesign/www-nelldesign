@@ -53,7 +53,7 @@ body {
   animation: pageFade .7s var(--ease) both;
 }
 @keyframes pageFade {
-  from { opacity: 0; }
+  from { opacity: 0.001; }
   to   { opacity: 1; }
 }
 img { display: block; max-width: 100%; height: auto; }

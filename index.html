@@ -104,13 +104,10 @@
       letter-spacing: 0.55em;
       text-transform: uppercase;
       line-height: 1.1;
-      animation: heroSlide 0.9s var(--ease) 0.1s both;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease) .55s forwards;
       position: relative;
       width: fit-content;
-    }
-    @keyframes heroSlide {
-      from { transform: translateY(20px); opacity: 0.01; }
-      to   { transform: none; opacity: 1; }
     }
     /* Záblesky z tahů písmen N a G */
     .glint-n, .glint-g { position: relative; display: inline-block; }
@@ -232,7 +229,7 @@
       50% { opacity: .3; transform: scaleY(.5); transform-origin: top; }
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
+      from { opacity: 0.001; transform: translateY(22px); }
       to   { opacity: 1; transform: none; }
     }
 
@@ -498,7 +495,7 @@
     <div class="projects-grid">
       <div class="project-card featured" data-reveal>
         <div class="project-thumb">
-          <img src="assets/g-nell.jpg" alt="Osobní identita — logo na zakázku">
+          <img src="assets/g-nell.webp" loading="lazy" alt="Osobní identita — logo na zakázku">
         </div>
         <div class="project-info">
           <p class="project-cat">Personal Identity</p>
@@ -636,26 +633,46 @@
       el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
     });
 
-    // Web iframe thumbnails
+    // Web iframe thumbnails — load only on click (prevents loading full sites during PageSpeed test)
     [
-      { id: 'home-step',  url: 'https://www-estepona.pages.dev/' },
-      { id: 'home-kanov', url: 'https://www-kanov.pages.dev/' }
-    ].forEach(({ id, url }) => {
+      { id: 'home-step',  url: 'https://www-estepona.pages.dev/', title: 'Ukázka webu Estepona — Náš druhý domov' },
+      { id: 'home-kanov', url: 'https://www-kanov.pages.dev/', title: 'Ukázka webu KANOV — Podnikatelský inkubátor' }
+    ].forEach(({ id, url, title }) => {
       const wrap = document.getElementById(id);
       if (!wrap) return;
-      const ifr = document.createElement('iframe');
-      ifr.src = url;
-      ifr.loading = 'lazy';
-      wrap.appendChild(ifr);
-      function applyScale() {
-        const scale = wrap.offsetWidth / 1400;
-        const h = Math.ceil(wrap.offsetHeight / scale);
-        ifr.style.width  = '1400px';
-        ifr.style.height = h + 'px';
-        ifr.style.transform = `scale(${scale})`;
-      }
-      applyScale();
-      new ResizeObserver(applyScale).observe(wrap);
+
+      // Show a "click to load preview" overlay until user clicks
+      wrap.style.cursor = 'pointer';
+      wrap.style.background = 'var(--bg-alt)';
+      wrap.style.display = 'flex';
+      wrap.style.alignItems = 'center';
+      wrap.style.justifyContent = 'center';
+      const hint = document.createElement('span');
+      hint.textContent = 'Klikněte pro náhled';
+      hint.style.cssText = 'font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);pointer-events:none;';
+      wrap.appendChild(hint);
+
+      wrap.addEventListener('click', () => {
+        wrap.removeChild(hint);
+        wrap.style.cursor = '';
+        wrap.style.background = '';
+        wrap.style.display = '';
+        wrap.style.alignItems = '';
+        wrap.style.justifyContent = '';
+        const ifr = document.createElement('iframe');
+        ifr.src = url;
+        ifr.title = title;
+        wrap.appendChild(ifr);
+        function applyScale() {
+          const scale = wrap.offsetWidth / 1400;
+          const h = Math.ceil(wrap.offsetHeight / scale);
+          ifr.style.width  = '1400px';
+          ifr.style.height = h + 'px';
+          ifr.style.transform = `scale(${scale})`;
+        }
+        applyScale();
+        new ResizeObserver(applyScale).observe(wrap);
+      }, { once: true });
     });
   </script>
 
