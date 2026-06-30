@@ -69,6 +69,7 @@
   }
   </script>
 
+  <link rel="preload" href="glacial-indifference/GlacialIndifference-Regular.otf" as="font" type="font/otf" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
@@ -231,6 +232,12 @@
     @keyframes fadeUp {
       from { opacity: 0.001; transform: translateY(22px); }
       to   { opacity: 1; transform: none; }
+    }
+    /* Mobile: reduce animation delays for faster LCP */
+    @media (max-width: 768px) {
+      .hero-eyebrow { animation-delay: 0.05s; }
+      .hero-title   { animation-delay: 0.1s; }
+      .hero-claim   { animation-delay: 0.3s; }
     }
 
     /* ─── Work preview ─── */

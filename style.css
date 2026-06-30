@@ -424,6 +424,11 @@ footer::before {
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
+  /* Mobile perf: faster page entrance (improves FCP/LCP) */
+  body { animation-duration: 0.2s; }
+  /* Disable main-thread laser animation on mobile */
+  .g-laser-path { animation: none; }
+
   .nav { padding: 1.5rem 5vw; }
   .nav.scrolled { padding: 1rem 5vw; }
   .nav-links {
