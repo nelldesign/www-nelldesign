@@ -32,7 +32,7 @@
   --bg-alt:     #131210;
   --border:     #242220;
   --text:       #ede8df;
-  --text-muted: #7a7468;
+  --text-muted: #8a8278; /* lightened for WCAG AA 4.5:1 contrast */
   --gold:       #e0b435;
   --serif:   'Cormorant Garamond', Georgia, serif;
   --sans:    'Inter', system-ui, -apple-system, sans-serif;
